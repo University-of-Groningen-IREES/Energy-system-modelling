@@ -5,6 +5,11 @@ format: jb-book
 root: intro
 
 parts:
+  - caption: Getting Started
+    chapters:
+      - file: getting-started/miniforge
+      - file: getting-started/basics
+
   - caption: Python for Managing Data
     chapters:
       - file: managing-data/intro
