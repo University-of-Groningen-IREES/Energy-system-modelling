@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+
+parts:
+  - caption: Python for Managing Data
+    chapters:
+      - file: managing-data/intro
+
+  - caption: PyPSA Tutorial
+    chapters:
+      - file: pypsa-tutorial/intro
