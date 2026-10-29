@@ -9,10 +9,13 @@ parts:
     chapters:
       - file: getting-started/miniforge
       - file: getting-started/basics
+      - file: getting-started/python
 
   - caption: Python for Managing Data
     chapters:
       - file: managing-data/intro
+      - file: managing-data/numpy-matplotlib
+      - file: managing-data/pandas
 
   - caption: PyPSA Tutorial
     chapters:

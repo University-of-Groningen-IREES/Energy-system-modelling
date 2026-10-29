@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Python and Jupyter Basics &#8212; Energy System Modelling</title>
+    <title>Jupyter Basics &#8212; Energy System Modelling</title>
   
   
   
@@ -64,7 +64,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python for Managing Data" href="../managing-data/intro.html" />
+    <link rel="next" title="Python Fundamentals" href="python.html" />
     <link rel="prev" title="Getting Ready: Miniforge" href="miniforge.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -216,11 +216,14 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="miniforge.html">Getting Ready: Miniforge</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python and Jupyter Basics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Jupyter Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python Fundamentals</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Managing Data</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../managing-data/intro.html">Python for Managing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/numpy-matplotlib.html">Numerical Analysis and Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/pandas.html">pandas: From Weather Data to Energy Indicators</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
 <ul class="nav bd-sidenav">
@@ -360,7 +363,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Python and Jupyter Basics</h1>
+    <h1>Jupyter Basics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -378,18 +381,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-your-notebook">Save your notebook</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-operators">Simple operators</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-of-operations">Order of operations</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#store-values-in-variables">Store values in variables</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-names">Variable names</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-comments">Add comments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-values">Compare values</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-cells-in-order">Run cells in order</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
             </nav>
         </div>
@@ -401,8 +392,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="python-and-jupyter-basics">
-<h1>Python and Jupyter Basics<a class="headerlink" href="#python-and-jupyter-basics" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="jupyter-basics">
+<h1>Jupyter Basics<a class="headerlink" href="#jupyter-basics" title="Link to this heading">#</a></h1>
 <p>In this lesson, we create a notebook and practise calculations,
 variables, and comparisons in Python.</p>
 <p>Before starting, complete <a class="reference internal" href="miniforge.html"><span class="std std-doc">Getting Ready: Miniforge</span></a>.
@@ -479,209 +470,6 @@ In this notebook, I will calculate energy consumption using Python.
 </ul>
 </section>
 </section>
-<section id="simple-operators">
-<h2>Simple operators<a class="headerlink" href="#simple-operators" title="Link to this heading">#</a></h2>
-<p>Python can be used as a calculator.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Operator</p></th>
-<th class="head"><p>Meaning</p></th>
-<th class="head"><p>Example</p></th>
-<th class="head"><p>Result</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
-<td><p>Addition</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">+</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">7</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
-<td><p>Subtraction</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">-</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
-<td><p>Multiplication</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">*</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
-<td><p>Division</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">/</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">2.5</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">//</span></code></p></td>
-<td><p>Floor division</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">//</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%</span></code></p></td>
-<td><p>Remainder</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
-<td><p>Power</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">**</span> <span class="pre">2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">25</span></code></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Try each expression in a separate code cell:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">+</span> <span class="mi">5</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">20</span> <span class="o">/</span> <span class="mi">4</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span>
-</pre></div>
-</div>
-<p>Python displays the result of the last expression in a code cell.
-Use <code class="docutils literal notranslate"><span class="pre">print()</span></code> when you want to display several results:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">10</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="mi">20</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<section id="order-of-operations">
-<h3>Order of operations<a class="headerlink" href="#order-of-operations" title="Link to this heading">#</a></h3>
-<p>Multiplication and division are evaluated before addition and subtraction:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span>
-</pre></div>
-</div>
-<p>The result is <code class="docutils literal notranslate"><span class="pre">14</span></code>.</p>
-<p>Use parentheses to change the order:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
-</pre></div>
-</div>
-<p>The result is <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p>
-</section>
-</section>
-<section id="store-values-in-variables">
-<h2>Store values in variables<a class="headerlink" href="#store-values-in-variables" title="Link to this heading">#</a></h2>
-<p>A variable gives a name to a value. Use <code class="docutils literal notranslate"><span class="pre">=</span></code> to assign that value:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">power_kw</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">duration_hours</span> <span class="o">=</span> <span class="mi">3</span>
-</pre></div>
-</div>
-<p>We can then use these variables in a calculation:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">power_kw</span> <span class="o">*</span> <span class="n">duration_hours</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">energy_kwh</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The result is <code class="docutils literal notranslate"><span class="pre">6</span></code>: operating at a constant power of 2 kW for 3 hours
-uses 6 kWh of energy.</p>
-<p>Python does not automatically check physical units. Use consistent
-units and choose variable names that explain what the values represent.</p>
-<section id="variable-names">
-<h3>Variable names<a class="headerlink" href="#variable-names" title="Link to this heading">#</a></h3>
-<p>Variable names:</p>
-<ul class="simple">
-<li><p>Can contain letters, numbers, and underscores.</p></li>
-<li><p>Cannot start with a number.</p></li>
-<li><p>Cannot contain spaces.</p></li>
-<li><p>Are case-sensitive: <code class="docutils literal notranslate"><span class="pre">power_kw</span></code> and <code class="docutils literal notranslate"><span class="pre">Power_kw</span></code> are different names.</p></li>
-</ul>
-<p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">electricity_price_eur_per_kwh</span> <span class="o">=</span> <span class="mf">0.30</span>
-
-<span class="n">cost_eur</span> <span class="o">=</span> <span class="n">energy_kwh</span> <span class="o">*</span> <span class="n">electricity_price_eur_per_kwh</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">cost_eur</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Decimal numbers use a point, such as <code class="docutils literal notranslate"><span class="pre">0.30</span></code>, rather than a comma.</p>
-</section>
-</section>
-<section id="add-comments">
-<h2>Add comments<a class="headerlink" href="#add-comments" title="Link to this heading">#</a></h2>
-<p>Comments explain your code. Python ignores text following <code class="docutils literal notranslate"><span class="pre">#</span></code>
-on the same line:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate consumption at constant power</span>
-<span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">power_kw</span> <span class="o">*</span> <span class="n">duration_hours</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">energy_kwh</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="compare-values">
-<h2>Compare values<a class="headerlink" href="#compare-values" title="Link to this heading">#</a></h2>
-<p>Comparisons return one of two Boolean values: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Operator</p></th>
-<th class="head"><p>Meaning</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
-<td><p>Equal to</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!=</span></code></p></td>
-<td><p>Not equal to</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
-<td><p>Greater than</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
-<td><p>Less than</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p></td>
-<td><p>Greater than or equal to</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></p></td>
-<td><p>Less than or equal to</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">&gt;</span> <span class="mi">5</span>
-</pre></div>
-</div>
-<p>The result is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">==</span> <span class="mi">10</span>
-</pre></div>
-</div>
-<p>The result is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
-<p>Remember: <code class="docutils literal notranslate"><span class="pre">=</span></code> assigns a value, while <code class="docutils literal notranslate"><span class="pre">==</span></code> compares values.</p>
-</section>
-<section id="run-cells-in-order">
-<h2>Run cells in order<a class="headerlink" href="#run-cells-in-order" title="Link to this heading">#</a></h2>
-<p>A notebook’s kernel is the process that executes your Python code
-and holds variables in memory.</p>
-<p>Run cells from top to bottom. A variable must be defined before a
-later cell can use it.</p>
-<p>For example, this calculation requires <code class="docutils literal notranslate"><span class="pre">power_kw</span></code> and <code class="docutils literal notranslate"><span class="pre">duration_hours</span></code>
-to have been defined:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">power_kw</span> <span class="o">*</span> <span class="n">duration_hours</span>
-</pre></div>
-</div>
-<p>If you change an input value, run the calculation again to update
-the result.</p>
-<p>Restarting the kernel clears variables from memory. Your saved code
-remains in the notebook, but you must run it again.</p>
-<p>In JupyterLab, use <strong>Kernel → Restart Kernel and Run All Cells</strong>
-to check that your notebook works from beginning to end.</p>
-</section>
-<section id="practice">
-<h2>Practice<a class="headerlink" href="#practice" title="Link to this heading">#</a></h2>
-<p>An appliance operates at a constant power of <strong>1.5 kW</strong> for <strong>4 hours</strong>.
-Electricity costs <strong>0.30 EUR/kWh</strong>.</p>
-<p>In a new code cell:</p>
-<ol class="arabic simple">
-<li><p>Store the power, operating time, and electricity price in variables.</p></li>
-<li><p>Calculate the energy consumption in kWh.</p></li>
-<li><p>Calculate the electricity cost in euros.</p></li>
-<li><p>Check whether consumption exceeds 5 kWh.</p></li>
-<li><p>Display your results using <code class="docutils literal notranslate"><span class="pre">print()</span></code>.</p></li>
-</ol>
-<p>Save your notebook when you finish.</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -724,11 +512,11 @@ Electricity costs <strong>0.30 EUR/kWh</strong>.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../managing-data/intro.html"
+       href="python.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Python for Managing Data</p>
+        <p class="prev-next-title">Python Fundamentals</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -758,18 +546,6 @@ Electricity costs <strong>0.30 EUR/kWh</strong>.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-your-notebook">Save your notebook</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-operators">Simple operators</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-of-operations">Order of operations</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#store-values-in-variables">Store values in variables</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-names">Variable names</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-comments">Add comments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-values">Compare values</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-cells-in-order">Run cells in order</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
   </nav></div>
 

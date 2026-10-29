@@ -1,0 +1,1454 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python Fundamentals &#8212; Energy System Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'getting-started/python';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python for Managing Data" href="../managing-data/intro.html" />
+    <link rel="prev" title="Jupyter Basics" href="basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Energy System Modelling</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="miniforge.html">Getting Ready: Miniforge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Jupyter Basics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Fundamentals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Managing Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/intro.html">Python for Managing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/numpy-matplotlib.html">Numerical Analysis and Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/pandas.html">pandas: From Weather Data to Energy Indicators</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/intro.html">PyPSA Tutorial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/getting-started/python.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Python Fundamentals</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-python">Running Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-and-basic-types">Variables and basic types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#names-and-comments">Names and comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-or-unset-values">Missing or unset values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-strings">Working with strings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-and-transform-text">Clean and transform text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-and-join-text">Split and join text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format-results">Format results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic">Arithmetic</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-energy-and-cost">Example: energy and cost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-numerical-functions">Useful numerical functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons">Comparisons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equality-and-identity">Equality and identity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-logic">Boolean logic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditionals">Conditionals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#access-items">Access items</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-a-list">Modify a list</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-for-loop">A for loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-with-range">Repeat with range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-while-loop">A while loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">List comprehensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-keys">Missing keys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate-over-entries">Iterate over entries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positional-and-keyword-arguments">Positional and keyword arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-values">Default values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return-and-print">Return and print</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-functions-and-side-effects">Pure functions and side effects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-function-that-modifies-its-input">A function that modifies its input</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-function-that-returns-a-new-list">A function that returns a new list</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice-exercises">Optional practice exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-electricity-consumption">Exercise 1: Electricity consumption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-clean-a-label">Exercise 2: Clean a label</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-analyse-a-list">Exercise 3: Analyse a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-classify-a-power-balance">Exercise 4: Classify a power balance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-describe-a-building">Exercise 5: Describe a building</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-write-a-conversion-function">Exercise 6: Write a conversion function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-generalise-the-conversion">Exercise 7: Generalise the conversion</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="python-fundamentals">
+<h1>Python Fundamentals<a class="headerlink" href="#python-fundamentals" title="Link to this heading">#</a></h1>
+<p>Python helps us turn data and mathematical relationships into calculations
+that can be repeated, checked, and extended. In energy analysis, we might
+use it to calculate electricity consumption, organise technology data,
+or compare different operating scenarios.</p>
+<p>This lesson introduces the main building blocks of Python. No additional
+packages are required for the examples.</p>
+<p>Complete <a class="reference internal" href="miniforge.html"><span class="std std-doc">Getting Ready: Miniforge</span></a> and
+<a class="reference internal" href="basics.html"><span class="std std-doc">Python and Jupyter Basics</span></a> before starting.</p>
+<section id="running-python">
+<h2>Running Python<a class="headerlink" href="#running-python" title="Link to this heading">#</a></h2>
+<p>You can run Python in several ways:</p>
+<ul class="simple">
+<li><p><strong>A script:</strong> save instructions in a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file and execute it from a terminal.</p></li>
+<li><p><strong>An interactive interpreter:</strong> enter instructions and immediately inspect results.</p></li>
+<li><p><strong>A Jupyter notebook:</strong> combine executable code, explanations, and outputs in an
+<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> document.</p></li>
+</ul>
+<p>For this lesson, create a notebook named <code class="docutils literal notranslate"><span class="pre">02-python-fundamentals.ipynb</span></code>
+in Jupyter, JupyterLab or Google Colab.</p>
+<p>Copy the examples into code cells and run them from top to bottom.
+Variables remain available in the current kernel session after a cell runs.
+Restarting the kernel clears those variables.</p>
+<p>To run a script named <code class="docutils literal notranslate"><span class="pre">energy_calculation.py</span></code>, you would instead enter
+this command in a terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>energy_calculation.py
+</pre></div>
+</div>
+</section>
+<section id="variables-and-basic-types">
+<h2>Variables and basic types<a class="headerlink" href="#variables-and-basic-types" title="Link to this heading">#</a></h2>
+<p>A variable is a name referring to an object, such as a number or a piece
+of text. Assignment uses a single equals sign:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">number_of_buildings</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">electricity_price</span> <span class="o">=</span> <span class="mf">0.28</span>
+<span class="n">city</span> <span class="o">=</span> <span class="s2">"Groningen"</span>
+<span class="n">has_heat_pump</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>These values have different types:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Whole number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">12</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Floating-point number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.28</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Text</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;Groningen&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Logical value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NoneType</span></code></p></td>
+<td><p>The type of <code class="docutils literal notranslate"><span class="pre">None</span></code>, often used for a missing or unset value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Inspect values and types with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">city</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">electricity_price</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Understanding data types is essential when working with datasets because the type determines which operations are available and how they behave. For example, <code class="docutils literal notranslate"><span class="pre">12</span> <span class="pre">+</span> <span class="pre">3</span></code> produces <code class="docutils literal notranslate"><span class="pre">15</span></code>, whereas <code class="docutils literal notranslate"><span class="pre">&quot;12&quot;</span> <span class="pre">+</span> <span class="pre">&quot;3&quot;</span></code> produces <code class="docutils literal notranslate"><span class="pre">&quot;123&quot;</span></code> by joining two strings. If numerical measurements are stored as text, calculations, comparisons, and filters may fail or behave differently from what you intended. Checking data types before processing a dataset helps prevent errors and incorrect or inconsistent results.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> to check whether an object belongs to a type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">isinstance</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<section id="names-and-comments">
+<h3>Names and comments<a class="headerlink" href="#names-and-comments" title="Link to this heading">#</a></h3>
+<p>Choose names that describe what a value represents:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">annual_heat_demand_mwh</span> <span class="o">=</span> <span class="mf">18.5</span>
+</pre></div>
+</div>
+<p>Names are case-sensitive. <code class="docutils literal notranslate"><span class="pre">city</span></code> and <code class="docutils literal notranslate"><span class="pre">City</span></code> are different names.
+Names cannot contain spaces or begin with a number.</p>
+<p>Python reserves words such as <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>, and <code class="docutils literal notranslate"><span class="pre">return</span></code> for its syntax.
+Also avoid assigning values to built-in names such as <code class="docutils literal notranslate"><span class="pre">print</span></code>, <code class="docutils literal notranslate"><span class="pre">list</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">sum</span></code>, because doing so hides those useful functions.</p>
+<p>Comments begin with <code class="docutils literal notranslate"><span class="pre">#</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Estimated annual electricity demand</span>
+<span class="n">annual_electricity_kwh</span> <span class="o">=</span> <span class="mi">3200</span>
+</pre></div>
+</div>
+</section>
+<section id="missing-or-unset-values">
+<h3>Missing or unset values<a class="headerlink" href="#missing-or-unset-values" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">None</span></code> when a value has not yet been provided:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installation_year</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">installation_year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This prints <code class="docutils literal notranslate"><span class="pre">True</span></code>. <code class="docutils literal notranslate"><span class="pre">None</span></code> is different from zero and from an empty string.</p>
+</section>
+<section id="attributes-and-methods">
+<h3>Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Link to this heading">#</a></h3>
+<p>Objects can provide attributes and methods. An attribute gives access to
+information; a method is an operation associated with an object.</p>
+<p>For example, strings have a method that converts text to uppercase:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">city</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Parentheses call the method. Writing <code class="docutils literal notranslate"><span class="pre">city.upper</span></code> without parentheses
+refers to the method without executing it.</p>
+</section>
+</section>
+<section id="working-with-strings">
+<h2>Working with strings<a class="headerlink" href="#working-with-strings" title="Link to this heading">#</a></h2>
+<p>Strings contain text enclosed in single or double quotes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">technology</span> <span class="o">=</span> <span class="s2">"heat pump"</span>
+</pre></div>
+</div>
+<section id="clean-and-transform-text">
+<h3>Clean and transform text<a class="headerlink" href="#clean-and-transform-text" title="Link to this heading">#</a></h3>
+<p>Methods help standardise labels before analysing data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="s2">"  Rooftop Solar  "</span>
+
+<span class="n">clean_label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">clean_label</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rooftop solar
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">strip()</span></code> removes leading and trailing whitespace, while <code class="docutils literal notranslate"><span class="pre">lower()</span></code>
+changes letters to lowercase.</p>
+<p>Strings are immutable: these methods return new strings rather than
+changing the original one.</p>
+</section>
+<section id="split-and-join-text">
+<h3>Split and join text<a class="headerlink" href="#split-and-join-text" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">split()</span></code> to separate a string into parts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">record</span> <span class="o">=</span> <span class="s2">"building_07;residential;electricity"</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>['building_07', 'residential', 'electricity']
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">join()</span></code> to combine strings with a chosen separator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">description</span> <span class="o">=</span> <span class="s2">" | "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="format-results">
+<h3>Format results<a class="headerlink" href="#format-results" title="Link to this heading">#</a></h3>
+<p>An f-string inserts values into text:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">technology</span> <span class="o">=</span> <span class="s2">"solar PV"</span>
+<span class="n">capacity_kw</span> <span class="o">=</span> <span class="mf">7.456</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"The </span><span class="si">{</span><span class="n">technology</span><span class="si">}</span><span class="s2"> installation has a capacity of </span><span class="si">{</span><span class="n">capacity_kw</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kW."</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">:.2f</span></code> displays the number with two decimal places.
+It changes the displayed text, not the stored value of <code class="docutils literal notranslate"><span class="pre">capacity_kw</span></code>.</p>
+</section>
+</section>
+<section id="arithmetic">
+<h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Link to this heading">#</a></h2>
+<p>Python supports the following arithmetic operators:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Operation</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Result</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p>Addition</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">+</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">11</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p>Subtraction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">-</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>Multiplication</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">*</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">24</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td><p>Division</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">/</span> <span class="pre">3</span></code></p></td>
+<td><p>Approximately <code class="docutils literal notranslate"><span class="pre">2.667</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">//</span></code></p></td>
+<td><p>Floor division</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">//</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%</span></code></p></td>
+<td><p>Remainder</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">%</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
+<td><p>Exponentiation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">**</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">64</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Parentheses make the intended calculation explicit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are <code class="docutils literal notranslate"><span class="pre">10</span></code> and <code class="docutils literal notranslate"><span class="pre">18</span></code>.</p>
+<section id="example-energy-and-cost">
+<h3>Example: energy and cost<a class="headerlink" href="#example-energy-and-cost" title="Link to this heading">#</a></h3>
+<p>For a device operating at constant power:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">power_kw</span> <span class="o">=</span> <span class="mf">1.8</span>
+<span class="n">operating_hours</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">price_eur_per_kwh</span> <span class="o">=</span> <span class="mf">0.25</span>
+
+<span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">power_kw</span> <span class="o">*</span> <span class="n">operating_hours</span>
+<span class="n">cost_eur</span> <span class="o">=</span> <span class="n">energy_kwh</span> <span class="o">*</span> <span class="n">price_eur_per_kwh</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Energy consumption: </span><span class="si">{</span><span class="n">energy_kwh</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> kWh"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Electricity cost: </span><span class="si">{</span><span class="n">cost_eur</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> EUR"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Python does not automatically track physical units. Here, multiplying
+kW by hours produces kWh.</p>
+</section>
+<section id="useful-numerical-functions">
+<h3>Useful numerical functions<a class="headerlink" href="#useful-numerical-functions" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mf">2.71828</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Floating-point calculations can produce small representation errors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For comparisons of calculated decimal values, a tolerance-based check
+can be more appropriate than exact equality:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">math</span></code> is part of Python’s standard library, so no separate installation
+is needed.</p>
+</section>
+</section>
+<section id="comparisons">
+<h2>Comparisons<a class="headerlink" href="#comparisons" title="Link to this heading">#</a></h2>
+<p>Comparison operators check relationships between values.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
+<td><p>Equal to</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!=</span></code></p></td>
+<td><p>Not equal to</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
+<td><p>Less than</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></p></td>
+<td><p>Less than or equal to</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
+<td><p>Greater than</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p></td>
+<td><p>Greater than or equal to</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">demand_kw</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">available_power_kw</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span> <span class="o">&lt;=</span> <span class="n">available_power_kw</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span> <span class="o">==</span> <span class="n">available_power_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>Assignment and comparison are different:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">demand_kw</span> <span class="o">=</span> <span class="mi">6</span>       <span class="c1"># Assign a value</span>
+<span class="n">demand_kw</span> <span class="o">==</span> <span class="mi">6</span>      <span class="c1"># Compare values</span>
+</pre></div>
+</div>
+<section id="equality-and-identity">
+<h3>Equality and identity<a class="headerlink" href="#equality-and-identity" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">==</span></code> compares values. <code class="docutils literal notranslate"><span class="pre">is</span></code> checks whether two references point to the
+same object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">second</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="n">second</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">first</span> <span class="ow">is</span> <span class="n">second</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>: the lists contain equal values,
+but they are separate objects.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">==</span></code> to compare values. Use <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">None</span></code> to check whether a value
+has not been provided or a result is unavailable.</p>
+<p>For example, a building dataset may contain an unknown construction year.
+We need to check for this before attempting a calculation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">construction_year</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">reference_year</span> <span class="o">=</span> <span class="mi">2026</span>
+
+<span class="k">if</span> <span class="n">construction_year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Building age cannot be calculated: construction year is missing."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">building_age</span> <span class="o">=</span> <span class="n">reference_year</span> <span class="o">-</span> <span class="n">construction_year</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Building age: </span><span class="si">{</span><span class="n">building_age</span><span class="si">}</span><span class="s2"> years"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Without this check, subtracting <code class="docutils literal notranslate"><span class="pre">None</span></code> from a number would raise a
+<code class="docutils literal notranslate"><span class="pre">TypeError</span></code> and interrupt execution.</p>
+<p>Checking explicitly for <code class="docutils literal notranslate"><span class="pre">None</span></code> also distinguishes an unavailable value
+from valid values such as <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>, or an empty string. For example,
+zero electricity consumption is different from unknown consumption.</p>
+<p>We use <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">None</span></code> because <code class="docutils literal notranslate"><span class="pre">None</span></code> is a single, special object in Python:
+we are checking whether the variable refers to that object.</p>
+<p>To check that a value is available, use <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span> <span class="pre">None</span></code>.</p>
+<p>Later, when working with pandas, we will use its missing-data tools,
+because datasets can represent missing values as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> or <code class="docutils literal notranslate"><span class="pre">pd.NA</span></code>
+as well as <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</section>
+</section>
+<section id="boolean-logic">
+<h2>Boolean logic<a class="headerlink" href="#boolean-logic" title="Link to this heading">#</a></h2>
+<p>Combine conditions using <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Meaning for Boolean conditions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">and</span></code></p></td>
+<td><p>Both conditions must be true</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></td>
+<td><p>At least one condition must be true</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">not</span></code></p></td>
+<td><p>Reverse the truth value</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">battery_charge_kwh</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">electricity_price</span> <span class="o">=</span> <span class="mf">0.32</span>
+
+<span class="n">can_discharge</span> <span class="o">=</span> <span class="n">battery_charge_kwh</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">price_is_high</span> <span class="o">=</span> <span class="n">electricity_price</span> <span class="o">&gt;</span> <span class="mf">0.30</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">can_discharge</span> <span class="ow">and</span> <span class="n">price_is_high</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">can_discharge</span> <span class="ow">or</span> <span class="n">price_is_high</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="ow">not</span> <span class="n">can_discharge</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parentheses can make longer expressions easier to read:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">operate_battery</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">battery_charge_kwh</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="ow">and</span> <span class="p">(</span><span class="n">electricity_price</span> <span class="o">&gt;</span> <span class="mf">0.30</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>These examples use individual values. Arrays and pandas objects require
+different conventions for combining conditions, which we will introduce
+in later lessons.</p>
+</section>
+<section id="conditionals">
+<h2>Conditionals<a class="headerlink" href="#conditionals" title="Link to this heading">#</a></h2>
+<p>A conditional chooses which instructions to execute.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">generation_kw</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">demand_kw</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">balance_kw</span> <span class="o">=</span> <span class="n">generation_kw</span> <span class="o">-</span> <span class="n">demand_kw</span>
+
+<span class="k">if</span> <span class="n">balance_kw</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Generation exceeds demand."</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">balance_kw</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Additional supply is needed."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Generation matches demand."</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Python checks the conditions in order and executes the first matching
+branch.</p>
+<p>The colon starts a block. Indentation identifies which instructions
+belong to that block. Use four spaces consistently.</p>
+<p>For a simple choice, a conditional expression can fit on one line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">status</span> <span class="o">=</span> <span class="s2">"surplus"</span> <span class="k">if</span> <span class="n">balance_kw</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">"no surplus"</span>
+</pre></div>
+</div>
+</section>
+<section id="lists">
+<h2>Lists<a class="headerlink" href="#lists" title="Link to this heading">#</a></h2>
+<p>A list stores an ordered collection of items:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">technologies</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"solar"</span><span class="p">,</span> <span class="s2">"wind"</span><span class="p">,</span> <span class="s2">"battery"</span><span class="p">]</span>
+<span class="n">hourly_demand_kwh</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="access-items">
+<h3>Access items<a class="headerlink" href="#access-items" title="Link to this heading">#</a></h3>
+<p>List indexing starts at zero:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">technologies</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">technologies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>These expressions return the first and last items.</p>
+<p>A slice selects a portion of a list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hourly_demand_kwh</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The starting position is included; the stopping position is excluded.
+The result is <code class="docutils literal notranslate"><span class="pre">[3.0,</span> <span class="pre">4.5]</span></code>.</p>
+</section>
+<section id="modify-a-list">
+<h3>Modify a list<a class="headerlink" href="#modify-a-list" title="Link to this heading">#</a></h3>
+<p>Lists are mutable: their contents can change.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">technologies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"heat pump"</span><span class="p">)</span>
+<span class="n">technologies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rooftop solar"</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">technologies</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Some useful operations are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Expression</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">len(values)</span></code></p></td>
+<td><p>Count items</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sum(values)</span></code></p></td>
+<td><p>Sum numerical items</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">values.append(item)</span></code></p></td>
+<td><p>Add one item</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">values.extend(other_values)</span></code></p></td>
+<td><p>Add items from another iterable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">values.remove(item)</span></code></p></td>
+<td><p>Remove the first matching item</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">values.pop()</span></code></p></td>
+<td><p>Remove and return the last item</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sorted(values)</span></code></p></td>
+<td><p>Return a new sorted list</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">values.sort()</span></code></p></td>
+<td><p>Sort the existing list in place</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">item</span> <span class="pre">in</span> <span class="pre">values</span></code></p></td>
+<td><p>Check membership</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">hourly_demand_kwh</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"wind"</span> <span class="ow">in</span> <span class="n">technologies</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Avoid writing <code class="docutils literal notranslate"><span class="pre">values</span> <span class="pre">=</span> <span class="pre">values.sort()</span></code>: <code class="docutils literal notranslate"><span class="pre">sort()</span></code> modifies the list
+and returns <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</section>
+</section>
+<section id="loops">
+<h2>Loops<a class="headerlink" href="#loops" title="Link to this heading">#</a></h2>
+<p>Loops repeat instructions.</p>
+<section id="a-for-loop">
+<h3>A for loop<a class="headerlink" href="#a-for-loop" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">for</span></code> loop processes items from an iterable, such as a list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">hourly_demand_kwh</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Demand: </span><span class="si">{</span><span class="n">demand</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> kWh"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> when you also need a counter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">hour</span><span class="p">,</span> <span class="n">demand</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hourly_demand_kwh</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Hour </span><span class="si">{</span><span class="n">hour</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">demand</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> kWh"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we explicitly start the counter at one. List indexing still
+starts at zero.</p>
+</section>
+<section id="repeat-with-range">
+<h3>Repeat with range<a class="headerlink" href="#repeat-with-range" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This prints <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">2</span></code>. The stopping value is excluded.</p>
+</section>
+<section id="a-while-loop">
+<h3>A while loop<a class="headerlink" href="#a-while-loop" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">while</span></code> loop repeats as long as its condition is true:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stored_energy_kwh</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="n">stored_energy_kwh</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+    <span class="n">stored_energy_kwh</span> <span class="o">+=</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">stored_energy_kwh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">+=</span> <span class="pre">2</span></code> increases the current value by two.</p>
+<p>Make sure the loop can eventually stop. If the condition remains
+true indefinitely, the loop will continue until interrupted.</p>
+</section>
+<section id="list-comprehensions">
+<h3>List comprehensions<a class="headerlink" href="#list-comprehensions" title="Link to this heading">#</a></h3>
+<p>A list comprehension creates a list from an expression:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hourly_costs_eur</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">demand</span> <span class="o">*</span> <span class="mf">0.25</span>
+    <span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">hourly_demand_kwh</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hourly_costs_eur</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It can also filter values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">high_demand_values</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">demand</span>
+    <span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">hourly_demand_kwh</span>
+    <span class="k">if</span> <span class="n">demand</span> <span class="o">&gt;</span> <span class="mi">4</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dictionaries">
+<h2>Dictionaries<a class="headerlink" href="#dictionaries" title="Link to this heading">#</a></h2>
+<p>A dictionary associates keys with values. It is useful for grouping
+labelled information about an object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"identifier"</span><span class="p">:</span> <span class="s2">"B014"</span><span class="p">,</span>
+    <span class="s2">"use"</span><span class="p">:</span> <span class="s2">"residential"</span><span class="p">,</span>
+    <span class="s2">"floor_area_m2"</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span>
+    <span class="s2">"heat_demand_kwh"</span><span class="p">:</span> <span class="mi">14000</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Access a value using its key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">building</span><span class="p">[</span><span class="s2">"floor_area_m2"</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Add or update entries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building</span><span class="p">[</span><span class="s2">"heating_system"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"heat pump"</span>
+<span class="n">building</span><span class="p">[</span><span class="s2">"floor_area_m2"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">130</span>
+</pre></div>
+</div>
+<section id="missing-keys">
+<h3>Missing keys<a class="headerlink" href="#missing-keys" title="Link to this heading">#</a></h3>
+<p>Accessing an absent key with square brackets raises a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">get()</span></code> when an absent value is expected:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">construction_year</span> <span class="o">=</span> <span class="n">building</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"construction_year"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">construction_year</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The default is returned without adding the key to the dictionary.
+Avoid replacing unknown data with a plausible-looking value unless
+you intend to make and document that assumption.</p>
+<p>Check whether a key exists:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"construction_year"</span> <span class="ow">in</span> <span class="n">building</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Membership checks on a dictionary examine its keys.</p>
+<p>If you need to handle a missing key explicitly, catch the specific error:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">building</span><span class="p">[</span><span class="s2">"construction_year"</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Construction year is unavailable."</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="iterate-over-entries">
+<h3>Iterate over entries<a class="headerlink" href="#iterate-over-entries" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">building</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<p>A function packages a calculation or task into reusable code.
+It can accept inputs and return a result.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_energy</span><span class="p">(</span><span class="n">power_kw</span><span class="p">,</span> <span class="n">duration_hours</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return energy in kWh for constant power in kW and time in hours."""</span>
+    <span class="k">return</span> <span class="n">power_kw</span> <span class="o">*</span> <span class="n">duration_hours</span>
+</pre></div>
+</div>
+<p>Call the function and store its result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">calculate_energy</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_kwh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is <code class="docutils literal notranslate"><span class="pre">10.0</span></code>.</p>
+<p>The names in the definition are parameters. The values supplied in
+a call are arguments.</p>
+<section id="positional-and-keyword-arguments">
+<h3>Positional and keyword arguments<a class="headerlink" href="#positional-and-keyword-arguments" title="Link to this heading">#</a></h3>
+<p>Arguments can be supplied by position:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_energy</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or by parameter name:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_energy</span><span class="p">(</span><span class="n">duration_hours</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">power_kw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Both calls return the same result.</p>
+</section>
+<section id="default-values">
+<h3>Default values<a class="headerlink" href="#default-values" title="Link to this heading">#</a></h3>
+<p>A default makes an argument optional:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_cost</span><span class="p">(</span><span class="n">energy_kwh</span><span class="p">,</span> <span class="n">price_eur_per_kwh</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return electricity cost in euros."""</span>
+    <span class="k">return</span> <span class="n">energy_kwh</span> <span class="o">*</span> <span class="n">price_eur_per_kwh</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">calculate_cost</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculate_cost</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">price_eur_per_kwh</span><span class="o">=</span><span class="mf">0.30</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>These calls return <code class="docutils literal notranslate"><span class="pre">2.5</span></code> and <code class="docutils literal notranslate"><span class="pre">3.0</span></code>.</p>
+<p>Keyword arguments are not automatically optional. Optionality comes
+from having a default value.</p>
+</section>
+<section id="return-and-print">
+<h3>Return and print<a class="headerlink" href="#return-and-print" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">return</span></code> passes a value back to the caller. <code class="docutils literal notranslate"><span class="pre">print()</span></code> displays text.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">display_energy</span><span class="p">(</span><span class="n">power_kw</span><span class="p">,</span> <span class="n">duration_hours</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">power_kw</span> <span class="o">*</span> <span class="n">duration_hours</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function displays a result but has no explicit <code class="docutils literal notranslate"><span class="pre">return</span></code>, so its
+return value is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<p>For calculations that will feed into further analysis, returning the
+result is usually more useful.</p>
+</section>
+</section>
+<section id="pure-functions-and-side-effects">
+<h2>Pure functions and side effects<a class="headerlink" href="#pure-functions-and-side-effects" title="Link to this heading">#</a></h2>
+<p>A pure function returns the same result for the same inputs and does
+not change external state.</p>
+<p>Our <code class="docutils literal notranslate"><span class="pre">calculate_energy()</span></code> function is pure: its result depends only
+on its arguments.</p>
+<p>A side effect changes something beyond the returned result. Examples
+include modifying an input list, writing a file, or printing output.</p>
+<section id="a-function-that-modifies-its-input">
+<h3>A function that modifies its input<a class="headerlink" href="#a-function-that-modifies-its-input" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_measurement_in_place</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">add_measurement_in_place</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The original list has changed to <code class="docutils literal notranslate"><span class="pre">[3.0,</span> <span class="pre">4.5,</span> <span class="pre">5.0]</span></code>.</p>
+<p>Running the function call again adds another item. This matters in
+notebooks, where cells may be executed repeatedly.</p>
+</section>
+<section id="a-function-that-returns-a-new-list">
+<h3>A function that returns a new list<a class="headerlink" href="#a-function-that-returns-a-new-list" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">with_added_measurement</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">values</span> <span class="o">+</span> <span class="p">[</span><span class="n">new_value</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">updated_measurements</span> <span class="o">=</span> <span class="n">with_added_measurement</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">updated_measurements</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The original list remains unchanged.</p>
+<p>Both approaches can be useful. Make changes to shared data deliberate,
+and prefer functions with explicit inputs and returned outputs when
+writing calculations.</p>
+</section>
+</section>
+<section id="optional-practice-exercises">
+<h2>Optional practice exercises<a class="headerlink" href="#optional-practice-exercises" title="Link to this heading">#</a></h2>
+<p>Use a separate notebook for these exercises. Add Markdown cells to
+explain your reasoning and code cells to perform the calculations.</p>
+<section id="exercise-1-electricity-consumption">
+<h3>Exercise 1: Electricity consumption<a class="headerlink" href="#exercise-1-electricity-consumption" title="Link to this heading">#</a></h3>
+<p>A device operates at 1.2 kW for 3.5 hours. Electricity costs
+0.27 EUR/kWh.</p>
+<ol class="arabic simple">
+<li><p>Store the three inputs in variables.</p></li>
+<li><p>Calculate consumption and cost.</p></li>
+<li><p>Display the cost with two decimal places.</p></li>
+<li><p>Check whether consumption exceeds 4 kWh.</p></li>
+</ol>
+</section>
+<section id="exercise-2-clean-a-label">
+<h3>Exercise 2: Clean a label<a class="headerlink" href="#exercise-2-clean-a-label" title="Link to this heading">#</a></h3>
+<p>Start with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="s2">"  Building 18; HEAT PUMP; Groningen  "</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Remove leading and trailing whitespace.</p></li>
+<li><p>Split the string at each semicolon.</p></li>
+<li><p>Remove whitespace from each resulting field.</p></li>
+<li><p>Convert the heating-system label to lowercase.</p></li>
+</ol>
+</section>
+<section id="exercise-3-analyse-a-list">
+<h3>Exercise 3: Analyse a list<a class="headerlink" href="#exercise-3-analyse-a-list" title="Link to this heading">#</a></h3>
+<p>Use these energy demands for six one-hour periods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">demand_kwh</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Calculate total and average consumption.</p></li>
+<li><p>Find the largest value.</p></li>
+<li><p>Select the first three values.</p></li>
+<li><p>Create a new list containing only values above 4 kWh.</p></li>
+<li><p>Print each period number together with its consumption.</p></li>
+</ol>
+</section>
+<section id="exercise-4-classify-a-power-balance">
+<h3>Exercise 4: Classify a power balance<a class="headerlink" href="#exercise-4-classify-a-power-balance" title="Link to this heading">#</a></h3>
+<p>Create variables for demand and generation in kW.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code> to report:</p>
+<ul class="simple">
+<li><p>A surplus when generation exceeds demand.</p></li>
+<li><p>A deficit when demand exceeds generation.</p></li>
+<li><p>A balanced system when they are equal.</p></li>
+</ul>
+<p>Test all three cases using whole-number inputs.</p>
+</section>
+<section id="exercise-5-describe-a-building">
+<h3>Exercise 5: Describe a building<a class="headerlink" href="#exercise-5-describe-a-building" title="Link to this heading">#</a></h3>
+<p>Create a dictionary containing:</p>
+<ul class="simple">
+<li><p>A building identifier.</p></li>
+<li><p>Floor area in square metres.</p></li>
+<li><p>Annual heat demand in kWh.</p></li>
+<li><p>Heating-system type.</p></li>
+</ul>
+<p>Calculate heat demand per square metre and store it as another entry.
+Then retrieve a missing construction year using <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+</section>
+<section id="exercise-6-write-a-conversion-function">
+<h3>Exercise 6: Write a conversion function<a class="headerlink" href="#exercise-6-write-a-conversion-function" title="Link to this heading">#</a></h3>
+<p>Write a function that converts energy from MWh to kWh.</p>
+<p>Check that:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> MWh becomes <code class="docutils literal notranslate"><span class="pre">0</span></code> kWh.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> MWh becomes <code class="docutils literal notranslate"><span class="pre">1000</span></code> kWh.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.75</span></code> MWh becomes <code class="docutils literal notranslate"><span class="pre">2750</span></code> kWh.</p></li>
+</ul>
+</section>
+<section id="exercise-7-generalise-the-conversion">
+<h3>Exercise 7: Generalise the conversion<a class="headerlink" href="#exercise-7-generalise-the-conversion" title="Link to this heading">#</a></h3>
+<p>Write a function with these parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">convert_energy</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">source_unit</span><span class="p">,</span> <span class="n">target_unit</span><span class="o">=</span><span class="s2">"kWh"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Support <code class="docutils literal notranslate"><span class="pre">Wh</span></code>, <code class="docutils literal notranslate"><span class="pre">kWh</span></code>, and <code class="docutils literal notranslate"><span class="pre">MWh</span></code>.</p>
+<p>Hint: use a dictionary containing the number of Wh represented by
+one unit of each type.</p>
+<p>Test conversions in both directions. As an additional challenge,
+raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if a unit is unsupported.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./getting-started"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Jupyter Basics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../managing-data/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python for Managing Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-python">Running Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-and-basic-types">Variables and basic types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#names-and-comments">Names and comments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-or-unset-values">Missing or unset values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-strings">Working with strings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-and-transform-text">Clean and transform text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-and-join-text">Split and join text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format-results">Format results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic">Arithmetic</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-energy-and-cost">Example: energy and cost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-numerical-functions">Useful numerical functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons">Comparisons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equality-and-identity">Equality and identity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-logic">Boolean logic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditionals">Conditionals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#access-items">Access items</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-a-list">Modify a list</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-for-loop">A for loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-with-range">Repeat with range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-while-loop">A while loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">List comprehensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-keys">Missing keys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate-over-entries">Iterate over entries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positional-and-keyword-arguments">Positional and keyword arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-values">Default values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return-and-print">Return and print</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-functions-and-side-effects">Pure functions and side effects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-function-that-modifies-its-input">A function that modifies its input</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-function-that-returns-a-new-list">A function that returns a new list</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice-exercises">Optional practice exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-electricity-consumption">Exercise 1: Electricity consumption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-clean-a-label">Exercise 2: Clean a label</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-analyse-a-list">Exercise 3: Analyse a list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-classify-a-power-balance">Exercise 4: Classify a power balance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-describe-a-building">Exercise 5: Describe a building</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-write-a-conversion-function">Exercise 6: Write a conversion function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-generalise-the-conversion">Exercise 7: Generalise the conversion</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alejandro Zabala Figueroa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

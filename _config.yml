@@ -30,6 +30,8 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+# See https://university-of-groningen-irees.github.io/Energy-system-modelling/
+
 
 sphinx:
   config:

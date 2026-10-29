@@ -1,0 +1,1719 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pandas: From Weather Data to Energy Indicators &#8212; Energy System Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'managing-data/pandas';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PyPSA Tutorial" href="../pypsa-tutorial/intro.html" />
+    <link rel="prev" title="Numerical Analysis and Plotting" href="numpy-matplotlib.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Energy System Modelling</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/miniforge.html">Getting Ready: Miniforge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/basics.html">Jupyter Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/python.html">Python Fundamentals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Managing Data</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Python for Managing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-matplotlib.html">Numerical Analysis and Plotting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">pandas: From Weather Data to Energy Indicators</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/intro.html">PyPSA Tutorial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/managing-data/pandas.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>pandas: From Weather Data to Energy Indicators</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-starting">Before starting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#series-values-with-labels">Series: values with labels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-alignment">Label alignment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframes-labelled-tables">DataFrames: labelled tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-weather-data-for-groningen">Download weather data for Groningen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-variables-and-units">Weather variables and units</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-request">Build the request</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-preserve-the-response">Download and preserve the response</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-the-response-into-a-dataframe">Convert the response into a DataFrame</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-time-index">Create a time index</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-data-before-calculating">Inspect data before calculating</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-data-types">Check data types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-timestamps-and-completeness">Check timestamps and completeness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-interval-timing">Understand interval timing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-missing-data-deliberately">Handle missing data deliberately</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-filling">Forward filling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-sort-and-filter-observations">Select, sort, and filter observations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-filtering-conditions">Combine filtering conditions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorised-operations-with-columns">Vectorised operations with columns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irradiance-and-irradiation">Irradiance and irradiation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-normalised-wind-generation">Estimate normalised wind generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-normalised-solar-pv-generation">Estimate normalised solar PV generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-a-custom-function">Apply a custom function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-generation-and-capacity-factors">Calculate generation and capacity factors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-capacity-factor-mean">What does capacity factor mean?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resample-time-series">Resample time series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-observations-by-season-and-hour">Group observations by season and hour</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reshape-grouped-results">Reshape grouped results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-tables">Combine tables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-results-by-their-time-index">Combine results by their time index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-metadata-using-a-shared-identifier">Merge metadata using a shared identifier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualise-the-results">Visualise the results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monthly-capacity-factors">Monthly capacity factors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonal-solar-profiles">Seasonal solar profiles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-and-reload-results">Save and reload results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice-exercises">Optional practice exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-and-select-weather-observations">Inspect and select weather observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#investigate-missing-values">Investigate missing values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-irradiation-indicators">Compare irradiation indicators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-turbine-assumptions">Explore turbine assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-solar-assumptions">Explore solar assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-and-reshape">Group and reshape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-installation-data">Combine installation data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-weather-years">Compare weather years</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-a-short-report">Prepare a short report</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-learning">Further learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-documentation">pandas documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-data-documentation">Weather data documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-generation-modelling">Detailed generation modelling</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pandas-from-weather-data-to-energy-indicators">
+<h1>pandas: From Weather Data to Energy Indicators<a class="headerlink" href="#pandas-from-weather-data-to-energy-indicators" title="Link to this heading">#</a></h1>
+<p>Weather datasets contain more than numbers. Each observation has a time,
+a variable name, a unit, and a geographical context.</p>
+<p><strong>pandas</strong> helps us preserve these relationships while selecting,
+cleaning, combining, and analysing data.</p>
+<p>In this lesson, we download weather data for Groningen, estimate wind
+and solar generation, and calculate capacity factors. Along the way,
+we learn how to work with labelled tables and time series.</p>
+<p>The generation models are simplified teaching examples. They are not
+validated models of particular installations.</p>
+<section id="before-starting">
+<h2>Before starting<a class="headerlink" href="#before-starting" title="Link to this heading">#</a></h2>
+<p>Complete the Python and NumPy lessons, then create a notebook called
+<code class="docutils literal notranslate"><span class="pre">pandas-weather.ipynb</span></code>.</p>
+<p>Run the examples in order:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlencode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlopen</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+<p>The download tools belong to Python’s standard library. No additional
+download package is required.</p>
+</section>
+<section id="series-values-with-labels">
+<h2>Series: values with labels<a class="headerlink" href="#series-values-with-labels" title="Link to this heading">#</a></h2>
+<p>A pandas <strong>Series</strong> is a one-dimensional collection of values with
+associated index labels.</p>
+<p>Consider the capacities of three hypothetical PV installations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">capacity_kwp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"Library"</span><span class="p">:</span> <span class="mf">45.0</span><span class="p">,</span>
+        <span class="s2">"Sports centre"</span><span class="p">:</span> <span class="mf">120.0</span><span class="p">,</span>
+        <span class="s2">"School"</span><span class="p">:</span> <span class="mf">75.0</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"capacity_kwp"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">capacity_kwp</span>
+</pre></div>
+</div>
+<p>Each installation name is an index label. Each associated value is a
+capacity in kWp.</p>
+<p>Select a value by label with <code class="docutils literal notranslate"><span class="pre">.loc</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">capacity_kwp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"School"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Select by position with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">capacity_kwp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Positions start at zero.</p>
+<p>Calculations preserve the labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">expanded_capacity_kwp</span> <span class="o">=</span> <span class="n">capacity_kwp</span> <span class="o">*</span> <span class="mf">1.20</span>
+
+<span class="n">expanded_capacity_kwp</span>
+</pre></div>
+</div>
+<section id="label-alignment">
+<h3>Label alignment<a class="headerlink" href="#label-alignment" title="Link to this heading">#</a></h3>
+<p>When combining Series, pandas matches their index labels rather than
+assuming their positions correspond.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">expansion_kwp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"School"</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="s2">"Library"</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+        <span class="s2">"Sports centre"</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">capacity_kwp</span> <span class="o">+</span> <span class="n">expansion_kwp</span>
+</pre></div>
+</div>
+<p>The values are matched by installation name despite the different order.</p>
+<p>This helps combine independently organised datasets. However, labels
+that do not match can introduce missing values.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code> if you explicitly need the underlying values without
+their pandas labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">capacity_kwp</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dataframes-labelled-tables">
+<h2>DataFrames: labelled tables<a class="headerlink" href="#dataframes-labelled-tables" title="Link to this heading">#</a></h2>
+<p>A <strong>DataFrame</strong> contains columns sharing a row index. Different columns
+can contain different data types.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"site"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Library"</span><span class="p">,</span> <span class="s2">"Sports centre"</span><span class="p">,</span> <span class="s2">"School"</span><span class="p">],</span>
+        <span class="s2">"capacity_kwp"</span><span class="p">:</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">],</span>
+        <span class="s2">"district"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Centre"</span><span class="p">,</span> <span class="s2">"North"</span><span class="p">,</span> <span class="s2">"North"</span><span class="p">],</span>
+        <span class="s2">"commissioning_year"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">2023</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"site"</span><span class="p">)</span>
+
+<span class="n">installations</span>
+</pre></div>
+</div>
+<p>Inspect the table:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">installations</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Select one column to obtain a Series:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span><span class="p">[</span><span class="s2">"capacity_kwp"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Select several columns to obtain a DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span><span class="p">[[</span><span class="s2">"capacity_kwp"</span><span class="p">,</span> <span class="s2">"district"</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Select particular rows and columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="p">[</span><span class="s2">"Library"</span><span class="p">,</span> <span class="s2">"School"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"capacity_kwp"</span><span class="p">,</span> <span class="s2">"district"</span><span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Transpose the table to exchange rows and columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</section>
+<section id="download-weather-data-for-groningen">
+<h2>Download weather data for Groningen<a class="headerlink" href="#download-weather-data-for-groningen" title="Link to this heading">#</a></h2>
+<p>We will request historical weather for <strong>2025</strong> at a point near
+Groningen’s city centre:</p>
+<ul class="simple">
+<li><p>Latitude: <code class="docutils literal notranslate"><span class="pre">53.2194</span></code></p></li>
+<li><p>Longitude: <code class="docutils literal notranslate"><span class="pre">6.5665</span></code></p></li>
+</ul>
+<p>We use the
+<a class="reference external" href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo Historical Weather API</a>
+with the ERA5 weather model.</p>
+<p>These are gridded historical weather estimates, not observations from
+a station at the exact coordinates. A single point does not represent
+all spatial variation across the municipality.</p>
+<section id="weather-variables-and-units">
+<h3>Weather variables and units<a class="headerlink" href="#weather-variables-and-units" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>API variable</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Requested unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">temperature_2m</span></code></p></td>
+<td><p>Air temperature at 2 m</p></td>
+<td><p>°C</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wind_speed_100m</span></code></p></td>
+<td><p>Wind speed at 100 m</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">shortwave_radiation</span></code></p></td>
+<td><p>Global horizontal irradiance</p></td>
+<td><p>W/m²</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">global_tilted_irradiance</span></code></p></td>
+<td><p>Irradiance on the selected panel surface</p></td>
+<td><p>W/m²</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For the solar example, we assume a fixed panel tilt of <strong>35°</strong> with
+a south-facing orientation.</p>
+<p>In Open-Meteo’s convention, azimuth <code class="docutils literal notranslate"><span class="pre">0°</span></code> means south. Always check this:
+other libraries can use different orientation conventions.</p>
+</section>
+<section id="build-the-request">
+<h3>Build the request<a class="headerlink" href="#build-the-request" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span>
+<span class="n">data_directory</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">53.2194</span><span class="p">,</span>
+    <span class="s2">"longitude"</span><span class="p">:</span> <span class="mf">6.5665</span><span class="p">,</span>
+    <span class="s2">"start_date"</span><span class="p">:</span> <span class="s2">"2025-01-01"</span><span class="p">,</span>
+    <span class="s2">"end_date"</span><span class="p">:</span> <span class="s2">"2025-12-31"</span><span class="p">,</span>
+    <span class="s2">"hourly"</span><span class="p">:</span> <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">"temperature_2m"</span><span class="p">,</span>
+            <span class="s2">"wind_speed_100m"</span><span class="p">,</span>
+            <span class="s2">"shortwave_radiation"</span><span class="p">,</span>
+            <span class="s2">"global_tilted_irradiance"</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+    <span class="s2">"models"</span><span class="p">:</span> <span class="s2">"era5"</span><span class="p">,</span>
+    <span class="s2">"wind_speed_unit"</span><span class="p">:</span> <span class="s2">"ms"</span><span class="p">,</span>
+    <span class="s2">"timezone"</span><span class="p">:</span> <span class="s2">"GMT"</span><span class="p">,</span>
+    <span class="s2">"tilt"</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+    <span class="s2">"azimuth"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"https://archive-api.open-meteo.com/v1/archive?"</span>
+    <span class="o">+</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We explicitly request wind in m/s. Supplying km/h to a model expecting
+m/s would produce incorrect generation estimates.</p>
+<p>We request UTC timestamps to avoid daylight-saving changes in the
+downloaded time index.</p>
+</section>
+<section id="download-and-preserve-the-response">
+<h3>Download and preserve the response<a class="headerlink" href="#download-and-preserve-the-response" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raw_file</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="s2">"groningen_2025_weather.json"</span>
+
+<span class="k">if</span> <span class="n">raw_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_file</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="n">raw_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">request_file</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="s2">"groningen_2025_request.json"</span>
+
+<span class="n">request_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">"url"</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="s2">"parameters"</span><span class="p">:</span> <span class="n">parameters</span><span class="p">},</span>
+        <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The saved response is reused when the cell runs again. This avoids
+repeated downloads.</p>
+<p>Change the cache filename if you change the location, year, or request
+settings.</p>
+<p>Inspect the metadata:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Returned coordinates:"</span><span class="p">,</span> <span class="n">payload</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">],</span> <span class="n">payload</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Units:"</span><span class="p">,</span> <span class="n">payload</span><span class="p">[</span><span class="s2">"hourly_units"</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The returned coordinates can differ from those requested because the
+data represent a weather-model grid.</p>
+</section>
+</section>
+<section id="convert-the-response-into-a-dataframe">
+<h2>Convert the response into a DataFrame<a class="headerlink" href="#convert-the-response-into-a-dataframe" title="Link to this heading">#</a></h2>
+<p>The hourly response contains a dictionary of arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s2">"hourly"</span><span class="p">])</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Rename the columns to make their meanings and units explicit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"timestamp"</span><span class="p">,</span>
+        <span class="s2">"temperature_2m"</span><span class="p">:</span> <span class="s2">"temperature_c"</span><span class="p">,</span>
+        <span class="s2">"wind_speed_100m"</span><span class="p">:</span> <span class="s2">"wind_100m_ms"</span><span class="p">,</span>
+        <span class="s2">"shortwave_radiation"</span><span class="p">:</span> <span class="s2">"ghi_wm2"</span><span class="p">,</span>
+        <span class="s2">"global_tilted_irradiance"</span><span class="p">:</span> <span class="s2">"poa_wm2"</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Here:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ghi</span></code> means global horizontal irradiance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">poa</span></code> means plane-of-array irradiance: radiation on the assumed
+panel surface.</p></li>
+</ul>
+<section id="create-a-time-index">
+<h3>Create a time index<a class="headerlink" href="#create-a-time-index" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="p">[</span><span class="s2">"timestamp"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"timestamp"</span><span class="p">],</span>
+    <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"timestamp"</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The rows now have a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>, supporting time-based selection,
+grouping, and aggregation.</p>
+</section>
+</section>
+<section id="inspect-data-before-calculating">
+<h2>Inspect data before calculating<a class="headerlink" href="#inspect-data-before-calculating" title="Link to this heading">#</a></h2>
+<p>Check the table’s structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Inspect summary statistics:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Count missing entries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="check-data-types">
+<h3>Check data types<a class="headerlink" href="#check-data-types" title="Link to this heading">#</a></h3>
+<p>A column containing <code class="docutils literal notranslate"><span class="pre">&quot;10&quot;</span></code> stores text, whereas one containing <code class="docutils literal notranslate"><span class="pre">10.0</span></code>
+stores a number.</p>
+<p>Calculations, sorting, and filtering depend on these types. A calculation
+can fail or behave unexpectedly if numerical measurements are stored
+as text.</p>
+<p>Require numerical values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">weather</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">weather</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
+        <span class="n">weather</span><span class="p">[</span><span class="n">column</span><span class="p">],</span>
+        <span class="n">errors</span><span class="o">=</span><span class="s2">"raise"</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">errors=&quot;raise&quot;</span></code> stops when a value cannot be converted.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">errors=&quot;coerce&quot;</span></code> would replace unconvertible entries with missing
+values. If you use that option, inspect which entries were affected.</p>
+</section>
+<section id="check-timestamps-and-completeness">
+<h3>Check timestamps and completeness<a class="headerlink" href="#check-timestamps-and-completeness" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">expected_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="s2">"2025-01-01"</span><span class="p">,</span>
+    <span class="s2">"2026-01-01"</span><span class="p">,</span>
+    <span class="n">freq</span><span class="o">=</span><span class="s2">"h"</span><span class="p">,</span>
+    <span class="n">inclusive</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="n">tz</span><span class="o">=</span><span class="s2">"UTC"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">weather</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_unique</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Duplicate timestamps found."</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">weather</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">expected_index</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unexpected or missing hourly timestamps."</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">weather</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Investigate missing weather values before continuing."</span><span class="p">)</span>
+
+<span class="n">nonnegative_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"wind_100m_ms"</span><span class="p">,</span> <span class="s2">"ghi_wm2"</span><span class="p">,</span> <span class="s2">"poa_wm2"</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">weather</span><span class="p">[</span><span class="n">nonnegative_columns</span><span class="p">]</span><span class="o">.</span><span class="n">lt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unexpected negative wind speed or irradiance."</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Hourly records:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">weather</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>A complete non-leap year contains 8,760 hourly records.</p>
+<p>Zero irradiance at night is expected. Missing irradiance is a different
+condition and should not automatically be replaced with zero.</p>
+</section>
+<section id="understand-interval-timing">
+<h3>Understand interval timing<a class="headerlink" href="#understand-interval-timing" title="Link to this heading">#</a></h3>
+<p>The API’s radiation variables are averages over the preceding hour.
+Wind speed and temperature are supplied at the indicated timestamp.</p>
+<p>For this introductory model, we treat each wind observation as
+representative of the corresponding hourly interval.</p>
+<p>Our analysis follows the API’s timestamp labels. A strict calendar-boundary
+radiation total would require an additional boundary record and explicit
+alignment of interval starts or ends.</p>
+</section>
+</section>
+<section id="handle-missing-data-deliberately">
+<h2>Handle missing data deliberately<a class="headerlink" href="#handle-missing-data-deliberately" title="Link to this heading">#</a></h2>
+<p>Missing data indicate that information is unavailable. They do not
+automatically represent zero.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installations</span><span class="p">[</span><span class="s2">"commissioning_year"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>An unknown commissioning year does not mean that the installation
+was commissioned in year zero.</p>
+<p>Create a subset containing known years:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">known_years</span> <span class="o">=</span> <span class="n">installations</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span>
+    <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"commissioning_year"</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns a new table without changing <code class="docutils literal notranslate"><span class="pre">installations</span></code>.</p>
+<p>For text labels, a descriptive replacement can sometimes be appropriate:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display_table</span> <span class="o">=</span> <span class="n">installations</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">display_table</span><span class="p">[</span><span class="s2">"district"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">display_table</span><span class="p">[</span><span class="s2">"district"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"Unknown"</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<section id="forward-filling">
+<h3>Forward filling<a class="headerlink" href="#forward-filling" title="Link to this heading">#</a></h3>
+<p>Forward filling carries the previous available value into a missing entry:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">example</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
+
+<span class="n">example</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This assumes that carrying a previous value forward is reasonable.
+That assumption is not automatically valid for changing weather conditions.</p>
+<p>Interpolation also introduces estimated values rather than recovering
+the original observations. Document any treatment of missing data.</p>
+</section>
+</section>
+<section id="select-sort-and-filter-observations">
+<h2>Select, sort, and filter observations<a class="headerlink" href="#select-sort-and-filter-observations" title="Link to this heading">#</a></h2>
+<p>Select January:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">january</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"2025-01"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Select a date range and particular columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">summer_week</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="s2">"2025-06-01"</span><span class="p">:</span><span class="s2">"2025-06-07"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"temperature_c"</span><span class="p">,</span> <span class="s2">"wind_100m_ms"</span><span class="p">,</span> <span class="s2">"poa_wm2"</span><span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Select by position:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">24</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Find the five highest wind-speed records:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"wind_100m_ms"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sort explicitly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="s2">"wind_100m_ms"</span><span class="p">,</span>
+    <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="combine-filtering-conditions">
+<h3>Combine filtering conditions<a class="headerlink" href="#combine-filtering-conditions" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_hours</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s2">"wind_100m_ms"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s2">"ghi_wm2"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">250</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Use parentheses around each comparison.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;</span></code> combines conditions using “and”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">|</span></code> combines them using “or”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> reverses a Boolean condition.</p></li>
+</ul>
+<p>An alternative is <code class="docutils literal notranslate"><span class="pre">query()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wind_threshold</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+    <span class="s2">"wind_100m_ms &gt;= @wind_threshold and ghi_wm2 &gt;= 250"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol refers to a Python variable outside the table.</p>
+</section>
+</section>
+<section id="vectorised-operations-with-columns">
+<h2>Vectorised operations with columns<a class="headerlink" href="#vectorised-operations-with-columns" title="Link to this heading">#</a></h2>
+<p>A vectorised expression performs a calculation on a whole Series
+without requiring an explicit Python loop over its values.</p>
+<p>Convert wind speed to km/h:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="p">[</span><span class="s2">"wind_100m_kmh"</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s2">"wind_100m_ms"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">3.6</span>
+</pre></div>
+</div>
+<p>Each observation is multiplied by the same conversion factor,
+while its timestamp is preserved.</p>
+<section id="irradiance-and-irradiation">
+<h3>Irradiance and irradiation<a class="headerlink" href="#irradiance-and-irradiation" title="Link to this heading">#</a></h3>
+<p>These quantities have different units:</p>
+<ul class="simple">
+<li><p><strong>Irradiance:</strong> power per area, measured in W/m².</p></li>
+<li><p><strong>Irradiation:</strong> energy per area over a period, measured in Wh/m²
+or kWh/m².</p></li>
+</ul>
+<p>Convert hourly mean irradiance into interval irradiation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">interval_hours</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"ghi_kwh_m2"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"ghi_wm2"</span><span class="p">]</span> <span class="o">*</span> <span class="n">interval_hours</span> <span class="o">/</span> <span class="mi">1000</span>
+<span class="p">)</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"poa_kwh_m2"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"poa_wm2"</span><span class="p">]</span> <span class="o">*</span> <span class="n">interval_hours</span> <span class="o">/</span> <span class="mi">1000</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The multiplication by hours converts power per area into energy per area.
+Dividing by 1,000 converts Wh/m² into kWh/m².</p>
+<p>Remove a derived column when it is no longer needed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"wind_100m_kmh"</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="estimate-normalised-wind-generation">
+<h2>Estimate normalised wind generation<a class="headerlink" href="#estimate-normalised-wind-generation" title="Link to this heading">#</a></h2>
+<p>Wind speed must be translated into electrical output through a turbine
+power curve.</p>
+<p>We use an illustrative model with:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head text-right"><p>Assumption</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hub height</p></td>
+<td class="text-right"><p>100 m</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cut-in speed</p></td>
+<td class="text-right"><p>3 m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>Rated speed</p></td>
+<td class="text-right"><p>12 m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cut-out speed</p></td>
+<td class="text-right"><p>25 m/s</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The model produces:</p>
+<ul class="simple">
+<li><p>Zero output below cut-in.</p></li>
+<li><p>Increasing output between cut-in and rated speed.</p></li>
+<li><p>Rated output between rated speed and cut-out.</p></li>
+<li><p>Zero output at and above cut-out.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cut_in_ms</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="n">rated_ms</span> <span class="o">=</span> <span class="mf">12.0</span>
+<span class="n">cut_out_ms</span> <span class="o">=</span> <span class="mf">25.0</span>
+
+<span class="n">speed</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s2">"wind_100m_ms"</span><span class="p">]</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"wind_cf"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="n">rising</span> <span class="o">=</span> <span class="p">(</span><span class="n">speed</span> <span class="o">&gt;=</span> <span class="n">cut_in_ms</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">speed</span> <span class="o">&lt;</span> <span class="n">rated_ms</span><span class="p">)</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rising</span><span class="p">,</span> <span class="s2">"wind_cf"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">speed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rising</span><span class="p">]</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">cut_in_ms</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="o">/</span> <span class="p">(</span><span class="n">rated_ms</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">cut_in_ms</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">rated</span> <span class="o">=</span> <span class="p">(</span><span class="n">speed</span> <span class="o">&gt;=</span> <span class="n">rated_ms</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">speed</span> <span class="o">&lt;</span> <span class="n">cut_out_ms</span><span class="p">)</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rated</span><span class="p">,</span> <span class="s2">"wind_cf"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">wind_cf</span></code> represents estimated output divided by nominal power at
+each timestep.</p>
+<p>The calculation excludes wakes, air-density effects, electrical losses,
+availability, curtailment, and variability within each hour.</p>
+<p>For detailed applications, use a specified turbine power curve and
+consider <a class="reference external" href="https://windpowerlib.readthedocs.io/">windpowerlib</a>.</p>
+</section>
+<section id="estimate-normalised-solar-pv-generation">
+<h2>Estimate normalised solar PV generation<a class="headerlink" href="#estimate-normalised-solar-pv-generation" title="Link to this heading">#</a></h2>
+<p>We use irradiance on the tilted panel surface rather than assuming
+horizontal irradiance equals panel irradiance.</p>
+<p>Assume a reference irradiance of 1,000 W/m² and a fixed overall
+performance factor of 0.85:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">performance_factor</span> <span class="o">=</span> <span class="mf">0.85</span>
+<span class="n">reference_irradiance_wm2</span> <span class="o">=</span> <span class="mf">1000.0</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"solar_cf"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"poa_wm2"</span><span class="p">]</span>
+    <span class="o">/</span> <span class="n">reference_irradiance_wm2</span>
+    <span class="o">*</span> <span class="n">performance_factor</span>
+<span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The factor represents an assumed reduction from idealised output.
+It does not explicitly calculate temperature effects, shading,
+module behaviour, or individual losses.</p>
+<p>Nominal solar capacity here refers to the module rating in kWp.
+Inverter AC capacity is not represented separately, so this indicator
+should not be interpreted as an AC-rated capacity factor.</p>
+<p>For detailed PV modelling, see
+<a class="reference external" href="https://pvlib-python.readthedocs.io/">pvlib</a>.</p>
+</section>
+<section id="apply-a-custom-function">
+<h2>Apply a custom function<a class="headerlink" href="#apply-a-custom-function" title="Link to this heading">#</a></h2>
+<p>Some tasks are easier to express through a function.</p>
+<p>For example, assign a label to each wind observation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classify_wind_operation</span><span class="p">(</span><span class="n">speed_ms</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">speed_ms</span> <span class="o">&lt;</span> <span class="n">cut_in_ms</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"Below cut-in"</span>
+    <span class="k">elif</span> <span class="n">speed_ms</span> <span class="o">&lt;</span> <span class="n">rated_ms</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"Partial output"</span>
+    <span class="k">elif</span> <span class="n">speed_ms</span> <span class="o">&lt;</span> <span class="n">cut_out_ms</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"Rated output"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"Above cut-out"</span>
+
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"wind_operating_region"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"wind_100m_ms"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">classify_wind_operation</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Count the resulting categories:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="p">[</span><span class="s2">"wind_operating_region"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Series.apply()</span></code> calls the function on individual values.
+For straightforward arithmetic, prefer vectorised expressions:
+they are usually clearer and often faster.</p>
+</section>
+<section id="calculate-generation-and-capacity-factors">
+<h2>Calculate generation and capacity factors<a class="headerlink" href="#calculate-generation-and-capacity-factors" title="Link to this heading">#</a></h2>
+<p>Assume a hypothetical 3 MW wind installation and 1 MWp of solar modules:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wind_capacity_mw</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="n">solar_capacity_mwp</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"wind_power_mw"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"wind_cf"</span><span class="p">]</span> <span class="o">*</span> <span class="n">wind_capacity_mw</span>
+<span class="p">)</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"solar_power_mw"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"solar_cf"</span><span class="p">]</span> <span class="o">*</span> <span class="n">solar_capacity_mwp</span>
+<span class="p">)</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"wind_energy_mwh"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"wind_power_mw"</span><span class="p">]</span> <span class="o">*</span> <span class="n">interval_hours</span>
+<span class="p">)</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s2">"solar_energy_mwh"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"solar_power_mw"</span><span class="p">]</span> <span class="o">*</span> <span class="n">interval_hours</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<section id="what-does-capacity-factor-mean">
+<h3>What does capacity factor mean?<a class="headerlink" href="#what-does-capacity-factor-mean" title="Link to this heading">#</a></h3>
+<p>A generator does not necessarily operate at its nominal power throughout the year. Wind and solar output varies with weather conditions, and generation may also be reduced by maintenance, outages, or curtailment.</p>
+<p>The <strong>capacity factor</strong> describes how much electricity a generator produces over a period compared with what it would produce if it operated at its nominal power continuously throughout that same period.</p>
+<p>For a year represented by hourly intervals:</p>
+<div class="math notranslate nohighlight">
+\[
+CF = \frac{\sum_{t=1}^{8760} P(t)\,\Delta t} 
+{P_{\mathrm{nom}}\sum_{t=1}^{8760}\Delta t}
+\]</div>
+<p>Here, we assume a year containing <strong>8,760 hours</strong>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(t\)</span></p></td>
+<td><p>Index identifying each hourly interval, from 1 to 8,760</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(P(t)\)</span></p></td>
+<td><p>Average electrical power generated during hour <span class="math notranslate nohighlight">\(t\)</span></p></td>
+<td><p>MW</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\Delta t\)</span></p></td>
+<td><p>Duration of each interval: 1 hour in this example</p></td>
+<td><p>h</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(P_{\mathrm{nom}}\)</span></p></td>
+<td><p>Nominal or rated power of the installation, assumed constant</p></td>
+<td><p>MW</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\sum_{t=1}^{8760}\)</span></p></td>
+<td><p>Add the contribution from every hourly interval in the year</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It is dimensionless and is often expressed as a percentage.
+It is not a conversion efficiency.</p>
+<p>With complete, equally spaced hourly observations and constant nominal
+capacity, it equals the mean normalised output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">annual_cf</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[[</span><span class="s2">"wind_cf"</span><span class="p">,</span> <span class="s2">"solar_cf"</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Estimated annual capacity factors (%)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">annual_cf</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Verify the wind result from energy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total_hours</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span> <span class="o">*</span> <span class="n">interval_hours</span>
+
+<span class="n">wind_cf_from_energy</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s2">"wind_energy_mwh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="o">/</span> <span class="p">(</span><span class="n">wind_capacity_mw</span> <span class="o">*</span> <span class="n">total_hours</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">wind_cf_from_energy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results depend on the weather year and technology assumptions.
+They are not observed capacity factors for Groningen’s existing fleet.</p>
+</section>
+</section>
+<section id="resample-time-series">
+<h2>Resample time series<a class="headerlink" href="#resample-time-series" title="Link to this heading">#</a></h2>
+<p>Resampling groups observations into time periods.</p>
+<p>Calculate monthly capacity factors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cf</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[[</span><span class="s2">"wind_cf"</span><span class="p">,</span> <span class="s2">"solar_cf"</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MS</span></code> labels each monthly group at the start of the month.</p>
+<p>Calculate monthly energy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_energy</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[[</span><span class="s2">"wind_energy_mwh"</span><span class="p">,</span> <span class="s2">"solar_energy_mwh"</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Use means for normalised output and sums for interval energy.</p>
+<p><code class="docutils literal notranslate"><span class="pre">min_count=1</span></code> prevents a completely missing group from being reported
+as zero. It does not verify that a partly populated month is complete.</p>
+<p>Weekly means can be calculated similarly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weekly_cf</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[[</span><span class="s2">"wind_cf"</span><span class="p">,</span> <span class="s2">"solar_cf"</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"W"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The first and last weekly groups may contain partial weeks.</p>
+<p>Calculate annual capacity factors directly from the hourly data.
+An unweighted average of monthly capacity factors gives equal weight
+to months with different durations.</p>
+</section>
+<section id="group-observations-by-season-and-hour">
+<h2>Group observations by season and hour<a class="headerlink" href="#group-observations-by-season-and-hour" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">groupby()</span></code> collects observations sharing a label and applies a
+calculation to each group.</p>
+<p>For local clock-hour patterns, convert the time index:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">local_weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">"Europe/Amsterdam"</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This conversion handles daylight-saving changes. Some local clock
+hours are skipped or repeated during the year.</p>
+<p>Assign a season to each month:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">season_for_month</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">12</span><span class="p">:</span> <span class="s2">"Winter"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">"Winter"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"Winter"</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">"Spring"</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">"Spring"</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s2">"Spring"</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="s2">"Summer"</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="s2">"Summer"</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="s2">"Summer"</span><span class="p">,</span>
+    <span class="mi">9</span><span class="p">:</span> <span class="s2">"Autumn"</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span> <span class="s2">"Autumn"</span><span class="p">,</span> <span class="mi">11</span><span class="p">:</span> <span class="s2">"Autumn"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">local_weather</span><span class="p">[</span><span class="s2">"season"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">local_weather</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">season_for_month</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">local_weather</span><span class="p">[</span><span class="s2">"hour"</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_weather</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span>
+</pre></div>
+</div>
+<p>Calculate mean solar output by season and local clock hour:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_solar</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">local_weather</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"season"</span><span class="p">,</span> <span class="s2">"hour"</span><span class="p">])[</span><span class="s2">"solar_cf"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">grouped_solar</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The result has a <strong>MultiIndex</strong>, with levels for season and hour.</p>
+<p>These seasons group observations within the downloaded period.
+They do not represent complete meteorological seasons spanning two years.</p>
+</section>
+<section id="reshape-grouped-results">
+<h2>Reshape grouped results<a class="headerlink" href="#reshape-grouped-results" title="Link to this heading">#</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">unstack()</span></code> to move an index level into columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">seasonal_daily_solar</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">grouped_solar</span>
+    <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s2">"season"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Winter"</span><span class="p">,</span> <span class="s2">"Spring"</span><span class="p">,</span> <span class="s2">"Summer"</span><span class="p">,</span> <span class="s2">"Autumn"</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="n">seasonal_daily_solar</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting table has one row per clock hour and one column per season.
+This layout is convenient for comparing seasonal profiles.</p>
+</section>
+<section id="combine-tables">
+<h2>Combine tables<a class="headerlink" href="#combine-tables" title="Link to this heading">#</a></h2>
+<section id="combine-results-by-their-time-index">
+<h3>Combine results by their time index<a class="headerlink" href="#combine-results-by-their-time-index" title="Link to this heading">#</a></h3>
+<p>Calculate monthly irradiation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_irradiation</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">weather</span><span class="p">[[</span><span class="s2">"ghi_kwh_m2"</span><span class="p">,</span> <span class="s2">"poa_kwh_m2"</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Combine the monthly indicators:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">monthly_cf</span><span class="p">,</span> <span class="n">monthly_energy</span><span class="p">,</span> <span class="n">monthly_irradiation</span><span class="p">],</span>
+    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">monthly_summary</span>
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">axis=1</span></code>, <code class="docutils literal notranslate"><span class="pre">concat()</span></code> places columns side by side and aligns their
+index labels.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">axis=0</span></code>, it stacks rows. When stacking time series, check for
+overlapping timestamps.</p>
+</section>
+<section id="merge-metadata-using-a-shared-identifier">
+<h3>Merge metadata using a shared identifier<a class="headerlink" href="#merge-metadata-using-a-shared-identifier" title="Link to this heading">#</a></h3>
+<p>Create another table for our hypothetical installations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">site_details</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"site"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Library"</span><span class="p">,</span> <span class="s2">"Sports centre"</span><span class="p">,</span> <span class="s2">"School"</span><span class="p">],</span>
+        <span class="s2">"roof_type"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Flat"</span><span class="p">,</span> <span class="s2">"Flat"</span><span class="p">,</span> <span class="s2">"Pitched"</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Merge it with the installation table:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">installation_details</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">installations</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">site_details</span><span class="p">,</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">"site"</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+        <span class="n">validate</span><span class="o">=</span><span class="s2">"one_to_one"</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">installation_details</span>
+</pre></div>
+</div>
+<p>The left merge retains all installations from the left-hand table.</p>
+<p><code class="docutils literal notranslate"><span class="pre">validate=&quot;one_to_one&quot;</span></code> checks that each site occurs at most once in
+each input, helping prevent unintended row duplication.</p>
+</section>
+</section>
+<section id="visualise-the-results">
+<h2>Visualise the results<a class="headerlink" href="#visualise-the-results" title="Link to this heading">#</a></h2>
+<section id="monthly-capacity-factors">
+<h3>Monthly capacity factors<a class="headerlink" href="#monthly-capacity-factors" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">monthly_cf</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"wind_cf"</span><span class="p">:</span> <span class="s2">"Wind"</span><span class="p">,</span>
+        <span class="s2">"solar_cf"</span><span class="p">:</span> <span class="s2">"Solar PV"</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Estimated monthly capacity factors — Groningen, 2025"</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Month (UTC)"</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Capacity factor (%)"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="seasonal-solar-profiles">
+<h3>Seasonal solar profiles<a class="headerlink" href="#seasonal-solar-profiles" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">seasonal_daily_solar</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Average solar profile by season"</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Local clock hour"</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Normalised solar output"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>These figures illustrate the modelled profiles. They do not validate
+the generation estimates against measured electricity production.</p>
+</section>
+</section>
+<section id="save-and-reload-results">
+<h2>Save and reload results<a class="headerlink" href="#save-and-reload-results" title="Link to this heading">#</a></h2>
+<p>Export the hourly analysis:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hourly_file</span> <span class="o">=</span> <span class="n">data_directory</span> <span class="o">/</span> <span class="s2">"groningen_2025_analysis.csv"</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">hourly_file</span><span class="p">,</span>
+    <span class="n">index_label</span><span class="o">=</span><span class="s2">"timestamp"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Export the monthly summary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_summary</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">data_directory</span> <span class="o">/</span> <span class="s2">"groningen_2025_monthly_summary.csv"</span><span class="p">,</span>
+    <span class="n">index_label</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Reload the hourly CSV:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loaded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">hourly_file</span><span class="p">)</span>
+
+<span class="n">loaded</span><span class="p">[</span><span class="s2">"timestamp"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+    <span class="n">loaded</span><span class="p">[</span><span class="s2">"timestamp"</span><span class="p">],</span>
+    <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">loaded</span> <span class="o">=</span> <span class="n">loaded</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"timestamp"</span><span class="p">)</span>
+
+<span class="n">loaded</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>CSV files do not preserve all pandas metadata and data types.
+Check the index, types, and missing values after loading.</p>
+</section>
+<section id="optional-practice-exercises">
+<h2>Optional practice exercises<a class="headerlink" href="#optional-practice-exercises" title="Link to this heading">#</a></h2>
+<section id="inspect-and-select-weather-observations">
+<h3>Inspect and select weather observations<a class="headerlink" href="#inspect-and-select-weather-observations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Report the number of records and the units returned by the API.</p></li>
+<li><p>Select the first 48 records using <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>.</p></li>
+<li><p>Select July using <code class="docutils literal notranslate"><span class="pre">.loc</span></code>.</p></li>
+<li><p>Identify the ten highest wind-speed records.</p></li>
+</ul>
+</section>
+<section id="investigate-missing-values">
+<h3>Investigate missing values<a class="headerlink" href="#investigate-missing-values" title="Link to this heading">#</a></h3>
+<p>Make a copy of the wind-speed Series and replace one value with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>.</p>
+<ul class="simple">
+<li><p>Count the missing values.</p></li>
+<li><p>Compare the original and incomplete Series means.</p></li>
+<li><p>Try forward filling the missing entry.</p></li>
+<li><p>Explain how filling could affect estimated generation.</p></li>
+</ul>
+<p>Keep the original weather table unchanged.</p>
+</section>
+<section id="compare-irradiation-indicators">
+<h3>Compare irradiation indicators<a class="headerlink" href="#compare-irradiation-indicators" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Calculate monthly horizontal irradiation in kWh/m².</p></li>
+<li><p>Identify the month with the largest total.</p></li>
+<li><p>Compare it with the month having the largest mean irradiance.</p></li>
+<li><p>Explain why totals and means answer different questions.</p></li>
+</ul>
+</section>
+<section id="explore-turbine-assumptions">
+<h3>Explore turbine assumptions<a class="headerlink" href="#explore-turbine-assumptions" title="Link to this heading">#</a></h3>
+<p>Repeat the wind calculation using a rated speed of 10 m/s.</p>
+<ul class="simple">
+<li><p>Preserve the original estimate.</p></li>
+<li><p>Compare annual and monthly capacity factors.</p></li>
+<li><p>Explain why weather alone does not determine capacity factor.</p></li>
+</ul>
+</section>
+<section id="explore-solar-assumptions">
+<h3>Explore solar assumptions<a class="headerlink" href="#explore-solar-assumptions" title="Link to this heading">#</a></h3>
+<p>Calculate solar profiles using performance factors of 0.80, 0.85, and 0.90.</p>
+<p>Compare annual capacity factors while keeping the panel tilt and
+orientation unchanged.</p>
+</section>
+<section id="group-and-reshape">
+<h3>Group and reshape<a class="headerlink" href="#group-and-reshape" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Group wind capacity factors by season and local clock hour.</p></li>
+<li><p>Reshape the result into one column per season.</p></li>
+<li><p>Plot the resulting profiles.</p></li>
+<li><p>Explain which observations contribute to each plotted mean.</p></li>
+</ul>
+</section>
+<section id="combine-installation-data">
+<h3>Combine installation data<a class="headerlink" href="#combine-installation-data" title="Link to this heading">#</a></h3>
+<p>Create a metadata table containing capacities for hypothetical wind
+and solar installations.</p>
+<p>Combine it with their estimated normalised annual yields to calculate
+annual generation. Check that the merge does not duplicate installations.</p>
+</section>
+<section id="compare-weather-years">
+<h3>Compare weather years<a class="headerlink" href="#compare-weather-years" title="Link to this heading">#</a></h3>
+<p>Repeat the download for another complete year using a different cache file.</p>
+<ul class="simple">
+<li><p>Construct the appropriate expected hourly index.</p></li>
+<li><p>Apply identical technology assumptions.</p></li>
+<li><p>Compare annual capacity factors.</p></li>
+<li><p>Explain why a single weather year cannot describe long-term conditions.</p></li>
+</ul>
+</section>
+<section id="prepare-a-short-report">
+<h3>Prepare a short report<a class="headerlink" href="#prepare-a-short-report" title="Link to this heading">#</a></h3>
+<p>Export a monthly results table and two figures. State:</p>
+<ul class="simple">
+<li><p>Weather source, model, location, and year.</p></li>
+<li><p>Wind-speed units and height.</p></li>
+<li><p>Solar tilt and orientation.</p></li>
+<li><p>Generation-model assumptions.</p></li>
+<li><p>Treatment of missing data.</p></li>
+<li><p>Estimated capacity factors and their limitations.</p></li>
+</ul>
+<p>Restart the kernel and run all cells before sharing your notebook.</p>
+</section>
+</section>
+<section id="further-learning">
+<h2>Further learning<a class="headerlink" href="#further-learning" title="Link to this heading">#</a></h2>
+<section id="pandas-documentation">
+<h3>pandas documentation<a class="headerlink" href="#pandas-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html">Introductory tutorials</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html">User guide</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/index.html">API reference</a></p></li>
+</ul>
+</section>
+<section id="weather-data-documentation">
+<h3>Weather data documentation<a class="headerlink" href="#weather-data-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo historical API</a></p></li>
+<li><p><a class="reference external" href="https://open-meteo.com/en/terms">Open-Meteo terms and attribution</a></p></li>
+</ul>
+<p>Acknowledge Open-Meteo and the underlying ERA5 source when sharing
+downloaded data or results, following the applicable requirements.</p>
+</section>
+<section id="detailed-generation-modelling">
+<h3>Detailed generation modelling<a class="headerlink" href="#detailed-generation-modelling" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://windpowerlib.readthedocs.io/">windpowerlib</a></p></li>
+<li><p><a class="reference external" href="https://pvlib-python.readthedocs.io/">pvlib</a></p></li>
+</ul>
+<p>These libraries provide more detailed technology representations than
+the introductory models used in this lesson.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./managing-data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numpy-matplotlib.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Numerical Analysis and Plotting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../pypsa-tutorial/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPSA Tutorial</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-starting">Before starting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#series-values-with-labels">Series: values with labels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-alignment">Label alignment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframes-labelled-tables">DataFrames: labelled tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-weather-data-for-groningen">Download weather data for Groningen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-variables-and-units">Weather variables and units</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-request">Build the request</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-preserve-the-response">Download and preserve the response</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-the-response-into-a-dataframe">Convert the response into a DataFrame</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-time-index">Create a time index</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-data-before-calculating">Inspect data before calculating</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-data-types">Check data types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-timestamps-and-completeness">Check timestamps and completeness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-interval-timing">Understand interval timing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-missing-data-deliberately">Handle missing data deliberately</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-filling">Forward filling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-sort-and-filter-observations">Select, sort, and filter observations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-filtering-conditions">Combine filtering conditions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorised-operations-with-columns">Vectorised operations with columns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irradiance-and-irradiation">Irradiance and irradiation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-normalised-wind-generation">Estimate normalised wind generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimate-normalised-solar-pv-generation">Estimate normalised solar PV generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-a-custom-function">Apply a custom function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-generation-and-capacity-factors">Calculate generation and capacity factors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-capacity-factor-mean">What does capacity factor mean?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resample-time-series">Resample time series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-observations-by-season-and-hour">Group observations by season and hour</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reshape-grouped-results">Reshape grouped results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-tables">Combine tables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-results-by-their-time-index">Combine results by their time index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-metadata-using-a-shared-identifier">Merge metadata using a shared identifier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualise-the-results">Visualise the results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monthly-capacity-factors">Monthly capacity factors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonal-solar-profiles">Seasonal solar profiles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-and-reload-results">Save and reload results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice-exercises">Optional practice exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-and-select-weather-observations">Inspect and select weather observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#investigate-missing-values">Investigate missing values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-irradiation-indicators">Compare irradiation indicators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-turbine-assumptions">Explore turbine assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-solar-assumptions">Explore solar assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-and-reshape">Group and reshape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-installation-data">Combine installation data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-weather-years">Compare weather years</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-a-short-report">Prepare a short report</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-learning">Further learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-documentation">pandas documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-data-documentation">Weather data documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-generation-modelling">Detailed generation modelling</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alejandro Zabala Figueroa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
