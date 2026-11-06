@@ -6,3 +6,10 @@ __pycache__/
 .venv/
 Thumbs.db
 .DS_Store
+
+# Jupyter notebooks and checkpoints
+*.ipynb
+.ipynb_checkpoints/
+
+# Temporary book build
+_build/

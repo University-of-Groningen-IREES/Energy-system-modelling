@@ -1,0 +1,1253 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NumPy: Numerical Arrays and Matrixes &#8212; Energy System Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'managing-data/numpy';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pandas: Managing Tables and Time Series" href="pandas.html" />
+    <link rel="prev" title="Python Fundamentals" href="../getting-started/python.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Energy System Modelling</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/miniforge.html">Getting Ready: Miniforge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/basics.html">Jupyter Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/python.html">Python Fundamentals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic libraries for managing data: Numpy, Pandas, Matplotlib, Geopandas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">NumPy: Numerical Arrays and Matrixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">pandas: Managing Tables and Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matplotlib.html">Matplotlib: Communicating Energy Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geopandas.html">GeoPandas: Connecting Energy Data to Locations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/intro.html">PyPSA Tutorial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/managing-data/numpy.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>NumPy: Numerical Arrays and Matrixes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-numpy">Import NumPy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-example-dataset">Our example dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-numpy-arrays">Understand NumPy arrays</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shape-dimensions-size-and-type">Shape, dimensions, size, and type</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-arrays">Create arrays</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducible-random-values">Reproducible random values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-values-with-indexing-and-slicing">Select values with indexing and slicing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#views-and-copies">Views and copies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorised-operations">Vectorised operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-vectorised-operations">Why use vectorised operations?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operations-between-arrays">Operations between arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-can-also-be-vectorised">Functions can also be vectorised</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-arrays-behave-differently-from-lists">NumPy arrays behave differently from lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-power-to-energy">Convert power to energy</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-examples-below-apply-vectorised-operations-to-our-two-dimensional-building-demand-dataset">The examples below apply vectorised operations to our two-dimensional building-demand dataset.</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-a-demand-reduction-scenario">Compare a demand-reduction scenario</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-wise-and-matrix-multiplication">Element-wise and matrix multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#element-wise-multiplication">Element-wise multiplication: <code class="docutils literal notranslate"><span class="pre">*</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix multiplication: <code class="docutils literal notranslate"><span class="pre">@</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-data-along-an-axis">Summarise data along an axis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#total-demand-during-each-interval">Total demand during each interval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-consumed-by-each-building">Energy consumed by each building</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-summaries">Other summaries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting-match-calculations-to-dimensions">Broadcasting: match calculations to dimensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-one-factor-per-building">Apply one factor per building</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-compatibility">Check compatibility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-values-with-boolean-masks">Filter values with Boolean masks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-measurements">Missing measurements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consumption-and-cost">Consumption and cost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#peak-demand-and-filtering">Peak demand and filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-comparison">Scenario comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data">Missing data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="numpy-numerical-arrays-and-matrixes">
+<h1>NumPy: Numerical Arrays and Matrixes<a class="headerlink" href="#numpy-numerical-arrays-and-matrixes" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://numpy.org/"><img alt="NumPy logo" src="https://numpy.org/images/logo.svg" /></a></p>
+<p><a class="reference external" href="https://numpy.org/">NumPy</a> provides multidimensional arrays and tools for numerical calculations. In energy analysis, we use it to process demand profiles, calculate energy, and compare scenarios.</p>
+<p>Official starting points: <a class="reference external" href="https://numpy.org/doc/stable/user/absolute_beginners.html">beginner guide</a> and <a class="reference external" href="https://numpy.org/doc/stable/reference/">reference</a>.</p>
+<section id="your-task">
+<h2>Your task<a class="headerlink" href="#your-task" title="Link to this heading">#</a></h2>
+<p>Create <code class="docutils literal notranslate"><span class="pre">03-numpy.ipynb</span></code>. Analyse the fictional demand of three buildings, calculate consumption and costs, and evaluate a demand-reduction scenario. Run the examples in order and explain the units of each result in Markdown cells.</p>
+<p>Complete <a class="reference internal" href="../getting-started/python.html"><span class="std std-doc">Python Fundamentals</span></a> first, and select <strong>Python (managing-data)</strong> as your kernel to run the lines of code in your notebook.</p>
+</section>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<p>By the end, you should be able to:</p>
+<ul class="simple">
+<li><p>Describe array shape, axes, size, and data type.</p></li>
+<li><p>Select values without unintentionally changing the original data.</p></li>
+<li><p>Explain and use vectorised calculations.</p></li>
+<li><p>Aggregate demand and energy along the correct axis.</p></li>
+<li><p>Apply broadcasting and Boolean masks.</p></li>
+<li><p>Identify missing values and explain their effect on results.</p></li>
+</ul>
+</section>
+<section id="import-numpy">
+<h2>Import NumPy<a class="headerlink" href="#import-numpy" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">np</span></code> is a conventional alias. Import it whenever you start a new kernel session. This lesson needs no plotting library.</p>
+</section>
+<section id="our-example-dataset">
+<h2>Our example dataset<a class="headerlink" href="#our-example-dataset" title="Link to this heading">#</a></h2>
+<p>Suppose we have the average electricity demand of three buildings during four consecutive one-hour intervals. Each row represents a building. Each column represents an interval.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Building</p></th>
+<th class="head text-right"><p>Interval 1</p></th>
+<th class="head text-right"><p>Interval 2</p></th>
+<th class="head text-right"><p>Interval 3</p></th>
+<th class="head text-right"><p>Interval 4</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>6</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All values are average power in <strong>kW</strong>. These are invented measurements</p>
+<p>for learning purposes.</p>
+<p>Create the dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">]</span>
+<span class="n">demand_kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">interval_hours</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">interval_number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="JupyterLab interface showing the array &quot;demand_kw" src="../_images/array.jpg" /></p>
+</section>
+<section id="understand-numpy-arrays">
+<h2>Understand NumPy arrays<a class="headerlink" href="#understand-numpy-arrays" title="Link to this heading">#</a></h2>
+<p>A NumPy array is a collection of values organised along one or more dimensions.</p>
+<ul class="simple">
+<li><p>A one-dimensional array can represent one building’s demand over time.</p></li>
+<li><p>A two-dimensional array can represent several buildings over time.</p></li>
+<li><p>Additional dimensions can represent scenarios, years, or other categories.</p></li>
+</ul>
+<p>Python lists can also contain nested lists. NumPy adds explicit shape information and operations designed for numerical arrays.</p>
+<section id="shape-dimensions-size-and-type">
+<h3>Shape, dimensions, size, and type<a class="headerlink" href="#shape-dimensions-size-and-type" title="Link to this heading">#</a></h3>
+<p>Inspect the dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Shape:"</span><span class="p">,</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Dimensions:"</span><span class="p">,</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Number of values:"</span><span class="p">,</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Data type:"</span><span class="p">,</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="JupyterLab interface showing the array characteristics" src="../_images/array_characteristics.jpg" /></p>
+<p>The shape is <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code>: three rows and four columns.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>What it tells us</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.shape</span></code></p></td>
+<td><p>Length of each dimension</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.ndim</span></code></p></td>
+<td><p>Number of dimensions</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.size</span></code></p></td>
+<td><p>Total number of elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.dtype</span></code></p></td>
+<td><p>Data type used to store the elements</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An ordinary numerical array uses one data type for all its elements.</p>
+<p>Choosing an appropriate type matters: integer arrays cannot preserve fractional values when those values are assigned to them.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">integer_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">integer_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.8</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">integer_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first value becomes <code class="docutils literal notranslate"><span class="pre">1</span></code>, not <code class="docutils literal notranslate"><span class="pre">1.8</span></code>. This happened because you defined “integer_values” as an array using only integer data.</p>
+<p>For measurements that may contain decimals, use a floating-point array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">decimal_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">decimal_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.8</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">decimal_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Converting text to numbers also requires checking that the text contains</p>
+<p>valid numerical values. Changing a data type does not automatically</p>
+<p>correct invalid or inconsistent data.</p>
+</section>
+</section>
+<section id="create-arrays">
+<h2>Create arrays<a class="headerlink" href="#create-arrays" title="Link to this heading">#</a></h2>
+<p>Several functions help construct arrays without entering every value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Four zeros</span>
+<span class="n">empty_profile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"An empty demand profile with four values:</span><span class="se">\n</span><span class="si">{</span><span class="n">empty_profile</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># A three-row, four-column array of ones</span>
+<span class="n">scaling_template</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"A scaling template with three rows and four columns:</span><span class="se">\n</span><span class="si">{</span><span class="n">scaling_template</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Four entries containing the same electricity price</span>
+<span class="n">constant_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Electricity prices for four intervals (EUR/kWh):</span><span class="se">\n</span><span class="si">{</span><span class="n">constant_price</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Interval numbers: the stopping value is excluded</span>
+<span class="n">intervals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Interval numbers from 1 up to, but excluding, 5:</span><span class="se">\n</span><span class="si">{</span><span class="n">intervals</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Five evenly spaced values, including both endpoints</span>
+<span class="n">capacity_options_kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Five capacity options between 0 and 10 kW:</span><span class="se">\n</span><span class="si">{</span><span class="n">capacity_options_kw</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">np.arange()</span></code> is convenient when you know the step size.</p>
+<p><code class="docutils literal notranslate"><span class="pre">np.linspace()</span></code> is convenient when you know the number of values.</p>
+<section id="reproducible-random-values">
+<h3>Reproducible random values<a class="headerlink" href="#reproducible-random-values" title="Link to this heading">#</a></h3>
+<p>Random numbers can help create practice datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">practice_values</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">practice_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The seed, <code class="docutils literal notranslate"><span class="pre">42</span></code>, makes the sequence reproducible when the generator is created again in the same software setup. These values are synthetic or randomly generated data.</p>
+</section>
+</section>
+<section id="select-values-with-indexing-and-slicing">
+<h2>Select values with indexing and slicing<a class="headerlink" href="#select-values-with-indexing-and-slicing" title="Link to this heading">#</a></h2>
+<p>For a two-dimensional array, use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Indices start at zero:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Building B, interval 3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The result is <code class="docutils literal notranslate"><span class="pre">6.0</span></code>.</p>
+<p>A colon selects all entries along a dimension:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># All intervals for building A</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+<span class="c1"># All buildings during interval 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Select a smaller block with slices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Buildings A and B, first two intervals</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The stopping index is excluded.</p>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="../_images/numpy_indexing.png"><img alt="Four arrays highlighting an element, a row, a column, and a slice." src="../_images/numpy_indexing.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">NumPy selects rows first and columns second. Indices start at zero,
+and the stopping index of a slice is excluded.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="views-and-copies">
+<h3>Views and copies<a class="headerlink" href="#views-and-copies" title="Link to this heading">#</a></h3>
+<p>Basic slicing usually creates a view into the original array. Changing the view can therefore change the original data. Use <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> when you need an independent selection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building_a_copy</span> <span class="o">=</span> <span class="n">demand_kw</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">building_a_copy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demand_kw</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The original value remains <code class="docutils literal notranslate"><span class="pre">2.0</span></code>. This distinction matters when preserving raw measurements.</p>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="../_images/numpy_views_copies.png"><img alt="Changing a slice changes the original array; changing a copy leaves the original unchanged." src="../_images/numpy_views_copies.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Basic slicing shares data with the original array. Calling <code class="docutils literal notranslate"><span class="pre">.copy()</span></code>
+creates independent data. Each example starts from the original array.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="vectorised-operations">
+<h2>Vectorised operations<a class="headerlink" href="#vectorised-operations" title="Link to this heading">#</a></h2>
+<p>A vectorised operation applies a calculation to an array without requiring you to write a Python loop for each element.</p>
+<p>For example, suppose we have average electricity demand for four one-hour intervals:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">power_kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>To calculate a scenario with 10% lower demand, we could process each</p>
+<p>value separately using a loop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">power_kw</span><span class="p">:</span>
+    <span class="n">reduced_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span> <span class="o">*</span> <span class="mf">0.90</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reduced_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With NumPy, we can express the same calculation directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_power_kw</span> <span class="o">=</span> <span class="n">power_kw</span> <span class="o">*</span> <span class="mf">0.90</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reduced_power_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1.8 2.7 4.5 3.6]
+</pre></div>
+</div>
+<p>NumPy multiplies each element by <code class="docutils literal notranslate"><span class="pre">0.90</span></code> and returns a new array.</p>
+<p>The original <code class="docutils literal notranslate"><span class="pre">power_kw</span></code> array remains unchanged.</p>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="../_images/numpy_vectorisation.png"><img alt="Each value in an array is multiplied by 0.90 to produce a new array." src="../_images/numpy_vectorisation.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">One vectorised expression multiplies every element by 0.90,
+producing a new array with 10% lower values.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="why-use-vectorised-operations">
+<h3>Why use vectorised operations?<a class="headerlink" href="#why-use-vectorised-operations" title="Link to this heading">#</a></h3>
+<p>Vectorisation makes numerical code more concise and often easier to read: the instruction expresses the calculation for the whole dataset. For numerical arrays, NumPy performs many operations using compiled implementations rather than repeatedly executing a loop in Python. This often improves performance, particularly for large datasets. However, performance still depends on the operation, data types, and memory required. Vectorisation does not mean that no iteration happens internally. It means that NumPy handles the element-by-element work for us.</p>
+</section>
+<section id="operations-between-arrays">
+<h3>Operations between arrays<a class="headerlink" href="#operations-between-arrays" title="Link to this heading">#</a></h3>
+<p>We can also calculate with corresponding elements of two arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">generation_kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+
+<span class="n">balance_kw</span> <span class="o">=</span> <span class="n">generation_kw</span> <span class="o">-</span> <span class="n">power_kw</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">balance_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[-1.  1. -2.  2.]
+</pre></div>
+</div>
+<p>Each position compares generation and demand for the same interval:</p>
+<ul class="simple">
+<li><p>A positive balance indicates a surplus.</p></li>
+<li><p>A negative balance indicates a deficit.</p></li>
+<li><p>Zero indicates that generation matches demand.</p></li>
+</ul>
+<p>The arrays must have compatible shapes. Their entries must also represent matching observations: NumPy matches positions, not timestamps or building identifiers.</p>
+</section>
+<section id="functions-can-also-be-vectorised">
+<h3>Functions can also be vectorised<a class="headerlink" href="#functions-can-also-be-vectorised" title="Link to this heading">#</a></h3>
+<p>Many NumPy functions operate element by element:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">absolute_balance_kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">balance_kw</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">absolute_balance_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns the magnitude of each imbalance:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1. 1. 2. 2.]
+</pre></div>
+</div>
+<p>We can also prevent negative values in a calculated series:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">surplus_kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">balance_kw</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">surplus_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[0. 1. 0. 2.]
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">np.maximum()</span></code> compares corresponding values and selects the larger one.</p>
+<p>Here, every negative balance is replaced with zero, leaving only surpluses.</p>
+</section>
+<section id="numpy-arrays-behave-differently-from-lists">
+<h3>NumPy arrays behave differently from lists<a class="headerlink" href="#numpy-arrays-behave-differently-from-lists" title="Link to this heading">#</a></h3>
+<p>The same operator can have different meanings depending on the data type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The list repeats its contents:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[2, 3, 2, 3]
+</pre></div>
+</div>
+<p>While the NumPy array multiplies its numerical values:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[4 6]
+</pre></div>
+</div>
+<p>This is another reason to check data types before applying calculations.</p>
+</section>
+<section id="convert-power-to-energy">
+<h3>Convert power to energy<a class="headerlink" href="#convert-power-to-energy" title="Link to this heading">#</a></h3>
+<section id="the-examples-below-apply-vectorised-operations-to-our-two-dimensional-building-demand-dataset">
+<h4>The examples below apply vectorised operations to our two-dimensional building-demand dataset.<a class="headerlink" href="#the-examples-below-apply-vectorised-operations-to-our-two-dimensional-building-demand-dataset" title="Link to this heading">#</a></h4>
+<p>Average power multiplied by interval duration gives energy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">demand_kw</span> <span class="o">*</span> <span class="n">interval_hours</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_kwh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Because each interval lasts one hour, the numerical values are unchanged.</p>
+<p>The units have changed from kW to kWh.</p>
+<p>In case of managing a dataset with 15-minute intervals, the duration would be <code class="docutils literal notranslate"><span class="pre">0.25</span></code> hours. Always check the time resolution before calculating energy.</p>
+</section>
+</section>
+<section id="compare-a-demand-reduction-scenario">
+<h3>Compare a demand-reduction scenario<a class="headerlink" href="#compare-a-demand-reduction-scenario" title="Link to this heading">#</a></h3>
+<p>Suppose every value is reduced by 10%:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_demand_kw</span> <span class="o">=</span> <span class="n">demand_kw</span> <span class="o">*</span> <span class="mf">0.90</span>
+
+<span class="n">savings_kw</span> <span class="o">=</span> <span class="n">demand_kw</span> <span class="o">-</span> <span class="n">reduced_demand_kw</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">savings_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The original array is unchanged because we assigned the calculation to a new variable.</p>
+</section>
+<section id="element-wise-and-matrix-multiplication">
+<h3>Element-wise and matrix multiplication<a class="headerlink" href="#element-wise-and-matrix-multiplication" title="Link to this heading">#</a></h3>
+<p>NumPy uses <code class="docutils literal notranslate"><span class="pre">*</span></code> to multiply corresponding values and <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> to multiply
+rows by columns and sum the products.</p>
+<p>Consider two small arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+</pre></div>
+</div>
+<section id="element-wise-multiplication">
+<h4>Element-wise multiplication: <code class="docutils literal notranslate"><span class="pre">*</span></code><a class="headerlink" href="#element-wise-multiplication" title="Link to this heading">#</a></h4>
+<p>Each value is multiplied by the value at the same position:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[[ 5 12]
+ [21 32]]
+</pre></div>
+</div>
+<p>For example, the top-left value is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">*</span> <span class="pre">5</span> <span class="pre">=</span> <span class="pre">5</span></code>.
+No products are added together.</p>
+</section>
+<section id="matrix-multiplication">
+<h4>Matrix multiplication: <code class="docutils literal notranslate"><span class="pre">&#64;</span></code><a class="headerlink" href="#matrix-multiplication" title="Link to this heading">#</a></h4>
+<p>Each row of <code class="docutils literal notranslate"><span class="pre">a</span></code> is combined with each column of <code class="docutils literal notranslate"><span class="pre">b</span></code>: multiply matching entries, then add their products.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[[19 22]
+ [43 50]]
+</pre></div>
+</div>
+<p>For example, the top-left value combines the first row <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2]</span></code>
+with the first column <code class="docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">7]</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1 * 5 + 2 * 7 = 19
+</pre></div>
+</div>
+<p>For matrix multiplication, the number of columns in the first array must match the number of rows in the second.</p>
+<p>Our power-to-energy and demand-reduction examples use <code class="docutils literal notranslate"><span class="pre">*</span></code>, because we want to scale each value individually.</p>
+</section>
+</section>
+</section>
+<section id="summarise-data-along-an-axis">
+<h2>Summarise data along an axis<a class="headerlink" href="#summarise-data-along-an-axis" title="Link to this heading">#</a></h2>
+<p>A reduction combines values using an operation such as a sum, mean, minimum, or maximum.</p>
+<p>For our array:</p>
+<ul class="simple">
+<li><p><strong>Axis 0 represents buildings.</strong></p></li>
+<li><p><strong>Axis 1 represents time intervals.</strong></p></li>
+</ul>
+<p>Reducing an axis combines values along that dimension.</p>
+<section id="total-demand-during-each-interval">
+<h3>Total demand during each interval<a class="headerlink" href="#total-demand-during-each-interval" title="Link to this heading">#</a></h3>
+<p>Sum over buildings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total_demand_kw</span> <span class="o">=</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">total_demand_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[ 7.  9. 13. 13.]
+</pre></div>
+</div>
+<p>The building dimension has been combined, leaving one value per interval.</p>
+<figure class="align-default" id="id4">
+<a class="reference internal image-reference" href="../_images/numpy_sum_axis0.png"><img alt="Arrows down each column show building demands being added for each interval." src="../_images/numpy_sum_axis0.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Using <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> combines the buildings, leaving one total demand per interval:
+7, 9, 13, and 13 kW.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="energy-consumed-by-each-building">
+<h3>Energy consumed by each building<a class="headerlink" href="#energy-consumed-by-each-building" title="Link to this heading">#</a></h3>
+<p>Sum energy over time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building_energy_kwh</span> <span class="o">=</span> <span class="n">energy_kwh</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">building_energy_kwh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[14. 20.  8.]
+</pre></div>
+</div>
+<figure class="align-default" id="id5">
+<a class="reference internal image-reference" href="../_images/numpy_sum_axis1.png"><img alt="Arrows across each row show interval energies being added for each building." src="../_images/numpy_sum_axis1.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Using <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> combines the time intervals, leaving one energy total per
+building: 14, 20, and 8 kWh. Each interval lasts one hour.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="other-summaries">
+<h3>Other summaries<a class="headerlink" href="#other-summaries" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Mean power per building:"</span><span class="p">,</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Peak power per building:"</span><span class="p">,</span> <span class="n">demand_kw</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Total energy:"</span><span class="p">,</span> <span class="n">energy_kwh</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Peak combined demand:"</span><span class="p">,</span> <span class="n">total_demand_kw</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Be careful when describing a peak. The maximum of the combined profile represents simultaneous demand. Adding individual building peaks can give a different result if those peaks occur at different times.</p>
+<figure class="align-default" id="id6">
+<a class="reference internal image-reference" href="../_images/numpy_simultaneous_peak.png"><img alt="Building profiles illustrate why adding individual peaks can exceed the simultaneous combined peak." src="../_images/numpy_simultaneous_peak.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Calculate simultaneous peak demand by summing the buildings at each
+interval and then finding the maximum. In our dataset, this gives
+13 kW, while adding the individual building peaks gives 14 kW.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="broadcasting-match-calculations-to-dimensions">
+<h2>Broadcasting: match calculations to dimensions<a class="headerlink" href="#broadcasting-match-calculations-to-dimensions" title="Link to this heading">#</a></h2>
+<p>Broadcasting allows certain differently shaped arrays to work together.</p>
+<p>Suppose electricity prices vary across our four intervals:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">price_eur_per_kwh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The energy array has shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code>. The price array has shape <code class="docutils literal notranslate"><span class="pre">(4,)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cost_eur</span> <span class="o">=</span> <span class="n">energy_kwh</span> <span class="o">*</span> <span class="n">price_eur_per_kwh</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cost_eur</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each column is multiplied by its corresponding interval price. The same price schedule applies to every building.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building_cost_eur</span> <span class="o">=</span> <span class="n">cost_eur</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">building_cost_eur</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="One price per interval applied across all buildings" src="../_images/numpy_broadcast_prices.png" /></p>
+<section id="apply-one-factor-per-building">
+<h3>Apply one factor per building<a class="headerlink" href="#apply-one-factor-per-building" title="Link to this heading">#</a></h3>
+<p>Now suppose each building has its own scenario factor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">building_factors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">1.10</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>We want one factor per row. Add a dimension so its shape becomes <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">1)</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scenario_demand_kw</span> <span class="o">=</span> <span class="n">demand_kw</span> <span class="o">*</span> <span class="n">building_factors</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scenario_demand_kw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each factor now applies across all four intervals of its building.</p>
+<p><img alt="One factor per building applied across all intervals" src="../_images/numpy_broadcast_buildings.png" /></p>
+</section>
+<section id="check-compatibility">
+<h3>Check compatibility<a class="headerlink" href="#check-compatibility" title="Link to this heading">#</a></h3>
+<p>Broadcasting compares dimensions from right to left.</p>
+<p>Dimensions are compatible when their lengths match or one has length one.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Shapes</p></th>
+<th class="head"><p>Compatible?</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code> and <code class="docutils literal notranslate"><span class="pre">(4,)</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>One value per interval</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code> and <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">1)</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>One value per building</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code> and <code class="docutils literal notranslate"><span class="pre">(3,)</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Last dimensions differ: 4 and 3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A compatible shape does not guarantee a meaningful calculation.</p>
+<p>You must also check what each axis and value represents.</p>
+<p><img alt="Broadcasting compatibility checked from right to left" src="../_images/numpy_broadcast_compatibility.png" /></p>
+<p>Read more in the <a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html">official broadcasting guide</a>.</p>
+</section>
+</section>
+<section id="filter-values-with-boolean-masks">
+<h2>Filter values with Boolean masks<a class="headerlink" href="#filter-values-with-boolean-masks" title="Link to this heading">#</a></h2>
+<p>A comparison applied to an array produces an array of Boolean values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">high_demand_mask</span> <span class="o">=</span> <span class="n">total_demand_kw</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">high_demand_mask</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the mask to select the matching values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">total_demand_kw</span><span class="p">[</span><span class="n">high_demand_mask</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">interval_number</span><span class="p">[</span><span class="n">high_demand_mask</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Count matching intervals:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">high_demand_mask</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Combine array conditions using <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, and <code class="docutils literal notranslate"><span class="pre">~</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_intervals</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">total_demand_kw</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">price_eur_per_kwh</span> <span class="o">&lt;</span> <span class="mf">0.35</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">interval_number</span><span class="p">[</span><span class="n">selected_intervals</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Use parentheses around each comparison. The scalar operators <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> do not perform these element-wise array comparisons.</p>
+<p><img alt="Boolean conditions select matching intervals" src="../_images/numpy_boolean_masks.png" /></p>
+<section id="missing-measurements">
+<h3>Missing measurements<a class="headerlink" href="#missing-measurements" title="Link to this heading">#</a></h3>
+<p>Numerical arrays often use <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> for a missing floating-point value:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">incomplete_measurements</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">incomplete_measurements</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">incomplete_measurements</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">incomplete_measurements</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mean()</span></code> propagates the missing value here. <code class="docutils literal notranslate"><span class="pre">nanmean()</span></code> calculates the mean using the available values.</p>
+<p><img alt="Comparison of mean, nanmean, and replacing missing data with zero" src="../_images/numpy_missing_measurements.png" /></p>
+<p>Ignoring missing values changes the data supporting your result.</p>
+<p>Record how missing observations were handled, and do not automatically replace them with zero.</p>
+</section>
+</section>
+<section id="optional-practice">
+<h2>Optional practice<a class="headerlink" href="#optional-practice" title="Link to this heading">#</a></h2>
+<section id="consumption-and-cost">
+<h3>Consumption and cost<a class="headerlink" href="#consumption-and-cost" title="Link to this heading">#</a></h3>
+<p>Create a second dataset with two buildings and six consecutive half-hour intervals. Use positive decimal values for average power in kW.</p>
+<ul class="simple">
+<li><p>Inspect its shape and data type.</p></li>
+<li><p>Calculate energy per interval and total energy per building.</p></li>
+<li><p>Create six prices in EUR/kWh and calculate cost per building.</p></li>
+<li><p>Explain why summing kW values alone does not calculate kWh.</p></li>
+</ul>
+</section>
+<section id="peak-demand-and-filtering">
+<h3>Peak demand and filtering<a class="headerlink" href="#peak-demand-and-filtering" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Calculate combined power for each interval.</p></li>
+<li><p>Choose a threshold and identify intervals above it.</p></li>
+<li><p>Calculate how many hours those intervals represent.</p></li>
+<li><p>Compare the peak combined demand with the sum of individual peaks.</p></li>
+</ul>
+</section>
+<section id="scenario-comparison">
+<h3>Scenario comparison<a class="headerlink" href="#scenario-comparison" title="Link to this heading">#</a></h3>
+<p>Reduce the first building’s demand by 15% and the second by 5%, using a factor array of shape <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">1)</span></code>.</p>
+<ul class="simple">
+<li><p>Preserve the original array.</p></li>
+<li><p>Calculate savings in kWh and EUR.</p></li>
+<li><p>Explain which assumptions determine the savings.</p></li>
+</ul>
+</section>
+<section id="missing-data">
+<h3>Missing data<a class="headerlink" href="#missing-data" title="Link to this heading">#</a></h3>
+<p>Insert <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> into a copy of your dataset. Compare <code class="docutils literal notranslate"><span class="pre">mean()</span></code> with <code class="docutils literal notranslate"><span class="pre">nanmean()</span></code>, and explain why treating missing consumption as zero can underestimate energy.</p>
+</section>
+</section>
+<section id="check-your-work">
+<h2>Check your work<a class="headerlink" href="#check-your-work" title="Link to this heading">#</a></h2>
+<p>For the example dataset, combined power should be <code class="docutils literal notranslate"><span class="pre">[7,</span> <span class="pre">9,</span> <span class="pre">13,</span> <span class="pre">13]</span></code> kW, and total energy by building should be <code class="docutils literal notranslate"><span class="pre">[14,</span> <span class="pre">20,</span> <span class="pre">8]</span></code> kWh. These are separate quantities even when a one-hour interval makes numerical values coincide.</p>
+<p>Restart the kernel and run all cells. Explain the meaning of each axis and verify that original measurements remain unchanged.</p>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/user/absolute_beginners.html">Array creation and selection</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html">Broadcasting</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/user/basics.copies.html">Copies and views</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./managing-data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../getting-started/python.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python Fundamentals</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pandas.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pandas: Managing Tables and Time Series</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-numpy">Import NumPy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-example-dataset">Our example dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-numpy-arrays">Understand NumPy arrays</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shape-dimensions-size-and-type">Shape, dimensions, size, and type</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-arrays">Create arrays</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducible-random-values">Reproducible random values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-values-with-indexing-and-slicing">Select values with indexing and slicing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#views-and-copies">Views and copies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorised-operations">Vectorised operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-vectorised-operations">Why use vectorised operations?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operations-between-arrays">Operations between arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-can-also-be-vectorised">Functions can also be vectorised</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-arrays-behave-differently-from-lists">NumPy arrays behave differently from lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-power-to-energy">Convert power to energy</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-examples-below-apply-vectorised-operations-to-our-two-dimensional-building-demand-dataset">The examples below apply vectorised operations to our two-dimensional building-demand dataset.</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-a-demand-reduction-scenario">Compare a demand-reduction scenario</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-wise-and-matrix-multiplication">Element-wise and matrix multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#element-wise-multiplication">Element-wise multiplication: <code class="docutils literal notranslate"><span class="pre">*</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix multiplication: <code class="docutils literal notranslate"><span class="pre">@</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-data-along-an-axis">Summarise data along an axis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#total-demand-during-each-interval">Total demand during each interval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-consumed-by-each-building">Energy consumed by each building</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-summaries">Other summaries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting-match-calculations-to-dimensions">Broadcasting: match calculations to dimensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-one-factor-per-building">Apply one factor per building</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-compatibility">Check compatibility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-values-with-boolean-masks">Filter values with Boolean masks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-measurements">Missing measurements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consumption-and-cost">Consumption and cost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#peak-demand-and-filtering">Peak demand and filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-comparison">Scenario comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data">Missing data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alejandro Zabala Figueroa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

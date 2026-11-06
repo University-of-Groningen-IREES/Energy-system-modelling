@@ -197,8 +197,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt=""/>
-    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
     <p class="title logo__title">Energy System Modelling</p>
@@ -219,11 +219,12 @@
 <li class="toctree-l1"><a class="reference internal" href="basics.html">Jupyter Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python.html">Python Fundamentals</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Managing Data</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic libraries for managing data: Numpy, Pandas, Matplotlib, Geopandas</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../managing-data/intro.html">Python for Managing Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../managing-data/numpy-matplotlib.html">Numerical Analysis and Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../managing-data/pandas.html">pandas: From Weather Data to Energy Indicators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/numpy.html">NumPy: Numerical Arrays and Matrixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/pandas.html">pandas: Managing Tables and Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/matplotlib.html">Matplotlib: Communicating Energy Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/geopandas.html">GeoPandas: Connecting Energy Data to Locations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
 <ul class="nav bd-sidenav">
@@ -390,7 +391,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-course-environment">Create the course environment</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-environment">1. Create the environment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-the-environment">2. Activate the environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-jupyterlab">3. Launch JupyterLab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-notebook-kernel">3. Register the notebook kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-jupyterlab">4. Launch JupyterLab</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-cannot-install-software">If you cannot install software</a></li>
@@ -573,8 +575,25 @@ skip this step.</p>
 <p>Activate the environment whenever you open a new terminal to work
 on this course.</p>
 </section>
+<section id="register-the-notebook-kernel">
+<h3>3. Register the notebook kernel<a class="headerlink" href="#register-the-notebook-kernel" title="Link to this heading">#</a></h3>
+<p>Jupyter uses a <strong>kernel</strong> to execute notebook code. Selecting a kernel also determines which Python environment and installed packages your notebook can access.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">managing-data</span></code> active, install the Python kernel package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ipykernel
+</pre></div>
+</div>
+<p>Register it with a recognisable name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>managing-data<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">"Python (managing-data)"</span>
+</pre></div>
+</div>
+<p>You only need to register it once for this environment on your computer.</p>
+<p>When creating or opening a notebook in JupyterLab, select
+<strong>Python (managing-data)</strong> as the kernel.</p>
+<p>If you use Google Colab, its Python runtime is provided automatically;
+you can skip this local registration step.</p>
+</section>
 <section id="launch-jupyterlab">
-<h3>3. Launch JupyterLab<a class="headerlink" href="#launch-jupyterlab" title="Link to this heading">#</a></h3>
+<h3>4. Launch JupyterLab<a class="headerlink" href="#launch-jupyterlab" title="Link to this heading">#</a></h3>
 <p>Run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
 </pre></div>
@@ -687,7 +706,8 @@ which notebook platform to use.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-course-environment">Create the course environment</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-environment">1. Create the environment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-the-environment">2. Activate the environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-jupyterlab">3. Launch JupyterLab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-notebook-kernel">3. Register the notebook kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-jupyterlab">4. Launch JupyterLab</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-cannot-install-software">If you cannot install software</a></li>

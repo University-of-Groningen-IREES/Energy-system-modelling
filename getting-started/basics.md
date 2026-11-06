@@ -25,6 +25,9 @@ jupyter lab
 
 Keep the terminal open while you work.
 
+![JupyterLab interface showing the notebook launcher](images/jupyter_lab.jpg)
+
+
 If you are using Google Colab, open
 [Colab](https://colab.research.google.com/) and select **New notebook**.
 
@@ -67,6 +70,8 @@ The output appears below the cell:
 Hello, energy modellers!
 ```
 
+![JupyterLab interface showing the printed text: Hello, energy modellers](images/hello.jpg)
+
 **Shift + Enter** runs the selected cell and moves to the next one.
 **Ctrl + Enter** runs it while keeping the same cell selected.
 
@@ -81,6 +86,8 @@ Enter:
 
 In this notebook, I will calculate energy consumption using Python.
 ```
+
+![JupyterLab interface showing the markdown cell](images/markdown.jpg)
 
 Press **Shift + Enter** to display the formatted text.
 

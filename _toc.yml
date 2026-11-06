@@ -11,11 +11,12 @@ parts:
       - file: getting-started/basics
       - file: getting-started/python
 
-  - caption: Python for Managing Data
+  - caption: "Basic libraries for managing data: Numpy, Pandas, Matplotlib, Geopandas"
     chapters:
-      - file: managing-data/intro
-      - file: managing-data/numpy-matplotlib
+      - file: managing-data/numpy
       - file: managing-data/pandas
+      - file: managing-data/matplotlib
+      - file: managing-data/geopandas
 
   - caption: PyPSA Tutorial
     chapters:

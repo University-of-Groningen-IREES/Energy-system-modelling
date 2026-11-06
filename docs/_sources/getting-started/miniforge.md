@@ -181,7 +181,31 @@ The terminal prompt should now begin with `(managing-data)`.
 Activate the environment whenever you open a new terminal to work
 on this course.
 
-### 3. Launch JupyterLab
+### 3. Register the notebook kernel
+
+Jupyter uses a **kernel** to execute notebook code. Selecting a kernel also determines which Python environment and installed packages your notebook can access.
+
+With `managing-data` active, install the Python kernel package:
+
+```bash
+mamba install -c conda-forge ipykernel
+```
+
+Register it with a recognisable name:
+
+```bash
+python -m ipykernel install --user --name managing-data --display-name "Python (managing-data)"
+```
+
+You only need to register it once for this environment on your computer.
+
+When creating or opening a notebook in JupyterLab, select
+**Python (managing-data)** as the kernel.
+
+If you use Google Colab, its Python runtime is provided automatically;
+you can skip this local registration step.
+
+### 4. Launch JupyterLab
 
 Run:
 
