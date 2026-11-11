@@ -629,6 +629,22 @@ INFO:linopy.io:Writing objective.
 Writing constraints.: 100%|██████████| 10/10 [00:00&lt;00:00, 125.45it/s]
 Writing continuous variables.: 100%|██████████| 5/5 [00:00&lt;00:00, 394.91it/s]
 INFO:linopy.io: Writing time: 0.12s
+INFO:linopy.constants: Optimization successful: 
+Status: ok
+Termination condition: optimal
+Solution: 35042 primals, 70082 duals
+Objective: 4.98e+07
+Solver: highs
+Runtime: 0.76s
+MIP gap: inf
+Dual bound: 0.00e+00
+Solver model: available
+Solver message: Optimal
+
+INFO:pypsa.optimization.optimize:The shadow-prices of the constraints Generator-fix-p-lower, Generator-fix-p-upper, Generator-ext-p-lower, Generator-ext-p-upper, Store-ext-e-lower, Store-ext-e-upper, Store-energy_balance were not assigned to the network.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>('ok', 'optimal')
 </pre></div>
 </div>
 </div>
@@ -774,8 +790,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pypsa.network.io:Exported network 'Unnamed Network' saved to 'data-centre-investment.xlsx contains: loads, stores, buses, sub_networks, generators
-INFO:pypsa.network.io:Exported network 'Unnamed Network' saved to 'data-centre-investment.nc contains: loads, stores, buses, sub_networks, generators
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pypsa.network.io:Exported network 'Unnamed Network' saved to 'data-centre-investment.xlsx contains: buses, loads, sub_networks, stores, generators
+INFO:pypsa.network.io:Exported network 'Unnamed Network' saved to 'data-centre-investment.nc contains: buses, loads, sub_networks, stores, generators
 INFO:pypsa.network.io:Imported network 'Unnamed Network' has buses, generators, loads, stores, sub_networks
 </pre></div>
 </div>
@@ -981,23 +997,6 @@ INFO:pypsa.network.io:Imported network 'Unnamed Network' has buses, generators, 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pandas.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pandas4Warning</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">Pandas4Warning</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">baseline</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">baseline</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"Store"</span><span class="p">,</span> <span class="s2">"battery"</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> 
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Define any carriers that the exported Quickstart did not register.</span>
-
-<span class="ne">NameError</span>: name 'o' is not defined
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="define-battery-inputs-and-add-the-storageunit">
@@ -1129,7 +1128,7 @@ Termination condition: optimal
 Solution: 43802 primals, 105122 duals
 Objective: 5.17e+07
 Solver: highs
-Runtime: 2.25s
+Runtime: 2.36s
 MIP gap: inf
 Dual bound: 0.00e+00
 Solver model: available
@@ -1258,7 +1257,7 @@ Termination condition: optimal
 Solution: 43802 primals, 105122 duals
 Objective: 4.15e+07
 Solver: highs
-Runtime: 3.88s
+Runtime: 3.92s
 MIP gap: inf
 Dual bound: 0.00e+00
 Solver model: available
@@ -1303,7 +1302,7 @@ Termination condition: optimal
 Solution: 43802 primals, 105122 duals
 Objective: 4.01e+07
 Solver: highs
-Runtime: 2.57s
+Runtime: 2.74s
 MIP gap: inf
 Dual bound: 0.00e+00
 Solver model: available

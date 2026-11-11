@@ -1,0 +1,11 @@
+{
+  "retrieval_date": "2026-11-06",
+  "source_url": "https://api.openstreetmap.org/api/0.6/map?bbox=6.563%2C53.218%2C6.571%2C53.222",
+  "bounding_box_order": "left,bottom,right,top",
+  "raw_xml_sha256": "3f747f6e588e2ba69ed95dfbf544d1b3f41b9cbb929b800a7883560b2d5260ec",
+  "geojson_sha256": "ae57f39af7fea94ce62c39cd7d6dbb0313db1c1e79737e81e244a56379e8e13c",
+  "osmnx_version": "2.1.1",
+  "mapped_polygon_elements": 664,
+  "licence": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors"
+}
