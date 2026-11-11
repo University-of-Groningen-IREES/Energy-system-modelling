@@ -213,27 +213,6 @@ energy_fig.savefig(output_directory / "building_energy.svg",
 
 The explicit `energy_fig` reference saves the bar chart, regardless of which plot was created most recently. PNG stores pixels; SVG preserves vector elements such as lines and text. Paths are relative to the notebook's working directory.
 
-## Optional practice
-
-### Compare a scenario
-
-Reduce building A by 15% and building B by 5%, leaving C unchanged. Plot original and modified combined demand. Explain that the reductions are assumptions.
-
-### Choose a visual representation
-
-Create a bar chart of costs by building. Add labels and units. Explain why a line joining building names would suggest an ordering that may have no meaning.
-
-### Check presentation choices
-
-Change a heatmap's limits and a histogram's bins. Describe how the appearance changes even though the data remain unchanged.
-
-### Prepare a report figure
-
-Create two subplots: power profiles and energy totals. Export them and check readability at the size you intend to use in a report.
-
-## Check your work
-
-Restart the kernel and run all cells. Confirm that units, legends, and output filenames describe the correct quantities. Distinguish fictional examples from real measurements.
 
 ## Further reading
 

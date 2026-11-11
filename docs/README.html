@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Energy-system-modelling &#8212; Energy System Modelling</title>
+    <title>Course update: real OSM data and PyPSA notebooks &#8212; Energy System Modelling</title>
   
   
   
@@ -151,6 +151,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -225,6 +229,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/intro.html">PyPSA Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/installation.html">Getting ready for PyPSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/01-simple-dispatch-problem-groningen-city.html">Introduction to <code class="docutils literal notranslate"><span class="pre">pypsa</span></code>: a simple dispatch problem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/02-electricity-markets.html">Electricity markets: generation, transfers, and prices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/03-investments-and-storage.html">Investment and storage: when do PV and batteries help?</a></li>
 </ul>
 
     </div>
@@ -347,7 +356,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -358,11 +369,25 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Energy-system-modelling</h1>
+    <h1>Course update: real OSM data and PyPSA notebooks</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-the-files-into-the-project">Copy the files into the project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#update-the-table-of-contents">Update the table of contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-the-saved-figures-when-building">Display the saved figures when building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keep-personal-notebooks-ignored-publish-the-two-course-notebooks">Keep personal notebooks ignored; publish the two course notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-check-locally">Build and check locally</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refresh-github-pages">Refresh GitHub Pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-remains-pending">What remains pending</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -372,9 +397,103 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="energy-system-modelling">
-<h1>Energy-system-modelling<a class="headerlink" href="#energy-system-modelling" title="Link to this heading">#</a></h1>
-<p>Teaching materials and practical tutorials for ESM: managing and analysing data with Python, and modelling and optimising energy systems with PyPSA.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="course-update-real-osm-data-and-pypsa-notebooks">
+<h1>Course update: real OSM data and PyPSA notebooks<a class="headerlink" href="#course-update-real-osm-data-and-pypsa-notebooks" title="Link to this heading">#</a></h1>
+<p>This package adds a real-data continuation to GeoPandas and two executed PyPSA teaching notebooks for Renewable Energy Systems at the University of Groningen. It is an update package, not a replacement for your whole repository.</p>
+<section id="copy-the-files-into-the-project">
+<h2>Copy the files into the project<a class="headerlink" href="#copy-the-files-into-the-project" title="Link to this heading">#</a></h2>
+<p>Merge <code class="docutils literal notranslate"><span class="pre">managing-data/</span></code> and <code class="docutils literal notranslate"><span class="pre">pypsa-tutorial/</span></code> into the corresponding folders in <code class="docutils literal notranslate"><span class="pre">Energy-system-modelling</span></code>. Preserve the other lessons and images already there. Review the updated GeoPandas lesson before replacing a locally edited copy.</p>
+<p>The GeoPandas explanations through <strong>Create illustrative zones</strong> are retained. The opening task now distinguishes synthetic introductory data from the subsequent real OSM extract. The rest of the lesson analyses mapped footprints, not invented real-world demand.</p>
+</section>
+<section id="update-the-table-of-contents">
+<h2>Update the table of contents<a class="headerlink" href="#update-the-table-of-contents" title="Link to this heading">#</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>, retain your existing sections. Under its existing PyPSA caption, use:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">caption</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PyPSA Tutorial</span>
+<span class="w">    </span><span class="nt">chapters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypsa-tutorial/intro</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypsa-tutorial/installation</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypsa-tutorial/01-electricity-markets</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypsa-tutorial/02-investment-and-storage</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypsa-tutorial/groningen</span>
+</pre></div>
+</div>
+<p>Use this block inside the existing <code class="docutils literal notranslate"><span class="pre">parts:</span></code> list. Do not create a second <code class="docutils literal notranslate"><span class="pre">parts:</span></code> key. Notebook entries omit <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>, just as Markdown entries omit <code class="docutils literal notranslate"><span class="pre">.md</span></code>. Keep the existing <code class="docutils literal notranslate"><span class="pre">managing-data/geopandas</span></code> entry in the data-library section.</p>
+</section>
+<section id="display-the-saved-figures-when-building">
+<h2>Display the saved figures when building<a class="headerlink" href="#display-the-saved-figures-when-building" title="Link to this heading">#</a></h2>
+<p>In the existing <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>, set the corresponding values:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">only_build_toc_files</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">execute</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">execute_notebooks</span><span class="p">:</span><span class="w"> </span><span class="s">"off"</span>
+</pre></div>
+</div>
+<p>Merge this into your existing configuration; do not add a second <code class="docutils literal notranslate"><span class="pre">execute:</span></code> key. This tells Jupyter Book 1 to display the saved notebook outputs. Students still run the downloaded notebooks normally. It also prevents a website build from starting solvers or live OSM requests. If you later want build-time execution, use an environment with the notebook dependencies and update the execution settings deliberately.</p>
+<p>The notebook download menu is normally available in Jupyter Book 1. If you have disabled it, merge this option into your existing <code class="docutils literal notranslate"><span class="pre">sphinx.config.html_theme_options</span></code> mapping:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sphinx</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">html_theme_options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">use_download_button</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Preserve your existing title, logo, and other Sphinx options. Source downloads expose notebook code and outputs, which is intended for these two teaching pages.</p>
+</section>
+<section id="keep-personal-notebooks-ignored-publish-the-two-course-notebooks">
+<h2>Keep personal notebooks ignored; publish the two course notebooks<a class="headerlink" href="#keep-personal-notebooks-ignored-publish-the-two-course-notebooks" title="Link to this heading">#</a></h2>
+<p>You previously chose to ignore notebooks. These two files are now intentional course resources, so add the following exceptions <strong>after</strong> your <code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code> rule in <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>:</p>
+<div class="highlight-gitignore notranslate"><div class="highlight"><pre><span></span>*.ipynb
+.ipynb_checkpoints/
+_build/
+
+# Curated teaching notebooks and their generated download copies
+!/pypsa-tutorial/01-electricity-markets.ipynb
+!/pypsa-tutorial/02-investment-and-storage.ipynb
+!/docs/_sources/pypsa-tutorial/01-electricity-markets.ipynb
+!/docs/_sources/pypsa-tutorial/02-investment-and-storage.ipynb
+
+# Download caches and model exports remain local
+/pypsa-tutorial/data/*.csv
+/pypsa-tutorial/outputs/
+</pre></div>
+</div>
+<p>Do not ignore the OSM GeoJSON: it is an intentional classroom dataset. Do not run the earlier blanket command to remove every <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> under <code class="docutils literal notranslate"><span class="pre">docs</span></code>; it would remove these two downloadable teaching notebooks too.</p>
+</section>
+<section id="build-and-check-locally">
+<h2>Build and check locally<a class="headerlink" href="#build-and-check-locally" title="Link to this heading">#</a></h2>
+<p>From the repository root in PowerShell:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">managing-data</span>
+<span class="n">jupyter-book</span> <span class="n">build</span> <span class="p">.</span> <span class="p">-</span><span class="n">-all</span>
+</pre></div>
+</div>
+<p>Continue only if the build succeeds. Then open:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Start-Process</span> <span class="s2">".\_build\html\index.html"</span>
+</pre></div>
+</div>
+<p>Check the new navigation, the GeoPandas maps, both notebooks’ figures, and their download menu. Run the notebooks using the separate <code class="docutils literal notranslate"><span class="pre">pypsa-course</span></code> environment described in the installation lesson. The investment notebook needs internet on its first run to obtain the source solar CSV, then uses its local cache. The main GeoPandas exercise works offline using the included extract; its optional fresh OSM query needs internet.</p>
+</section>
+<section id="refresh-github-pages">
+<h2>Refresh GitHub Pages<a class="headerlink" href="#refresh-github-pages" title="Link to this heading">#</a></h2>
+<p>After the successful build:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Copy-Item</span> <span class="n">-Path</span> <span class="s2">".\_build\html\*"</span> <span class="n">-Destination</span> <span class="s2">".\docs"</span> <span class="n">-Recurse</span> <span class="n">-Force</span>
+<span class="nb">New-Item</span> <span class="n">-ItemType</span> <span class="n">File</span> <span class="n">-Path</span> <span class="s2">".\docs\.nojekyll"</span> <span class="n">-Force</span>
+
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="nb">diff </span><span class="p">-</span><span class="n">-cached</span> <span class="p">-</span><span class="n">-stat</span>
+<span class="n">git</span> <span class="nb">diff </span><span class="p">-</span><span class="n">-cached</span> <span class="p">-</span><span class="n">-name-only</span> <span class="p">-</span><span class="n">-diff-filter</span><span class="p">=</span><span class="n">ACM</span> <span class="p">--</span> <span class="s2">"*.ipynb"</span>
+</pre></div>
+</div>
+<p>The last command should list only the two curated notebooks and their two generated download copies. If another notebook appears, unstage it with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">restore</span> <span class="pre">--staged</span> <span class="pre">--</span> <span class="pre">&quot;path/to/file.ipynb&quot;</span></code> and check your ignore rules. Also review datasets and images in the staged changes before committing.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="n">-m</span> <span class="s2">"Add real OSM GeoPandas examples and PyPSA teaching notebooks"</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">main</span>
+</pre></div>
+</div>
+<p>These commands are for your Windows checkout; this package has not been pushed to your repository. After GitHub’s Pages deployment succeeds, refresh the course website.</p>
+</section>
+<section id="what-remains-pending">
+<h2>What remains pending<a class="headerlink" href="#what-remains-pending" title="Link to this heading">#</a></h2>
+<p>The Groningen PyPSA case needs the instructor’s datasets. <code class="docutils literal notranslate"><span class="pre">pypsa-tutorial/groningen.md</span></code> lists the required inputs without asserting invented results. The supplied OSM extract serves the GeoPandas lesson only; it is not an energy-demand dataset for the future optimisation case.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">TEACHING-NOTES.md</span></code> for the reasons behind each instructional change and <code class="docutils literal notranslate"><span class="pre">VALIDATION.md</span></code> for the checks performed.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -413,6 +532,29 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-the-files-into-the-project">Copy the files into the project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#update-the-table-of-contents">Update the table of contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-the-saved-figures-when-building">Display the saved figures when building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keep-personal-notebooks-ignored-publish-the-two-course-notebooks">Keep personal notebooks ignored; publish the two course notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-check-locally">Build and check locally</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refresh-github-pages">Refresh GitHub Pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-remains-pending">What remains pending</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

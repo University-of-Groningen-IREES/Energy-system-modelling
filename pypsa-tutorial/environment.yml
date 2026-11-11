@@ -1,0 +1,13 @@
+name: pypsa-course
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.12
+  - pypsa=1.4.0
+  - highspy=1.15.1
+  - pandas
+  - numpy
+  - matplotlib
+  - jupyterlab
+  - ipykernel

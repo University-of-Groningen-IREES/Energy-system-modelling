@@ -229,6 +229,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/intro.html">PyPSA Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/installation.html">Getting ready for PyPSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/01-simple-dispatch-problem-groningen-city.html">Introduction to <code class="docutils literal notranslate"><span class="pre">pypsa</span></code>: a simple dispatch problem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/02-electricity-markets.html">Electricity markets: generation, transfers, and prices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypsa-tutorial/03-investments-and-storage.html">Investment and storage: when do PV and batteries help?</a></li>
 </ul>
 
     </div>
@@ -551,6 +556,189 @@ Electricity cost: 2.25 EUR
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"data/groningen-centre-buildings.geojson"</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"managing-data/data/groningen-centre-buildings.geojson"</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">source_file</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">()),</span> <span class="kc">None</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">source_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">"Copy the course's Groningen OSM extract into managing-data/data/."</span><span class="p">)</span>
+
+<span class="n">buildings</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Mapped building elements:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">buildings</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"CRS:"</span><span class="p">,</span> <span class="n">buildings</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">buildings</span><span class="p">[[</span><span class="s2">"osm_id"</span><span class="p">,</span> <span class="s2">"building"</span><span class="p">,</span> <span class="s2">"building:levels"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="k">assert</span> <span class="n">buildings</span><span class="o">.</span><span class="n">crs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">buildings</span><span class="p">[</span><span class="s2">"osm_id"</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span>
+<span class="k">assert</span> <span class="n">buildings</span><span class="o">.</span><span class="n">geom_type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"Polygon"</span><span class="p">,</span> <span class="s2">"MultiPolygon"</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">buildings</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">is_valid</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">buildings_m</span> <span class="o">=</span> <span class="n">buildings</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">"EPSG:28992"</span><span class="p">)</span>
+<span class="n">buildings_m</span><span class="p">[</span><span class="s2">"footprint_m2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">buildings_m</span><span class="o">.</span><span class="n">area</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">buildings_m</span><span class="p">[</span><span class="s2">"footprint_m2"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mapped building elements: 664
+CRS: EPSG:4326
+             osm_id building building:levels
+0  relation/3614196      yes             NaN
+1  relation/3614199      yes             NaN
+2  relation/3614202      yes             NaN
+3  relation/3614203      yes             NaN
+4  relation/3614205      yes             NaN
+count     664.000000
+mean      203.409826
+std       423.079552
+min         6.327532
+25%        61.863910
+50%        97.945951
+75%       184.751706
+max      6837.007338
+Name: footprint_m2, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="n">ox</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># OSMnx 2.x bounding-box order: left, bottom, right, top.</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.563</span><span class="p">,</span> <span class="mf">53.218</span><span class="p">,</span> <span class="mf">6.571</span><span class="p">,</span> <span class="mf">53.222</span><span class="p">)</span>
+<span class="n">fresh</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features_from_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"building"</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="n">fresh</span> <span class="o">=</span> <span class="n">fresh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">fresh</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="o">&amp;</span> <span class="o">~</span><span class="n">fresh</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">is_empty</span>
+    <span class="o">&amp;</span> <span class="n">fresh</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">is_valid</span>
+    <span class="o">&amp;</span> <span class="n">fresh</span><span class="o">.</span><span class="n">geom_type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"Polygon"</span><span class="p">,</span> <span class="s2">"MultiPolygon"</span><span class="p">])</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">fresh</span><span class="p">[</span><span class="s2">"osm_id"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">kind</span><span class="p">,</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">fresh</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">fresh</span> <span class="o">=</span> <span class="n">fresh</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Valid mapped polygon elements in the fresh query:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fresh</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ox</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># OSMnx 2.x bounding-box order: left, bottom, right, top.</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named 'osmnx'
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"site_id"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">,</span> <span class="s2">"D"</span><span class="p">],</span>
+    <span class="s2">"longitude"</span><span class="p">:</span> <span class="p">[</span><span class="mf">6.559</span><span class="p">,</span> <span class="mf">6.565</span><span class="p">,</span> <span class="mf">6.577</span><span class="p">,</span> <span class="mf">6.583</span><span class="p">],</span>
+    <span class="s2">"latitude"</span><span class="p">:</span> <span class="p">[</span><span class="mf">53.214</span><span class="p">,</span> <span class="mf">53.224</span><span class="p">,</span> <span class="mf">53.216</span><span class="p">,</span> <span class="mf">53.226</span><span class="p">],</span>
+    <span class="s2">"annual_demand_mwh"</span><span class="p">:</span> <span class="p">[</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="mf">150.0</span><span class="p">],</span>
+    <span class="s2">"pv_capacity_kwp"</span><span class="p">:</span> <span class="p">[</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="n">sites</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">site_table</span><span class="p">,</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">site_table</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">],</span>
+                                <span class="n">site_table</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]),</span>
+    <span class="n">crs</span><span class="o">=</span><span class="s2">"EPSG:4326"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sites</span><span class="p">[[</span><span class="s2">"site_id"</span><span class="p">,</span> <span class="s2">"geometry"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sites</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sites</span><span class="o">.</span><span class="n">geom_type</span><span class="p">)</span>
+<span class="n">sites_m</span> <span class="o">=</span> <span class="n">sites</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">"EPSG:28992"</span><span class="p">)</span>
+
+<span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">sites_m</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">padding_m</span> <span class="o">=</span> <span class="mf">200.0</span>
+<span class="n">split_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmin</span> <span class="o">+</span> <span class="n">xmax</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="n">zones</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"zone"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"West"</span><span class="p">,</span> <span class="s2">"East"</span><span class="p">]},</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">box</span><span class="p">(</span><span class="n">xmin</span> <span class="o">-</span> <span class="n">padding_m</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">-</span> <span class="n">padding_m</span><span class="p">,</span>
+            <span class="n">split_x</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">+</span> <span class="n">padding_m</span><span class="p">),</span>
+        <span class="n">box</span><span class="p">(</span><span class="n">split_x</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">-</span> <span class="n">padding_m</span><span class="p">,</span>
+            <span class="n">xmax</span> <span class="o">+</span> <span class="n">padding_m</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">+</span> <span class="n">padding_m</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">crs</span><span class="o">=</span><span class="n">sites_m</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">zones</span><span class="p">[</span><span class="s2">"area_km2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">zones</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="mi">1_000_000</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">zones</span><span class="p">[[</span><span class="s2">"zone"</span><span class="p">,</span> <span class="s2">"area_km2"</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  site_id              geometry
+0       A  POINT (6.559 53.214)
+1       B  POINT (6.565 53.224)
+2       C  POINT (6.577 53.216)
+3       D  POINT (6.583 53.226)
+EPSG:4326
+0    Point
+1    Point
+2    Point
+3    Point
+dtype: object
+   zone  area_km2
+0  West  1.744948
+1  East  1.744948
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">building_points</span> <span class="o">=</span> <span class="n">buildings_m</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">building_points</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span> <span class="o">=</span> <span class="n">buildings_m</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">representative_point</span><span class="p">()</span>
+
+<span class="n">assigned</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span>
+    <span class="n">building_points</span><span class="p">,</span>
+    <span class="n">zones</span><span class="p">[[</span><span class="s2">"zone"</span><span class="p">,</span> <span class="s2">"geometry"</span><span class="p">]],</span>
+    <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="n">predicate</span><span class="o">=</span><span class="s2">"within"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">assigned</span><span class="p">[[</span><span class="s2">"osm_id"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">,</span> <span class="s2">"footprint_m2"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Unassigned elements:"</span><span class="p">,</span> <span class="n">assigned</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">assigned</span><span class="p">[</span><span class="s2">"osm_id"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"A mapped element matched multiple zones; inspect overlapping zones."</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">assigned</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Some representative points are outside the teaching zones or on their boundaries."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             osm_id  zone  footprint_m2
+0  relation/3614196  West    203.246937
+1  relation/3614199  West    333.067770
+2  relation/3614202  West    117.043531
+3  relation/3614203  West    734.437658
+4  relation/3614205  West    154.403657
+Unassigned elements: 0
 </pre></div>
 </div>
 </div>

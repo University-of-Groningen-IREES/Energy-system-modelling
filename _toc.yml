@@ -21,3 +21,7 @@ parts:
   - caption: PyPSA Tutorial
     chapters:
       - file: pypsa-tutorial/intro
+      - file: pypsa-tutorial/installation
+      - file: pypsa-tutorial/01-simple-dispatch-problem-groningen-city
+      - file: pypsa-tutorial/02-electricity-markets
+      - file: pypsa-tutorial/03-investments-and-storage

@@ -229,6 +229,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/intro.html">PyPSA Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/installation.html">Getting ready for PyPSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/01-simple-dispatch-problem-groningen-city.html">Introduction to <code class="docutils literal notranslate"><span class="pre">pypsa</span></code>: a simple dispatch problem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/02-electricity-markets.html">Electricity markets: generation, transfers, and prices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypsa-tutorial/03-investments-and-storage.html">Investment and storage: when do PV and batteries help?</a></li>
 </ul>
 
     </div>
@@ -385,14 +390,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots-separate-different-units">Subplots: separate different units</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmaps-show-a-two-dimensional-array">Heatmaps: show a two-dimensional array</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-a-figure">Export a figure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-a-scenario">Compare a scenario</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-a-visual-representation">Choose a visual representation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-presentation-choices">Check presentation choices</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-a-report-figure">Prepare a report figure</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
 </ul>
             </nav>
@@ -608,29 +605,6 @@
 </div>
 <p>The explicit <code class="docutils literal notranslate"><span class="pre">energy_fig</span></code> reference saves the bar chart, regardless of which plot was created most recently. PNG stores pixels; SVG preserves vector elements such as lines and text. Paths are relative to the notebook’s working directory.</p>
 </section>
-<section id="optional-practice">
-<h2>Optional practice<a class="headerlink" href="#optional-practice" title="Link to this heading">#</a></h2>
-<section id="compare-a-scenario">
-<h3>Compare a scenario<a class="headerlink" href="#compare-a-scenario" title="Link to this heading">#</a></h3>
-<p>Reduce building A by 15% and building B by 5%, leaving C unchanged. Plot original and modified combined demand. Explain that the reductions are assumptions.</p>
-</section>
-<section id="choose-a-visual-representation">
-<h3>Choose a visual representation<a class="headerlink" href="#choose-a-visual-representation" title="Link to this heading">#</a></h3>
-<p>Create a bar chart of costs by building. Add labels and units. Explain why a line joining building names would suggest an ordering that may have no meaning.</p>
-</section>
-<section id="check-presentation-choices">
-<h3>Check presentation choices<a class="headerlink" href="#check-presentation-choices" title="Link to this heading">#</a></h3>
-<p>Change a heatmap’s limits and a histogram’s bins. Describe how the appearance changes even though the data remain unchanged.</p>
-</section>
-<section id="prepare-a-report-figure">
-<h3>Prepare a report figure<a class="headerlink" href="#prepare-a-report-figure" title="Link to this heading">#</a></h3>
-<p>Create two subplots: power profiles and energy totals. Export them and check readability at the size you intend to use in a report.</p>
-</section>
-</section>
-<section id="check-your-work">
-<h2>Check your work<a class="headerlink" href="#check-your-work" title="Link to this heading">#</a></h2>
-<p>Restart the kernel and run all cells. Confirm that units, legends, and output filenames describe the correct quantities. Distinguish fictional examples from real measurements.</p>
-</section>
 <section id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -719,14 +693,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots-separate-different-units">Subplots: separate different units</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmaps-show-a-two-dimensional-array">Heatmaps: show a two-dimensional array</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-a-figure">Export a figure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-a-scenario">Compare a scenario</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-a-visual-representation">Choose a visual representation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-presentation-choices">Check presentation choices</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-a-report-figure">Prepare a report figure</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
 </ul>
   </nav></div>

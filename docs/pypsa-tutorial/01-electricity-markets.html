@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Electricity markets: generation, transfers, and prices &#8212; Energy System Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pypsa-tutorial/01-electricity-markets';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Energy System Modelling</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/miniforge.html">Getting Ready: Miniforge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/basics.html">Jupyter Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/python.html">Python Fundamentals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic libraries for managing data: Numpy, Pandas, Matplotlib, Geopandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/numpy.html">NumPy: Numerical Arrays and Matrixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/pandas.html">pandas: Managing Tables and Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/matplotlib.html">Matplotlib: Communicating Energy Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/geopandas.html">GeoPandas: Connecting Energy Data to Locations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">PyPSA Tutorial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/pypsa-tutorial/01-electricity-markets.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Electricity markets: generation, transfers, and prices</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe-the-system">Describe the system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-fresh-network">Build a fresh network</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-and-check">Solve and check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-first-result">Read the first result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-change-compare">Predict, change, compare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-second-experiment-higher-local-generation-cost">A second experiment: higher local generation cost</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-reuse">Sources and reuse</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="electricity-markets-generation-transfers-and-prices">
+<h1>Electricity markets: generation, transfers, and prices<a class="headerlink" href="#electricity-markets-generation-transfers-and-prices" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://pypsa.org/">PyPSA</a> lets us describe an energy system and find an operation that minimises its specified costs. This original teaching notebook follows the two-zone question in <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-1/">Quickstart 1</a>, then adds controlled experiments.</p>
+<section id="your-task">
+<h2>Your task<a class="headerlink" href="#your-task" title="Link to this heading">#</a></h2>
+<p>Run the cells in order. Predict the effect of a larger transmission connection before solving it. Explain each figure in a Markdown cell. Select <strong>Python (pypsa-course)</strong>.</p>
+</section>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Connect buses, generators, loads, and a line.</p></li>
+<li><p>Distinguish capacity (MW), energy (MWh), and cost (EUR).</p></li>
+<li><p>Explain congestion and interpret conditional marginal prices.</p></li>
+<li><p>Change one assumption and compare results against a saved baseline.</p></li>
+</ul>
+<p>The two zones are abstract examples, not Groningen grid areas. We model one hour with fixed demand, continuous generation, no losses, and linearised power flow. Investment, reserve requirements, start-up costs, and emissions are outside this example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pypsa</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"PyPSA:"</span><span class="p">,</span> <span class="n">pypsa</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">"axes.spines.top"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                     <span class="s2">"axes.spines.right"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyPSA: 1.4.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="describe-the-system">
+<h2>Describe the system<a class="headerlink" href="#describe-the-system" title="Link to this heading">#</a></h2>
+<p>A <strong>Bus</strong> is a balance point. A <strong>Load</strong> withdraws power; a <strong>Generator</strong> supplies it. A <strong>Line</strong> exchanges power between buses.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input</p></th>
+<th class="head text-right"><p>Zone 1</p></th>
+<th class="head text-right"><p>Zone 2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Demand (MW)</p></td>
+<td class="text-right"><p>500</p></td>
+<td class="text-right"><p>1,500</p></td>
+</tr>
+<tr class="row-odd"><td><p>Generator capacity (MW)</p></td>
+<td class="text-right"><p>2,000</p></td>
+<td class="text-right"><p>2,000</p></td>
+</tr>
+<tr class="row-even"><td><p>Linear cost coefficient (EUR/MWh)</p></td>
+<td class="text-right"><p>10</p></td>
+<td class="text-right"><p>13</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quadratic coefficient (EUR/(MW² h))</p></td>
+<td class="text-right"><p>0.005</p></td>
+<td class="text-right"><p>0.010</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For generator output <span class="math notranslate nohighlight">\(g\)</span> in MW, <span class="math notranslate nohighlight">\(a g+b g^2\)</span> is an operating cost rate in EUR/h. Multiply by one hour to obtain EUR. The marginal cost of an extra MWh over this hour is <span class="math notranslate nohighlight">\(a+2bg\)</span>, not just <span class="math notranslate nohighlight">\(a\)</span>. Thus the generator in Zone 1 need not always meet all demand first.</p>
+<p>The starting line limit is 400 MW. Positive flow goes from Zone 1 to Zone 2. These starting inputs match the linked reference problem; the scenario exercises and explanations below are developed for this course.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Edit this cell for your own experiment; keep the saved baseline below.</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"line_limit_mw"</span><span class="p">:</span> <span class="mf">400.0</span><span class="p">,</span> <span class="s2">"demand_multiplier"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="s2">"zone2_linear_cost"</span><span class="p">:</span> <span class="mf">13.0</span><span class="p">}</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Input"</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>line_limit_mw        400.0
+demand_multiplier      1.0
+zone2_linear_cost     13.0
+Name: Input, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-a-fresh-network">
+<h2>Build a fresh network<a class="headerlink" href="#build-a-fresh-network" title="Link to this heading">#</a></h2>
+<p>The function below creates a new system for each experiment. This prevents an old result or an earlier edit from silently carrying into the next scenario. <code class="docutils literal notranslate"><span class="pre">p_nom</span></code> fixes generation capacity; <code class="docutils literal notranslate"><span class="pre">s_nom</span></code> fixes the line rating. The reactance <code class="docutils literal notranslate"><span class="pre">x</span></code> allows PyPSA to calculate the linearised flow relationship. We explicitly choose one-hour snapshot weights.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">build_market</span><span class="p">(</span><span class="n">line_limit_mw</span><span class="o">=</span><span class="mf">400.0</span><span class="p">,</span> <span class="n">demand_multiplier</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">zone2_linear_cost</span><span class="o">=</span><span class="mf">13.0</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">line_limit_mw</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">demand_multiplier</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Use a non-negative line limit and positive demand."</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">pypsa</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">set_snapshots</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2025-01-01"</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"h"</span><span class="p">))</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">snapshot_weightings</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Carrier"</span><span class="p">,</span> <span class="s2">"AC"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Zone 1"</span><span class="p">,</span> <span class="s2">"Zone 2"</span><span class="p">]:</span>
+        <span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Bus"</span><span class="p">,</span> <span class="n">zone</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"AC"</span><span class="p">,</span> <span class="n">v_nom</span><span class="o">=</span><span class="mi">110</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">zone</span><span class="p">,</span> <span class="n">demand</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"Zone 1"</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Zone 2"</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)]:</span>
+        <span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Load"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Demand </span><span class="si">{</span><span class="n">zone</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="n">zone</span><span class="p">,</span>
+              <span class="n">p_set</span><span class="o">=</span><span class="n">demand</span> <span class="o">*</span> <span class="n">demand_multiplier</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Generator"</span><span class="p">,</span> <span class="s2">"Plant 1"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"Zone 1"</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"AC"</span><span class="p">,</span> <span class="n">p_nom</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+          <span class="n">marginal_cost</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">marginal_cost_quadratic</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Generator"</span><span class="p">,</span> <span class="s2">"Plant 2"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"Zone 2"</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"AC"</span><span class="p">,</span> <span class="n">p_nom</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+          <span class="n">marginal_cost</span><span class="o">=</span><span class="n">zone2_linear_cost</span><span class="p">,</span> <span class="n">marginal_cost_quadratic</span><span class="o">=</span><span class="mf">0.010</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Line"</span><span class="p">,</span> <span class="s2">"Connection"</span><span class="p">,</span> <span class="n">bus0</span><span class="o">=</span><span class="s2">"Zone 1"</span><span class="p">,</span> <span class="n">bus1</span><span class="o">=</span><span class="s2">"Zone 2"</span><span class="p">,</span>
+          <span class="n">x</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">s_nom</span><span class="o">=</span><span class="n">line_limit_mw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">build_market</span><span class="p">(</span><span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="p">[[</span><span class="s2">"bus"</span><span class="p">,</span> <span class="s2">"p_nom"</span><span class="p">,</span> <span class="s2">"marginal_cost"</span><span class="p">,</span>
+                      <span class="s2">"marginal_cost_quadratic"</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/root/.local/lib/python3.12/site-packages/pypsa/network/io.py:2079: FutureWarning: pandas infers the `str` dtype for string data since its version 3.0. PyPSA still converts it back to numpy object dtype on import, but will keep it from PyPSA 2.0 on. Set `pypsa.options.api.legacy_string_dtype` explicitly to suppress this warning.
+  new_static = _coerce_string_dtypes(new_static)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bus</th>
+      <th>p_nom</th>
+      <th>marginal_cost</th>
+      <th>marginal_cost_quadratic</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Plant 1</th>
+      <td>Zone 1</td>
+      <td>2000.0</td>
+      <td>10.0</td>
+      <td>0.005</td>
+    </tr>
+    <tr>
+      <th>Plant 2</th>
+      <td>Zone 2</td>
+      <td>2000.0</td>
+      <td>13.0</td>
+      <td>0.010</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="solve-and-check">
+<h2>Solve and check<a class="headerlink" href="#solve-and-check" title="Link to this heading">#</a></h2>
+<p>A solver selects generation and flow while respecting demand balances and limits. HiGHS is an open-source optimisation solver. <code class="docutils literal notranslate"><span class="pre">io_api=&quot;direct&quot;</span></code> passes the model through its Python interface. We check the termination condition before interpreting a result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">status</span><span class="p">,</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">solver_name</span><span class="o">=</span><span class="s2">"highs"</span><span class="p">,</span> <span class="n">io_api</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span>
+                                  <span class="n">log_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                  <span class="n">include_objective_constant</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s2">"ok"</span> <span class="ow">or</span> <span class="n">condition</span> <span class="o">!=</span> <span class="s2">"optimal"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No optimal solution: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">snapshots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">generation</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses_t</span><span class="o">.</span><span class="n">marginal_price</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">lines_t</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="s2">"Connection"</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">generation</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"Output (MW)"</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"Marginal price (EUR/MWh)"</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Zone 1 → Zone 2: </span><span class="si">{</span><span class="n">flow</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MW"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"System operating cost for the hour: EUR </span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">objective</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">generation</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">n</span><span class="o">.</span><span class="n">loads_t</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">settings</span><span class="p">[</span><span class="s2">"line_limit_mw"</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Output (MW)</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Plant 1</th>
+      <td>900.0</td>
+    </tr>
+    <tr>
+      <th>Plant 2</th>
+      <td>1100.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Marginal price (EUR/MWh)</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Zone 1</th>
+      <td>19.00009</td>
+    </tr>
+    <tr>
+      <th>Zone 2</th>
+      <td>35.00011</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Zone 1 → Zone 2: 400.00 MW
+System operating cost for the hour: EUR 39,450.00
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="read-the-first-result">
+<h2>Read the first result<a class="headerlink" href="#read-the-first-result" title="Link to this heading">#</a></h2>
+<p>Generation must cover 2,000 MW in total. When the 400 MW line binds, Zone 2 still needs substantial local generation. A bus marginal price measures the modelled cost of a small extra MWh at that bus under the current assumptions. It is a shadow value, not a retail tariff or a plant’s average production cost.</p>
+<p>For this lossless two-zone case, congestion rent for the one-hour interval is flow × (receiving price − sending price) × one hour. This is not profit after transmission investment costs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rent_eur</span> <span class="o">=</span> <span class="n">flow</span> <span class="o">*</span> <span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="s2">"Zone 2"</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="s2">"Zone 1"</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Congestion rent in this hour: EUR </span><span class="si">{</span><span class="n">rent_eur</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+<span class="n">generation</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"#007f86"</span><span class="p">,</span> <span class="s2">"#b25b73"</span><span class="p">],</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"Generation (MW)"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Who supplies the electricity?"</span><span class="p">)</span>
+<span class="n">prices</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"#007f86"</span><span class="p">,</span> <span class="s2">"#b25b73"</span><span class="p">],</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"Marginal price (EUR/MWh)"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Cost of a little more demand"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congestion rent in this hour: EUR 6,400.01
+</pre></div>
+</div>
+<img alt="../_images/0bdb05c07a7667085242b00932256517148c64a5fd752d3745be7f9ba4866f22.png" src="../_images/0bdb05c07a7667085242b00932256517148c64a5fd752d3745be7f9ba4866f22.png" />
+</div>
+</div>
+</section>
+<section id="predict-change-compare">
+<h2>Predict, change, compare<a class="headerlink" href="#predict-change-compare" title="Link to this heading">#</a></h2>
+<p>Predict what a larger connection will do to generation, cost, and the price difference. Then compare three line ratings. Everything else stays fixed. The third case uses your editable settings, so a changed demand or cost remains visible in the table.</p>
+<p>A non-binding line need not be full: a larger rating permits a transfer; it does not force one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Baseline"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">line_limit_mw</span><span class="o">=</span><span class="mf">400.0</span><span class="p">,</span> <span class="n">demand_multiplier</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zone2_linear_cost</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="s2">"Larger line"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">line_limit_mw</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">demand_multiplier</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zone2_linear_cost</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="s2">"No transfer"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">line_limit_mw</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">demand_multiplier</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zone2_linear_cost</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="s2">"Your inputs"</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+<span class="p">}</span>
+<span class="n">networks</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">solve</span><span class="p">(</span><span class="n">build_market</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">))</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">inputs</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">networks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">buses_t</span><span class="o">.</span><span class="n">marginal_price</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"scenario"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">cases</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
+                 <span class="s2">"Plant 1 (MW)"</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"Plant 1"</span><span class="p">],</span>
+                 <span class="s2">"Plant 2 (MW)"</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"Plant 2"</span><span class="p">],</span>
+                 <span class="s2">"Transfer (MW)"</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">lines_t</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"Connection"</span><span class="p">],</span>
+                 <span class="s2">"Price gap (EUR/MWh)"</span><span class="p">:</span> <span class="n">price</span><span class="p">[</span><span class="s2">"Zone 2"</span><span class="p">]</span> <span class="o">-</span> <span class="n">price</span><span class="p">[</span><span class="s2">"Zone 1"</span><span class="p">],</span>
+                 <span class="s2">"Cost (EUR for hour)"</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">objective</span><span class="p">})</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"scenario"</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+<span class="n">comparison</span><span class="p">[[</span><span class="s2">"Plant 1 (MW)"</span><span class="p">,</span> <span class="s2">"Plant 2 (MW)"</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"#007f86"</span><span class="p">,</span> <span class="s2">"#b25b73"</span><span class="p">],</span> <span class="n">rot</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"Generation (MW)"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Dispatch changes"</span><span class="p">)</span>
+<span class="n">comparison</span><span class="p">[</span><span class="s2">"Cost (EUR for hour)"</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#496e9c"</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"EUR for modelled hour"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"System cost"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Larger line"</span><span class="p">,</span> <span class="s2">"Cost (EUR for hour)"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Baseline"</span><span class="p">,</span> <span class="s2">"Cost (EUR for hour)"</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>line_limit_mw</th>
+      <th>demand_multiplier</th>
+      <th>zone2_linear_cost</th>
+      <th>Plant 1 (MW)</th>
+      <th>Plant 2 (MW)</th>
+      <th>Transfer (MW)</th>
+      <th>Price gap (EUR/MWh)</th>
+      <th>Cost (EUR for hour)</th>
+    </tr>
+    <tr>
+      <th>scenario</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Baseline</th>
+      <td>400.0</td>
+      <td>1.0</td>
+      <td>13.0</td>
+      <td>900.00</td>
+      <td>1100.00</td>
+      <td>400.00</td>
+      <td>16.0</td>
+      <td>39450.00</td>
+    </tr>
+    <tr>
+      <th>Larger line</th>
+      <td>1000.0</td>
+      <td>1.0</td>
+      <td>13.0</td>
+      <td>1433.33</td>
+      <td>566.67</td>
+      <td>933.33</td>
+      <td>0.0</td>
+      <td>35183.33</td>
+    </tr>
+    <tr>
+      <th>No transfer</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>13.0</td>
+      <td>500.00</td>
+      <td>1500.00</td>
+      <td>0.00</td>
+      <td>28.0</td>
+      <td>48250.00</td>
+    </tr>
+    <tr>
+      <th>Your inputs</th>
+      <td>400.0</td>
+      <td>1.0</td>
+      <td>13.0</td>
+      <td>900.00</td>
+      <td>1100.00</td>
+      <td>400.00</td>
+      <td>16.0</td>
+      <td>39450.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../_images/eb1be8c8d1486f599bbd3e8ac0493ad6d1d64cf8b61a646dd8dd300cb9a98430.png" src="../_images/eb1be8c8d1486f599bbd3e8ac0493ad6d1d64cf8b61a646dd8dd300cb9a98430.png" />
+</div>
+</div>
+</section>
+<section id="a-second-experiment-higher-local-generation-cost">
+<h2>A second experiment: higher local generation cost<a class="headerlink" href="#a-second-experiment-higher-local-generation-cost" title="Link to this heading">#</a></h2>
+<p>Change only <code class="docutils literal notranslate"><span class="pre">zone2_linear_cost</span></code> from 13 to 20 in <code class="docutils literal notranslate"><span class="pre">settings</span></code>, then rerun from the input cell. Keep demand and the line limit at baseline values. Does congestion limit how much the other zone can help? Explain the difference between a change in operating cost and a change in installed capacity.</p>
+</section>
+<section id="optional-practice">
+<h2>Optional practice<a class="headerlink" href="#optional-practice" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">demand_multiplier</span></code> to 1.1, keeping all other settings fixed. Predict whether the line remains congested.</p></li>
+<li><p>Compute each bus balance independently, using generation, local demand, and signed line flow.</p></li>
+<li><p>Explain why reinforcing the line can reduce operating cost here, while deciding whether to build it also requires an investment cost.</p></li>
+</ul>
+</section>
+<section id="check-your-work">
+<h2>Check your work<a class="headerlink" href="#check-your-work" title="Link to this heading">#</a></h2>
+<p>With the starting inputs, expect approximately 900 MW from Plant 1, 1,100 MW from Plant 2, 400 MW transferred, and marginal prices close to 19 and 35 EUR/MWh. The objective is 39,450 EUR for one hour. Small solver tolerances can affect the final decimals. A line rated at 1,000 MW allows an uncongested transfer of about 933.33 MW and an almost zero price gap.</p>
+</section>
+<section id="sources-and-reuse">
+<h2>Sources and reuse<a class="headerlink" href="#sources-and-reuse" title="Link to this heading">#</a></h2>
+<p>The initial problem is credited to <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-1/">PyPSA Quickstart 1</a>. The baseline/experiment comparison approach is informed by the supplied <a class="reference external" href="https://ljansen-iee.github.io/pypsa-meets-earth-lab-2026/notebooks/D_ZA_scenario_analysis.html">Jansen scenario-analysis lesson</a>. This is a small classroom model, not a rerun of its South African networks. Code in this notebook is supplied under AGPL-3.0-or-later; retain attribution. See <a class="reference internal" href="SOURCES.html"><span class="std std-doc">sources and attribution</span></a> in the teaching package.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "pypsa-course"
+        },
+        kernelOptions: {
+            name: "pypsa-course",
+            path: "./pypsa-tutorial"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'pypsa-course'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe-the-system">Describe the system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-fresh-network">Build a fresh network</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-and-check">Solve and check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-first-result">Read the first result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-change-compare">Predict, change, compare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-second-experiment-higher-local-generation-cost">A second experiment: higher local generation cost</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-reuse">Sources and reuse</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alejandro Zabala Figueroa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

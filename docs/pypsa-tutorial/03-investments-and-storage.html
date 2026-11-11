@@ -1,0 +1,1695 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Investment and storage: when do PV and batteries help? &#8212; Energy System Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pypsa-tutorial/03-investments-and-storage';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Electricity markets: generation, transfers, and prices" href="02-electricity-markets.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/rugr_fse_logoen_rood_rgb.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Energy System Modelling</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/miniforge.html">Getting Ready: Miniforge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/basics.html">Jupyter Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/python.html">Python Fundamentals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic libraries for managing data: Numpy, Pandas, Matplotlib, Geopandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/numpy.html">NumPy: Numerical Arrays and Matrixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/pandas.html">pandas: Managing Tables and Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/matplotlib.html">Matplotlib: Communicating Energy Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing-data/geopandas.html">GeoPandas: Connecting Energy Data to Locations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">PyPSA Tutorial</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">PyPSA Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Getting ready for PyPSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-simple-dispatch-problem-groningen-city.html">Introduction to <code class="docutils literal notranslate"><span class="pre">pypsa</span></code>: a simple dispatch problem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="02-electricity-markets.html">Electricity markets: generation, transfers, and prices</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Investment and storage: when do PV and batteries help?</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/pypsa-tutorial/03-investments-and-storage.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Investment and storage: when do PV and batteries help?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pypsa-solution">PyPSA Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-saved-seville-model">Part 2 — Extend the saved Seville model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-imported-network">1. Inspect the imported network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-the-network-and-remove-the-original-store">2. Copy the network and remove the original Store</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-battery-inputs-and-add-the-storageunit">3. Define battery inputs and add the StorageUnit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-components-to-equations">From components to equations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-the-new-baseline">4. Solve the new baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-baseline-capacities-then-read-hourly-operation">5. Read baseline capacities, then read hourly operation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-a-cheaper-grid-electricity">6. Scenario A — Cheaper grid electricity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-b-cheaper-battery-equipment">7. Scenario B — Cheaper battery equipment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-the-three-solutions">8. Compare the three solutions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explain-the-scenario-results">Explain the scenario results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-reuse">Sources and reuse</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="investment-and-storage-when-do-pv-and-batteries-help">
+<h1>Investment and storage: when do PV and batteries help?<a class="headerlink" href="#investment-and-storage-when-do-pv-and-batteries-help" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://pypsa.org/">PyPSA</a> can choose both installed capacity and hourly operation. This lesson takes the investment question from <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-3/">Quickstart 3</a> and develops a reproducible comparison exercise.</p>
+<section id="your-task">
+<h2>Your task<a class="headerlink" href="#your-task" title="Link to this heading">#</a></h2>
+<p>Compare supplying a constant 100 MW demand with grid electricity, PV, and a battery. Predict the effect of cheaper grid electricity and cheaper storage before solving. Select <strong>Python (pypsa-course)</strong> and run cells in order.</p>
+</section>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Distinguish fixed capacity from a capacity the solver may build.</p></li>
+<li><p>Convert overnight costs into annual capital costs with consistent units.</p></li>
+<li><p>Read battery power (MW), inventory capacity (MWh), and operation separately.</p></li>
+<li><p>Explain a scenario response using both capacities and hourly operation.</p></li>
+</ul>
+<p>This is the Seville reference setting, not Groningen. The input solar profile is linked by the official example. It is a modelled availability profile, not electricity measured from our chosen plant. The Groningen case will use the instructor’s separate datasets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pypsa</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pypsa.costs</span><span class="w"> </span><span class="kn">import</span> <span class="n">annuity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"gurobipy"</span><span class="p">)</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">"The locs attribute was deprecated"</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">"pypsa.network.transform"</span><span class="p">)</span>
+<span class="n">pypsa</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">log_to_console</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pandas4Warning</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">Pandas4Warning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="c1"># You probably need to install the following package to use the plotly backend for plotting:</span>
+<span class="c1"># conda install -n pypsa-clean -c conda-forge "nbformat&gt;=4.2.0"</span>
+<span class="c1"># Also you will need openpyxl to export to Excel files:</span>
+<span class="c1"># conda install -n pypsa-clean -c conda-forge openpyxl</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-description">
+<h2>Problem Description<a class="headerlink" href="#problem-description" title="Link to this heading">#</a></h2>
+<p>(here we will use the same instructions given in <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-3/">Quickstart 3</a> - Investments &amp; Storage from PyPSA documenation)</p>
+<p>A data centre in Seville, Spain, has a constant demand of 100 MW. The operator
+considers investing in on-site solar PV and battery storage to reduce reliance
+on grid electricity, which is priced at 120 €/MWh. The investment costs and
+characteristics of the components are as follows:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Overnight Cost</p></th>
+<th class="head"><p>Lifetime</p></th>
+<th class="head"><p>Discount Rate</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Solar PV</p></td>
+<td><p>400 €/kW</p></td>
+<td><p>25 years</p></td>
+<td><p>5%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Battery Storage</p></td>
+<td><p>150 €/kWh</p></td>
+<td><p>25 years</p></td>
+<td><p>5%</p></td>
+</tr>
+<tr class="row-even"><td><p>Battery Inverter</p></td>
+<td><p>170 €/kW</p></td>
+<td><p>10 years</p></td>
+<td><p>5%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The battery storage system has a round-trip efficiency of 90% and an energy-to-power ratio of 4 hours.</p></li>
+<li><p>The solar PV plant has a capacity factor time series given <a class="reference external" href="https://model.energy/data/time-series-f17c3736a2719ce7da58484180d89e2d.csv">here</a>.</p></li>
+<li><p>Assume that feeding electricity into the grid is not allowed.</p></li>
+</ul>
+<p>Find the least-cost investment in solar PV and battery storage to cover the load. What is the average cost per unit of electricity consumed?
+How much electricity is consumed from the grid and when? How is the battery operated?</p>
+</section>
+<section id="pypsa-solution">
+<h2>PyPSA Solution<a class="headerlink" href="#pypsa-solution" title="Link to this heading">#</a></h2>
+<p>We start by creating a new network with a single bus and the data centre load.
+We also add a generator to model supply from the grid priced at 120 €/MWh.
+These are the fixed components of the network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">pypsa</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+
+<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Bus"</span><span class="p">,</span> <span class="s2">"seville"</span><span class="p">)</span>
+
+<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Load"</span><span class="p">,</span> <span class="s2">"demand"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"seville"</span><span class="p">,</span> <span class="n">p_set</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Generator"</span><span class="p">,</span> <span class="s2">"grid"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"seville"</span><span class="p">,</span> <span class="n">p_nom</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">marginal_cost</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"grid"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we read in the capacity factor time series of the network, which covers hourly data for the year 2011.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_max_pu</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">"https://model.energy/data/time-series-f17c3736a2719ce7da58484180d89e2d.csv"</span><span class="p">,</span>
+    <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)[</span><span class="s2">"solar"</span><span class="p">]</span>
+<span class="n">p_max_pu</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>time
+2011-01-01 07:00:00    0.000
+2011-01-01 08:00:00    0.000
+2011-01-01 09:00:00    0.048
+2011-01-01 10:00:00    0.118
+2011-01-01 11:00:00    0.214
+2011-01-01 12:00:00    0.243
+2011-01-01 13:00:00    0.219
+2011-01-01 14:00:00    0.138
+Name: solar, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need to tell PyPSA that these are the snapshots (time steps) we want to optimise over.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">set_snapshots</span><span class="p">(</span><span class="n">p_max_pu</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">snapshots</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8760
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, we add the solar PV with the availability time series as <code class="docutils literal notranslate"><span class="pre">p_max_pu</span></code>, the annualised costs in €/MW/a as <code class="docutils literal notranslate"><span class="pre">capital_cost</span></code> and mark the component as extendable with <code class="docutils literal notranslate"><span class="pre">p_nom_extendable</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Generator"</span><span class="p">,</span>
+    <span class="s2">"solar"</span><span class="p">,</span>
+    <span class="n">bus</span><span class="o">=</span><span class="s2">"seville"</span><span class="p">,</span>
+    <span class="n">p_max_pu</span><span class="o">=</span><span class="n">p_max_pu</span><span class="p">,</span>
+    <span class="n">capital_cost</span><span class="o">=</span><span class="n">annuity</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">400_000</span><span class="p">,</span>
+    <span class="n">p_nom_extendable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">carrier</span><span class="o">=</span><span class="s2">"solar"</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, we add the battery storage. Here, we need to take extra care with the multiple cost components of the battery system for the <code class="docutils literal notranslate"><span class="pre">capital_cost</span></code>, which is given per MWh of energy capacity for stores, and the energy-to-power ratio (<code class="docutils literal notranslate"><span class="pre">max_hours</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc_inverter</span> <span class="o">=</span> <span class="n">annuity</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">170_000</span>
+<span class="n">cc_storage</span> <span class="o">=</span> <span class="n">annuity</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">150_000</span>
+
+<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Store"</span><span class="p">,</span>
+    <span class="s2">"battery"</span><span class="p">,</span>
+    <span class="n">bus</span><span class="o">=</span><span class="s2">"seville"</span><span class="p">,</span>
+    <span class="n">capital_cost</span><span class="o">=</span><span class="n">cc_inverter</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">cc_storage</span><span class="p">,</span>
+    <span class="n">e_nom_extendable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">carrier</span><span class="o">=</span><span class="s2">"battery"</span><span class="p">,</span>
+    <span class="n">efficiency_store</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">efficiency_dispatch</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">max_hours</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:pypsa.network.transform:The attribute 'max_hours' is a standard attribute for other components but not for stores. This could cause confusion and it should be renamed. See also: https://go.pypsa.org/warning-attr-misleading.
+WARNING:pypsa.network.transform:The attribute 'efficiency_dispatch' is a standard attribute for other components but not for stores. This could cause confusion and it should be renamed. See also: https://go.pypsa.org/warning-attr-misleading.
+WARNING:pypsa.network.transform:The attribute 'efficiency_store' is a standard attribute for other components but not for stores. This could cause confusion and it should be renamed. See also: https://go.pypsa.org/warning-attr-misleading.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, the model is ready to be solved:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Alejandro Zabala\AppData\Local\Temp\ipykernel_1768\1261279110.py:1: FutureWarning: The default value of `include_objective_constant` will change from True to False in version 2.0. Set `include_objective_constant` explicitly to suppress this warning. Using False improves LP numerical conditioning by not including the objective constant as a variable.
+  n.optimize()
+WARNING:pypsa.consistency:The following buses have carriers which are not defined. Run n.sanitize() to add them. Components with undefined carriers:
+Index(['seville'], dtype='object', name='name')
+WARNING:pypsa.consistency:The following generators have carriers which are not defined. Run n.sanitize() to add them. Components with undefined carriers:
+Index(['grid', 'solar'], dtype='object', name='name')
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:pypsa.consistency:The following stores have carriers which are not defined. Run n.sanitize() to add them. Components with undefined carriers:
+Index(['battery'], dtype='object', name='name')
+INFO:linopy.model: Solve problem using Highs solver
+INFO:linopy.model:Solver options:
+ - log_to_console: False
+INFO:linopy.io:Writing objective.
+Writing constraints.: 100%|██████████| 10/10 [00:00&lt;00:00, 125.45it/s]
+Writing continuous variables.: 100%|██████████| 5/5 [00:00&lt;00:00, 394.91it/s]
+INFO:linopy.io: Writing time: 0.12s
+</pre></div>
+</div>
+</div>
+</div>
+<p>To retrieve the optimised capacities, we can either directly access the <code class="docutils literal notranslate"><span class="pre">p_nom_opt</span></code> attribute of the components (<code class="docutils literal notranslate"><span class="pre">e_nom_opt</span></code> in MWh for the battery store), or use the <code class="docutils literal notranslate"><span class="pre">n.statistics</span></code> module.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">p_nom_opt</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">stores</span><span class="o">.</span><span class="n">e_nom_opt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name
+grid     100.000000
+solar    629.447181
+Name: p_nom_opt, dtype: float64
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name
+battery    1326.902025
+Name: e_nom_opt, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">optimal_capacity</span><span class="p">(</span><span class="n">nice_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>component  carrier
+Generator  grid        100.00000
+           solar       629.44718
+Store      battery    1326.90203
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The statistics module also provides a convenient way to calculate investment and operational costs, as well as the average cost per unit of electricity consumed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">totex</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"opex"</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">opex</span><span class="p">(</span><span class="n">nice_names</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="s2">"capex"</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">capex</span><span class="p">(</span><span class="n">nice_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)}</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">totex</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="mf">1e6</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># M€/a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>opex</th>
+      <th>capex</th>
+    </tr>
+    <tr>
+      <th>component</th>
+      <th>carrier</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Generator</th>
+      <th>grid</th>
+      <td>10.48</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>solar</th>
+      <td>NaN</td>
+      <td>17.86</td>
+    </tr>
+    <tr>
+      <th>Store</th>
+      <th>battery</th>
+      <td>NaN</td>
+      <td>21.43</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">average_cost</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">capex</span><span class="p">(</span><span class="n">nice_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="o">+</span> <span class="n">n</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">opex</span><span class="p">(</span><span class="n">nice_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="mi">8760</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average electricity cost: </span><span class="si">{</span><span class="n">average_cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> €/MWh"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average electricity cost: 56.82 €/MWh
+</pre></div>
+</div>
+</div>
+</div>
+<p>To access and plot the state of charge profile of the battery for January, run</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">stores_t</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"2011-01"</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">"plotly"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Finally, any network object can be exported to files, for example to Excel or NetCDF, for further analysis or reporting.  Importing from files is of course also possible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">export_to_excel</span><span class="p">(</span><span class="s2">"data-centre-investment.xlsx"</span><span class="p">)</span>
+
+<span class="c1"># Ignore pandas deprecation notices only for these two operations.</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">Pandas4Warning</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">export_to_netcdf</span><span class="p">(</span><span class="s2">"data-centre-investment.nc"</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">pypsa</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="s2">"data-centre-investment.nc"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Reloaded network with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">snapshots</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> snapshots."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pypsa.network.io:Exported network 'Unnamed Network' saved to 'data-centre-investment.xlsx contains: loads, stores, buses, sub_networks, generators
+INFO:pypsa.network.io:Exported network 'Unnamed Network' saved to 'data-centre-investment.nc contains: loads, stores, buses, sub_networks, generators
+INFO:pypsa.network.io:Imported network 'Unnamed Network' has buses, generators, loads, stores, sub_networks
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reloaded network with 8,760 snapshots.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-2-extend-the-saved-seville-model">
+<h2>Part 2 — Extend the saved Seville model<a class="headerlink" href="#part-2-extend-the-saved-seville-model" title="Link to this heading">#</a></h2>
+<p>The cells above reproduce the starting exercise and end by exporting and reopening the network as <code class="docutils literal notranslate"><span class="pre">o</span></code>. Start from that reopened network. It already contains the bus, demand, grid generator, PV generator and all 8,760 hourly solar values. We do not need to download the solar profile or rebuild those components.</p>
+<p>The Quickstart uses a <code class="docutils literal notranslate"><span class="pre">Store</span></code> to choose energy capacity. In PyPSA, the grid element “Store” does not enforce <code class="docutils literal notranslate"><span class="pre">max_hours</span></code>, <code class="docutils literal notranslate"><span class="pre">efficiency_store</span></code> or <code class="docutils literal notranslate"><span class="pre">efficiency_dispatch</span></code> passed in that example. To test the stated four-hour battery with 90% round-trip efficiency, we first replace it with a <code class="docutils literal notranslate"><span class="pre">StorageUnit</span></code> in a <strong>separate copy</strong>. We then change one cost at a time relative to that new baseline.</p>
+<section id="inspect-the-imported-network">
+<h3>1. Inspect the imported network<a class="headerlink" href="#inspect-the-imported-network" title="Link to this heading">#</a></h3>
+<p>Check the component names before editing them. The reopened network <code class="docutils literal notranslate"><span class="pre">o</span></code> stays available for comparison.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">buses</span><span class="p">[[</span><span class="s2">"carrier"</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">loads</span><span class="p">[[</span><span class="s2">"bus"</span><span class="p">,</span> <span class="s2">"p_set"</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">generators</span><span class="p">[[</span><span class="s2">"bus"</span><span class="p">,</span> <span class="s2">"p_nom"</span><span class="p">,</span> <span class="s2">"p_nom_extendable"</span><span class="p">,</span> <span class="s2">"marginal_cost"</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">stores</span><span class="p">[[</span><span class="s2">"bus"</span><span class="p">,</span> <span class="s2">"e_nom_extendable"</span><span class="p">,</span> <span class="s2">"capital_cost"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Hourly snapshots: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">snapshots</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>carrier</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>seville</th>
+      <td>AC</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bus</th>
+      <th>p_set</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>demand</th>
+      <td>seville</td>
+      <td>100.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bus</th>
+      <th>p_nom</th>
+      <th>p_nom_extendable</th>
+      <th>marginal_cost</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>grid</th>
+      <td>seville</td>
+      <td>100.0</td>
+      <td>False</td>
+      <td>120.0</td>
+    </tr>
+    <tr>
+      <th>solar</th>
+      <td>seville</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bus</th>
+      <th>e_nom_extendable</th>
+      <th>capital_cost</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>battery</th>
+      <td>seville</td>
+      <td>True</td>
+      <td>16146.813031</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hourly snapshots: 8,760
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="copy-the-network-and-remove-the-original-store">
+<h3>2. Copy the network and remove the original Store<a class="headerlink" href="#copy-the-network-and-remove-the-original-store" title="Link to this heading">#</a></h3>
+<p>Keep the bus, demand, grid import limit and PV profile. Remove only the original battery from the copy; otherwise two batteries could serve the same load.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pandas4Warning</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">Pandas4Warning</span><span class="p">)</span>
+
+<span class="n">baseline</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">baseline</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"Store"</span><span class="p">,</span> <span class="s2">"battery"</span><span class="p">)</span>
+
+<span class="c1"># Define any carriers that the exported Quickstart did not register.</span>
+<span class="k">for</span> <span class="n">carrier</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"AC"</span><span class="p">,</span> <span class="s2">"grid"</span><span class="p">,</span> <span class="s2">"solar"</span><span class="p">,</span> <span class="s2">"battery"</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">carrier</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">baseline</span><span class="o">.</span><span class="n">carriers</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">baseline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Carrier"</span><span class="p">,</span> <span class="n">carrier</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pandas.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pandas4Warning</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">Pandas4Warning</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">baseline</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">baseline</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"Store"</span><span class="p">,</span> <span class="s2">"battery"</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Define any carriers that the exported Quickstart did not register.</span>
+
+<span class="ne">NameError</span>: name 'o' is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-battery-inputs-and-add-the-storageunit">
+<h3>3. Define battery inputs and add the StorageUnit<a class="headerlink" href="#define-battery-inputs-and-add-the-storageunit" title="Link to this heading">#</a></h3>
+<p>Reuse <code class="docutils literal notranslate"><span class="pre">cc_inverter</span></code> and <code class="docutils literal notranslate"><span class="pre">cc_storage</span></code> from the Quickstart. The first is the annual inverter cost per MW; the second is the annual energy-capacity cost per MWh. This time, PyPSA charges investment per MW of <strong>battery power</strong>. Multiply the energy cost by <span class="math notranslate nohighlight">\(H=4\)</span> h before adding it to the inverter cost. For example, a 10 MW inverter is paired with a 40 MWh energy limit.</p>
+<p>We split the 90% round-trip efficiency equally across charging and discharging, so each efficiency is <span class="math notranslate nohighlight">\(\sqrt{0.90}\)</span>. Cyclic state of charge makes the end-of-year inventory equal the starting inventory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">battery_hours</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">eta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.90</span><span class="p">)</span>
+<span class="n">battery_capital_cost</span> <span class="o">=</span> <span class="n">cc_inverter</span> <span class="o">+</span> <span class="n">battery_hours</span> <span class="o">*</span> <span class="n">cc_storage</span>
+
+<span class="n">baseline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"StorageUnit"</span><span class="p">,</span> <span class="s2">"battery"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"seville"</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"battery"</span><span class="p">,</span>
+             <span class="n">p_nom_extendable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_hours</span><span class="o">=</span><span class="n">battery_hours</span><span class="p">,</span>
+             <span class="n">capital_cost</span><span class="o">=</span><span class="n">battery_capital_cost</span><span class="p">,</span>
+             <span class="n">efficiency_store</span><span class="o">=</span><span class="n">eta</span><span class="p">,</span> <span class="n">efficiency_dispatch</span><span class="o">=</span><span class="n">eta</span><span class="p">,</span>
+             <span class="n">cyclic_state_of_charge</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">baseline</span><span class="o">.</span><span class="n">storage_units</span><span class="p">[[</span><span class="s2">"max_hours"</span><span class="p">,</span> <span class="s2">"capital_cost"</span><span class="p">,</span>
+                                <span class="s2">"efficiency_store"</span><span class="p">,</span> <span class="s2">"efficiency_dispatch"</span><span class="p">]])</span>
+
+<span class="c1"># Take the scenario copy before solving so it has no attached solver model.</span>
+<span class="n">scenario_template</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>max_hours</th>
+      <th>capital_cost</th>
+      <th>efficiency_store</th>
+      <th>efficiency_dispatch</th>
+    </tr>
+    <tr>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>battery</th>
+      <td>4.0</td>
+      <td>64587.252124</td>
+      <td>0.948683</td>
+      <td>0.948683</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="from-components-to-equations">
+<h3>From components to equations<a class="headerlink" href="#from-components-to-equations" title="Link to this heading">#</a></h3>
+<p><strong>Investment decisions:</strong> <span class="math notranslate nohighlight">\(P_{\rm PV}\)</span> and <span class="math notranslate nohighlight">\(P_{\rm B}\)</span> are PV and battery power capacity (MW). Both are nonnegative. <strong>Hourly decisions:</strong> <span class="math notranslate nohighlight">\(g_t^{\rm grid}\)</span> and <span class="math notranslate nohighlight">\(g_t^{\rm PV}\)</span> are supply (MW); <span class="math notranslate nohighlight">\(q_t^{\rm ch}\)</span> and <span class="math notranslate nohighlight">\(q_t^{\rm dis}\)</span> are nonnegative battery charging and discharging power at the bus (MW); <span class="math notranslate nohighlight">\(e_t\)</span> is the end-of-hour stored energy (MWh).</p>
+<p>Let <span class="math notranslate nohighlight">\(k_{\rm PV}\)</span> and <span class="math notranslate nohighlight">\(k_{\rm B}\)</span> be the annualised investment rates in EUR/(MW year), and let <span class="math notranslate nohighlight">\(c_{\rm grid}\)</span> be the grid purchase price in EUR/MWh. For this one-year model, the objective is:</p>
+<div class="math notranslate nohighlight">
+\[
+\min\quad (k_{\rm PV} P_{\rm PV}+k_{\rm B} P_{\rm B})\,(1\,\mathrm{year})
++\sum_t c_{\rm grid}\,g_t^{\rm grid}\,\Delta t_t.
+\]</div>
+<p>The first term pays for installed capacity once for the modelled year. The second pays for the electricity purchased hour by hour. In the code, <span class="math notranslate nohighlight">\(k_{\rm B}\)</span> is <span class="math notranslate nohighlight">\(\alpha(k_{\rm inv}+Hk_{\rm storage})\)</span>, where <span class="math notranslate nohighlight">\(\alpha\)</span> scales the combined battery cost.</p>
+<p>The <strong>generator limits</strong> and <strong>bus balance</strong> apply at every snapshot:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+0 &amp;\le g_t^{\rm grid}\le \bar P_{\rm grid},\\
+0 &amp;\le g_t^{\rm PV}\le a_t P_{\rm PV},\\
+g_t^{\rm grid}+g_t^{\rm PV}+q_t^{\rm dis}
+  &amp;=D_t+q_t^{\rm ch}.
+\end{aligned}
+\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(a_t\)</span> is the input solar availability fraction and <span class="math notranslate nohighlight">\(D_t\)</span> is the site load in MW. Charging is a withdrawal from the bus, just like demand. The PV inequality allows the model to use less than the available output.</p>
+<p>The <strong>battery limits and energy balance</strong> connect the hours:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+0\le q_t^{\rm ch} &amp;\le P_{\rm B}, \qquad 0\le q_t^{\rm dis}\le P_{\rm B},\\
+0\le e_t &amp;\le H P_{\rm B},\\
+e_t &amp;=e_{t-1}+\eta_{\rm ch}q_t^{\rm ch}\Delta t_t
+             -\frac{q_t^{\rm dis}\Delta t_t}{\eta_{\rm dis}},\\
+e_0 &amp;=e_T.
+\end{aligned}
+\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(H\)</span> is <code class="docutils literal notranslate"><span class="pre">max_hours</span></code>, <span class="math notranslate nohighlight">\(e_0\)</span> is energy just before the first hour, and <span class="math notranslate nohighlight">\(e_T\)</span> is energy just after the last hour. We assume no standing losses or inflow. Charging puts only a fraction <span class="math notranslate nohighlight">\(\eta_{\rm ch}\)</span> of the withdrawn electricity into the battery. Delivering one MWh from the battery to the bus uses <span class="math notranslate nohighlight">\(1/\eta_{\rm dis}\)</span> MWh of stored energy. The cyclic condition prevents the model from drawing down a free initial inventory over the year.</p>
+<p>For example, with 10 MW charging for one hour and <span class="math notranslate nohighlight">\(\eta_{\rm ch}=\sqrt{0.9}\)</span>, stored energy rises by about 9.49 MWh. Discharging that energy later returns 9 MWh to the bus. This is how the two efficiencies give a 90% round trip.</p>
+<p>These expressions are linear: availability, duration and efficiencies are fixed inputs. PyPSA chooses capacities and all hourly schedules together. HiGHS is called with the direct interface and one thread; the code checks for an optimal solution before reading it.</p>
+</section>
+<section id="solve-the-new-baseline">
+<h3>4. Solve the new baseline<a class="headerlink" href="#solve-the-new-baseline" title="Link to this heading">#</a></h3>
+<p>Check the termination condition before reading the outputs. In the extension we explicitly select HiGHS with one thread. The original Quickstart solve above is preserved.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">status</span><span class="p">,</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+    <span class="n">solver_name</span><span class="o">=</span><span class="s2">"highs"</span><span class="p">,</span> <span class="n">io_api</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">log_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_objective_constant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">condition</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="s2">"ok"</span><span class="p">,</span> <span class="s2">"optimal"</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No optimal solution: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:linopy.model: Solve problem using Highs solver
+INFO:linopy.model:Solver options:
+ - threads: 1
+ - log_to_console: False
+INFO:linopy.constants: Optimization successful: 
+Status: ok
+Termination condition: optimal
+Solution: 43802 primals, 105122 duals
+Objective: 5.17e+07
+Solver: highs
+Runtime: 2.25s
+MIP gap: inf
+Dual bound: 0.00e+00
+Solver model: available
+Solver message: Optimal
+
+INFO:pypsa.optimization.optimize:The shadow-prices of the constraints Generator-fix-p-lower, Generator-fix-p-upper, Generator-ext-p-lower, Generator-ext-p-upper, StorageUnit-ext-p_dispatch-lower, StorageUnit-ext-p_dispatch-upper, StorageUnit-ext-p_store-lower, StorageUnit-ext-p_store-upper, StorageUnit-ext-state_of_charge-lower, StorageUnit-ext-state_of_charge-upper, StorageUnit-energy_balance were not assigned to the network.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="read-baseline-capacities-then-read-hourly-operation">
+<h3>5. Read baseline capacities, then read hourly operation<a class="headerlink" href="#read-baseline-capacities-then-read-hourly-operation" title="Link to this heading">#</a></h3>
+<p>Read the chosen ratings first. Then use the hourly outputs to check that supply meets demand and that the battery inventory follows the energy-balance equation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pv_mw</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s2">"solar"</span><span class="p">,</span> <span class="s2">"p_nom_opt"</span><span class="p">]</span>
+<span class="n">battery_mw</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">storage_units</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s2">"battery"</span><span class="p">,</span> <span class="s2">"p_nom_opt"</span><span class="p">]</span>
+<span class="n">battery_mwh</span> <span class="o">=</span> <span class="n">battery_mw</span> <span class="o">*</span> <span class="n">battery_hours</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"PV: </span><span class="si">{</span><span class="n">pv_mw</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MW"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Battery: </span><span class="si">{</span><span class="n">battery_mw</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MW / </span><span class="si">{</span><span class="n">battery_mwh</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MWh"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PV: 656.63 MW
+Battery: 345.05 MW / 1380.21 MWh
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Charging is a withdrawal; discharging is an injection.</span>
+<span class="n">charge</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">storage_units_t</span><span class="o">.</span><span class="n">p_store</span><span class="p">[</span><span class="s2">"battery"</span><span class="p">]</span>
+<span class="n">discharge</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">storage_units_t</span><span class="o">.</span><span class="n">p_dispatch</span><span class="p">[</span><span class="s2">"battery"</span><span class="p">]</span>
+<span class="n">soc</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">storage_units_t</span><span class="o">.</span><span class="n">state_of_charge</span><span class="p">[</span><span class="s2">"battery"</span><span class="p">]</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s2">"grid"</span><span class="p">]</span>
+<span class="n">solar</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s2">"solar"</span><span class="p">]</span>
+<span class="n">load</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">loads_t</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s2">"demand"</span><span class="p">]</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">snapshot_weightings</span><span class="o">.</span><span class="n">generators</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">grid</span> <span class="o">+</span> <span class="n">solar</span> <span class="o">+</span> <span class="n">discharge</span> <span class="o">-</span> <span class="n">charge</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span>
+                           <span class="n">atol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># The last hour supplies the previous inventory for the first hour.</span>
+<span class="n">previous_soc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">soc</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span>
+    <span class="n">soc</span> <span class="o">-</span> <span class="n">previous_soc</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">eta</span> <span class="o">*</span> <span class="n">charge</span> <span class="o">-</span> <span class="n">discharge</span> <span class="o">/</span> <span class="n">eta</span><span class="p">)</span> <span class="o">*</span> <span class="n">baseline</span><span class="o">.</span><span class="n">snapshot_weightings</span><span class="o">.</span><span class="n">stores</span><span class="p">,</span>
+    <span class="n">atol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">charge</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">battery_mw</span> <span class="o">+</span> <span class="mf">1e-4</span>
+<span class="k">assert</span> <span class="n">discharge</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">battery_mw</span> <span class="o">+</span> <span class="mf">1e-4</span>
+<span class="k">assert</span> <span class="n">soc</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1e-4</span> <span class="ow">and</span> <span class="n">soc</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">battery_mwh</span> <span class="o">+</span> <span class="mf">1e-4</span>
+
+<span class="n">demand_mwh</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">grid_mwh</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Annual demand: </span><span class="si">{</span><span class="n">demand_mwh</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> MWh"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Annual grid imports: </span><span class="si">{</span><span class="n">grid_mwh</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> MWh"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average system cost: </span><span class="si">{</span><span class="n">baseline</span><span class="o">.</span><span class="n">objective</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">demand_mwh</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> EUR/MWh"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Annual demand: 876,000 MWh
+Annual grid imports: 89,491 MWh
+Average system cost: 58.97 EUR/MWh
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the week below, compare the hours with grid imports to the battery’s charging and discharging. The first two panels show power in MW; the last panel shows energy in MWh.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">week</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">"2011-06-01"</span><span class="p">,</span> <span class="s2">"2011-06-07 23:00"</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">week</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Grid"</span><span class="p">)</span>
+<span class="n">solar</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">week</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"PV"</span><span class="p">)</span>
+<span class="n">load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">week</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Demand"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"MW"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Supply and demand"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="p">(</span><span class="n">discharge</span> <span class="o">-</span> <span class="n">charge</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">week</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#8c69a8"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"MW"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Battery power: positive discharges, negative charges"</span><span class="p">)</span>
+<span class="n">soc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">week</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#008576"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"MWh"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Date"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Stored energy"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/37bb5b44832ec5d263e654d0ee3e1945593a592599008d2884af4e7cea85401d.png" src="../_images/37bb5b44832ec5d263e654d0ee3e1945593a592599008d2884af4e7cea85401d.png" />
+</div>
+</div>
+</section>
+<section id="scenario-a-cheaper-grid-electricity">
+<h3>6. Scenario A — Cheaper grid electricity<a class="headerlink" href="#scenario-a-cheaper-grid-electricity" title="Link to this heading">#</a></h3>
+<p>Start from the unsolved template. Reduce only the import price from 120 to 60 EUR/MWh. This changes the coefficient on hourly grid purchases in the objective. Predict whether the site will import more and invest less before solving.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cheaper_grid</span> <span class="o">=</span> <span class="n">scenario_template</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">cheaper_grid</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s2">"grid"</span><span class="p">,</span> <span class="s2">"marginal_cost"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">60.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">status</span><span class="p">,</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">cheaper_grid</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+    <span class="n">solver_name</span><span class="o">=</span><span class="s2">"highs"</span><span class="p">,</span> <span class="n">io_api</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">log_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_objective_constant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">condition</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="s2">"ok"</span><span class="p">,</span> <span class="s2">"optimal"</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No optimal solution: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:linopy.model: Solve problem using Highs solver
+INFO:linopy.model:Solver options:
+ - threads: 1
+ - log_to_console: False
+INFO:linopy.constants: Optimization successful: 
+Status: ok
+Termination condition: optimal
+Solution: 43802 primals, 105122 duals
+Objective: 4.15e+07
+Solver: highs
+Runtime: 3.88s
+MIP gap: inf
+Dual bound: 0.00e+00
+Solver model: available
+Solver message: Optimal
+
+INFO:pypsa.optimization.optimize:The shadow-prices of the constraints Generator-fix-p-lower, Generator-fix-p-upper, Generator-ext-p-lower, Generator-ext-p-upper, StorageUnit-ext-p_dispatch-lower, StorageUnit-ext-p_dispatch-upper, StorageUnit-ext-p_store-lower, StorageUnit-ext-p_store-upper, StorageUnit-ext-state_of_charge-lower, StorageUnit-ext-state_of_charge-upper, StorageUnit-energy_balance were not assigned to the network.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="scenario-b-cheaper-battery-equipment">
+<h3>7. Scenario B — Cheaper battery equipment<a class="headerlink" href="#scenario-b-cheaper-battery-equipment" title="Link to this heading">#</a></h3>
+<p>Start again from the same template, so the grid price stays at 120 EUR/MWh. Halve the battery’s combined inverter and energy investment rate. Its efficiency and four-hour ratio stay fixed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cheaper_battery</span> <span class="o">=</span> <span class="n">scenario_template</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">cheaper_battery</span><span class="o">.</span><span class="n">storage_units</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s2">"battery"</span><span class="p">,</span> <span class="s2">"capital_cost"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">battery_capital_cost</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">status</span><span class="p">,</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">cheaper_battery</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+    <span class="n">solver_name</span><span class="o">=</span><span class="s2">"highs"</span><span class="p">,</span> <span class="n">io_api</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">log_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_objective_constant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">condition</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="s2">"ok"</span><span class="p">,</span> <span class="s2">"optimal"</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No optimal solution: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:linopy.model: Solve problem using Highs solver
+INFO:linopy.model:Solver options:
+ - threads: 1
+ - log_to_console: False
+INFO:linopy.constants: Optimization successful: 
+Status: ok
+Termination condition: optimal
+Solution: 43802 primals, 105122 duals
+Objective: 4.01e+07
+Solver: highs
+Runtime: 2.57s
+MIP gap: inf
+Dual bound: 0.00e+00
+Solver model: available
+Solver message: Optimal
+
+INFO:pypsa.optimization.optimize:The shadow-prices of the constraints Generator-fix-p-lower, Generator-fix-p-upper, Generator-ext-p-lower, Generator-ext-p-upper, StorageUnit-ext-p_dispatch-lower, StorageUnit-ext-p_dispatch-upper, StorageUnit-ext-p_store-lower, StorageUnit-ext-p_store-upper, StorageUnit-ext-state_of_charge-lower, StorageUnit-ext-state_of_charge-upper, StorageUnit-energy_balance were not assigned to the network.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-the-three-solutions">
+<h3>8. Compare the three solutions<a class="headerlink" href="#compare-the-three-solutions" title="Link to this heading">#</a></h3>
+<p>Read the installed capacities first. Then compare imported energy and annual costs. The same 100 MW demand is served in each scenario. Average system cost is the annual objective divided by that scenario’s electricity consumption, in EUR/MWh.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cases</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Baseline"</span><span class="p">:</span> <span class="n">baseline</span><span class="p">,</span> <span class="s2">"Cheaper grid"</span><span class="p">:</span> <span class="n">cheaper_grid</span><span class="p">,</span>
+         <span class="s2">"Cheaper battery"</span><span class="p">:</span> <span class="n">cheaper_battery</span><span class="p">}</span>
+
+<span class="c1"># Read the capacity outputs directly from the solved component tables.</span>
+<span class="n">capacities</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"PV capacity (MW)"</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s2">"solar"</span><span class="p">,</span> <span class="s2">"p_nom_opt"</span><span class="p">]</span>
+                         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"Battery power (MW)"</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">storage_units</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s2">"battery"</span><span class="p">,</span> <span class="s2">"p_nom_opt"</span><span class="p">]</span>
+                           <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+<span class="p">})</span>
+<span class="n">capacities</span><span class="p">[</span><span class="s2">"Battery energy (MWh)"</span><span class="p">]</span> <span class="o">=</span> <span class="n">capacities</span><span class="p">[</span><span class="s2">"Battery power (MW)"</span><span class="p">]</span> <span class="o">*</span> <span class="n">battery_hours</span>
+<span class="n">display</span><span class="p">(</span><span class="n">capacities</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PV capacity (MW)</th>
+      <th>Battery power (MW)</th>
+      <th>Battery energy (MWh)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Baseline</th>
+      <td>656.63</td>
+      <td>345.05</td>
+      <td>1380.21</td>
+    </tr>
+    <tr>
+      <th>Cheaper grid</th>
+      <td>259.07</td>
+      <td>30.05</td>
+      <td>120.21</td>
+    </tr>
+    <tr>
+      <th>Cheaper battery</th>
+      <td>657.89</td>
+      <td>375.00</td>
+      <td>1500.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the shared hourly weights to convert power to energy.</span>
+<span class="n">energy_and_cost</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Grid imports (MWh/year)"</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s2">"grid"</span><span class="p">]</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"Demand (MWh/year)"</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">loads_t</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s2">"demand"</span><span class="p">]</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                          <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"Annual cost (EUR/year)"</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">objective</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+<span class="p">})</span>
+<span class="n">energy_and_cost</span><span class="p">[</span><span class="s2">"Average cost (EUR/MWh)"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">energy_and_cost</span><span class="p">[</span><span class="s2">"Annual cost (EUR/year)"</span><span class="p">]</span> <span class="o">/</span> <span class="n">energy_and_cost</span><span class="p">[</span><span class="s2">"Demand (MWh/year)"</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">energy_and_cost</span><span class="p">[</span><span class="s2">"Demand (MWh/year)"</span><span class="p">],</span> <span class="mi">876_000</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">energy_and_cost</span><span class="p">[</span><span class="s2">"Annual cost (EUR/year)"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">objective</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">energy_and_cost</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grid imports (MWh/year)</th>
+      <th>Demand (MWh/year)</th>
+      <th>Annual cost (EUR/year)</th>
+      <th>Average cost (EUR/MWh)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Baseline</th>
+      <td>89491.47</td>
+      <td>876000.0</td>
+      <td>51660859.06</td>
+      <td>58.97</td>
+    </tr>
+    <tr>
+      <th>Cheaper grid</th>
+      <td>536029.06</td>
+      <td>876000.0</td>
+      <td>41455293.86</td>
+      <td>47.32</td>
+    </tr>
+    <tr>
+      <th>Cheaper battery</th>
+      <td>78008.75</td>
+      <td>876000.0</td>
+      <td>40142870.71</td>
+      <td>45.83</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>To help the analysis, you can plot your results, and compare them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Keep the same scenario order in every panel.</span>
+<span class="n">scenario_order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Baseline"</span><span class="p">,</span> <span class="s2">"Cheaper grid"</span><span class="p">,</span> <span class="s2">"Cheaper battery"</span><span class="p">]</span>
+<span class="n">capacity_plot</span> <span class="o">=</span> <span class="n">capacities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">scenario_order</span><span class="p">]</span>
+<span class="n">cost_plot</span> <span class="o">=</span> <span class="n">energy_and_cost</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">scenario_order</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Seville data centre: comparison of three scenarios"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="c1"># 1. Compare how much PV and battery inverter capacity the model builds.</span>
+<span class="n">capacity_plot</span><span class="p">[[</span><span class="s2">"PV capacity (MW)"</span><span class="p">,</span> <span class="s2">"Battery power (MW)"</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"#E5A216"</span><span class="p">,</span> <span class="s2">"#8C69A8"</span><span class="p">],</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Installed power capacity"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"MW"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">"Solar PV"</span><span class="p">,</span> <span class="s2">"Battery inverter"</span><span class="p">],</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 2. Show how much energy the battery can hold.</span>
+<span class="n">capacity_plot</span><span class="p">[</span><span class="s2">"Battery energy (MWh)"</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#8C69A8"</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Battery energy capacity"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"MWh"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+
+<span class="c1"># 3. Convert annual grid imports from MWh to GWh.</span>
+<span class="p">(</span><span class="n">cost_plot</span><span class="p">[</span><span class="s2">"Grid imports (MWh/year)"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1_000</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#496E9C"</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Electricity purchased from the grid"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"GWh/year"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+
+<span class="c1"># 4. Compare annual system cost per MWh of electricity consumed.</span>
+<span class="n">cost_plot</span><span class="p">[</span><span class="s2">"Average cost (EUR/MWh)"</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#007F86"</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Average system cost"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"EUR/MWh consumed"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+
+<span class="c1"># Label the bars so students can read the values directly.</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.16</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">bars</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">"</span><span class="si">%.1f</span><span class="s2">"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c31859efeeafd86e8cc2377a3dd5eeb3f44d3c7d3bc1bf9d8eb4bff26b9966cc.png" src="../_images/c31859efeeafd86e8cc2377a3dd5eeb3f44d3c7d3bc1bf9d8eb4bff26b9966cc.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="explain-the-scenario-results">
+<h2>Explain the scenario results<a class="headerlink" href="#explain-the-scenario-results" title="Link to this heading">#</a></h2>
+<p>With the supplied inputs, all three scenarios serve the same 876,000 MWh. Approximate results:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Scenario</p></th>
+<th class="head text-right"><p>PV (MW)</p></th>
+<th class="head text-right"><p>Battery power (MW)</p></th>
+<th class="head text-right"><p>Battery energy (MWh)</p></th>
+<th class="head text-right"><p>Average system cost (EUR/MWh)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Baseline</p></td>
+<td class="text-right"><p>657</p></td>
+<td class="text-right"><p>345</p></td>
+<td class="text-right"><p>1,380</p></td>
+<td class="text-right"><p>58.97</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cheaper grid</p></td>
+<td class="text-right"><p>259</p></td>
+<td class="text-right"><p>30</p></td>
+<td class="text-right"><p>120</p></td>
+<td class="text-right"><p>47.32</p></td>
+</tr>
+<tr class="row-even"><td><p>Cheaper battery</p></td>
+<td class="text-right"><p>658</p></td>
+<td class="text-right"><p>375</p></td>
+<td class="text-right"><p>1,500</p></td>
+<td class="text-right"><p>45.83</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When imports cost less, avoiding an imported MWh saves less money. In this run, the model buys more electricity and builds less PV and storage. When battery equipment costs less, shifting energy across hours becomes cheaper. Here the model builds more storage and imports less than in the baseline. These are results for the supplied inputs, not rules that guarantee the same capacity changes in other systems.</p>
+<p>To explain one result, use both the <strong>capacity table</strong> and the <strong>hourly operation plot</strong>. For instance, how can battery inverter power exceed the 100 MW demand? The inverter also limits charging; surplus PV can charge the battery at a rate above 100 MW.</p>
+</section>
+<section id="optional-practice">
+<h2>Optional practice<a class="headerlink" href="#optional-practice" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Change only <code class="docutils literal notranslate"><span class="pre">battery_hours</span></code> to 2.0 in your editable settings. Rebuild and solve, then compare <code class="docutils literal notranslate"><span class="pre">summarise(n)</span></code> with the fixed baseline. Explain why the battery capital cost per MW also changes.</p></li>
+<li><p>Compare operation on a winter week and a summer week. Does one weather year establish reliability in all years?</p></li>
+<li><p>Propose one missing constraint, identify which conclusion it might change, and design a comparison to test it.</p></li>
+</ul>
+</section>
+<section id="check-your-work">
+<h2>Check your work<a class="headerlink" href="#check-your-work" title="Link to this heading">#</a></h2>
+<p>Demand must be 876,000 MWh/year in every named scenario, and hourly supply plus net battery discharge must match load. The battery’s energy capacity must equal four times its power capacity in the named cases. Do not expect less battery investment in every price experiment without checking the optimised result.</p>
+</section>
+<section id="sources-and-reuse">
+<h2>Sources and reuse<a class="headerlink" href="#sources-and-reuse" title="Link to this heading">#</a></h2>
+<p>The setting and solar-data URL are credited to <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-3/">PyPSA Quickstart 3</a>. We deliberately implement the stated battery assumptions with <code class="docutils literal notranslate"><span class="pre">StorageUnit</span></code> and a cyclic inventory. The baseline/variant tables and collection comparison draw on the supplied <a class="reference external" href="https://ljansen-iee.github.io/pypsa-meets-earth-lab-2026/notebooks/D_ZA_scenario_analysis.html">Jansen scenario-analysis tutorial</a>; no South African results are imported or claimed here. Code is supplied under AGPL-3.0-or-later. See <code class="docutils literal notranslate"><span class="pre">SOURCES.md</span></code> for attribution and data handling.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./pypsa-tutorial"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02-electricity-markets.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Electricity markets: generation, transfers, and prices</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pypsa-solution">PyPSA Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-saved-seville-model">Part 2 — Extend the saved Seville model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-imported-network">1. Inspect the imported network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-the-network-and-remove-the-original-store">2. Copy the network and remove the original Store</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-battery-inputs-and-add-the-storageunit">3. Define battery inputs and add the StorageUnit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-components-to-equations">From components to equations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-the-new-baseline">4. Solve the new baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-baseline-capacities-then-read-hourly-operation">5. Read baseline capacities, then read hourly operation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-a-cheaper-grid-electricity">6. Scenario A — Cheaper grid electricity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-b-cheaper-battery-equipment">7. Scenario B — Cheaper battery equipment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-the-three-solutions">8. Compare the three solutions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explain-the-scenario-results">Explain the scenario results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-work">Check your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-reuse">Sources and reuse</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alejandro Zabala Figueroa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
