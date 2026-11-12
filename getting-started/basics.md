@@ -25,7 +25,9 @@ jupyter lab
 
 Keep the terminal open while you work.
 
-![JupyterLab interface showing the notebook launcher](images/jupyter_lab.jpg)
+![JupyterLab interface showing the notebook launcher](images/jupyter_lab.jpg). 
+
+If you want to know more about Jupyterlab consult: [Jupyter](https://jupyterlab.readthedocs.io/=en/4.6.x/getting_started/overview.html).
 
 
 If you are using Google Colab, open

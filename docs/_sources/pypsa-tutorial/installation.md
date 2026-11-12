@@ -33,34 +33,35 @@ conda --version
 Run this as one line, then accept the proposed installation:
 
 ```bash
-conda create -n pypsa-course --override-channels -c conda-forge python=3.12 pypsa=1.4.0 highspy=1.15.1 pandas matplotlib jupyterlab ipykernel
-conda activate pypsa-course
+conda create -n pypsa-course --override-channels -c conda-forge python=3.12 pypsa=1.4.0 highspy=1.15.1 pandas matplotlib jupyterlab ipykernel cartopy
 ```
 
-With Miniforge you may replace `conda create` with `mamba create`. Use one command, not both. The version pins match the environment used to check this teaching package. Later PyPSA releases may require checking their release notes before upgrading.
+Here `--override-channels -c conda-forge` asks for packages from conda-forge for this operation. `highspy` is the Python interface to the open-source **HiGHS** optimisation solver. No commercial solver licence is required for these examples. However, depending on the complexity of your problem, you may need to use Gurobi as an optimisation solver for your master's thesis. **Gurobi** is the best optimisation tool, and a free version is available for students.
 
-`--override-channels -c conda-forge` asks for packages from conda-forge for this operation. `highspy` is the Python interface to the open-source **HiGHS** optimisation solver. No commercial solver licence is needed for these examples.
 
-Alternatively, from the repository root, use the included environment file:
+Then activate your virtual environment:
 
 ```bash
-conda env create -f pypsa-tutorial/environment.yml
 conda activate pypsa-course
 ```
 
-The environment file and the direct create command are alternatives. If `pypsa-course` already exists, activate and inspect it instead of trying to create it again.
+## Register the notebook kernel for pypsa
 
-## Register a notebook kernel
-
-An environment contains Python and packages. A notebook kernel is the Python process that executes a notebook's cells. Register the environment so Jupyter can offer it:
+Remember that an environment contains Python and libraries or pacakges. A notebook kernel is the Python process that executes a notebook's cells. And jupyter is just the interface. So, to see the python environment on Jupyter, you need to register the environment. While have your virtual environment **pypsa-course** activated run on your terminal:
 
 ```bash
 python -m ipykernel install --user --name pypsa-course --display-name "Python (pypsa-course)"
+
 python -c "import pypsa, highspy; print('PyPSA', pypsa.__version__); print('HiGHS', highspy.Highs().version())"
+```
+
+If you want to check, that your kernel is correctly registered, run:
+
+```bash
 jupyter kernelspec list
 ```
 
-Launch JupyterLab from your course project folder:
+Then, launch JupyterLab from your course project folder:
 
 ```bash
 jupyter lab
@@ -68,42 +69,6 @@ jupyter lab
 
 Keep the terminal open. Open a lesson notebook and select **Python (pypsa-course)** from the kernel selector. If it is missing, stop JupyterLab, repeat kernel registration in the activated environment, and restart JupyterLab. In a notebook, `import sys; print(sys.executable)` should point into `pypsa-course`.
 
-## Test a small optimisation
-
-Create a new notebook and run:
-
-```python
-import pypsa
-
-n = pypsa.Network()
-n.add("Carrier", "electricity")
-n.add("Bus", "Site", carrier="electricity")
-n.add("Load", "Demand", bus="Site", p_set=1.0)
-n.add("Generator", "Supply", bus="Site", carrier="electricity",
-      p_nom=2.0, marginal_cost=50.0)
-status, condition = n.optimize(
-    solver_name="highs", io_api="direct", log_to_console=False,
-    include_objective_constant=False,
-)
-print("Status:", status)
-print("Termination:", condition)
-if status != "ok" or condition != "optimal":
-    raise RuntimeError("The installation test did not solve successfully.")
-print(n.generators_t.p)
-```
-
-Expect status `ok`, termination `optimal`, and supply of 1 MW. The solver meets a 1 MW load using the available 2 MW generator. Some informational messages about shadow prices are normal; the termination condition is what establishes whether this test solved.
-
 ## Continue with the notebooks
 
-Open **Electricity markets** first, then **Investment and storage**. Read them online or download their `.ipynb` source from the book's download menu. The displayed figures are saved notebook outputs; the static website does not run a solver when you change a cell. Download and run the notebook locally for an experiment.
-
-## Record your installation
-
-From the activated environment:
-
-```bash
-conda env export --no-builds > pypsa-course-resolved.yml
-```
-
-This records installed versions for reproducibility; it is more specific than the starter environment file. Package builds and operating systems can still differ. Share your operating system and these versions when reporting an installation problem.
+Open **Introduction to pypsa: a simple dispatch problem** first, then **Electricity markets** , and finish with **Investment and storage**. Read them online or download their `.ipynb` source from the book's download menu. The displayed figures are saved notebook outputs; the static website does not run a solver when you change a cell. You can download and run the notebook locally in your laptop.

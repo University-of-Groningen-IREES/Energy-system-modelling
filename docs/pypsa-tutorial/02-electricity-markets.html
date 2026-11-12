@@ -383,7 +383,7 @@
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe-the-system">Describe the system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-problem-description">Part 1: Problem description</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-network-what-each-component-does">Build the network: what each component does</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-we-create-a-pypsa-network">First, we create a PyPSA network</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#then-we-add-the-components-energy-carriers-buses-loads-generators">Then we add the components: energy carriers, buses, loads, generators.</a></li>
@@ -392,8 +392,12 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-components-to-equations">From components to equations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-and-check">Solve and check</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-dispatch-prices-and-objective">Read the dispatch, prices, and objective</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-change-compare">Predict, change, compare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-dispatch-prices-and-objective">Read the dispatch, prices, and objective</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#line-congestion-analysis">Line congestion analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-grid-congestion-analysis-by-changing-the-line-capacity">Part 2: Extend the grid congestion analysis by changing the line capacity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-change-compare-scenarios">Predict, change, compare scenarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-second-experiment-higher-local-generation-cost">A second experiment: higher local generation cost</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-reuse">Sources and reuse</a></li>
@@ -435,9 +439,10 @@
 </div>
 </div>
 </section>
-<section id="describe-the-system">
-<h2>Describe the system<a class="headerlink" href="#describe-the-system" title="Link to this heading">#</a></h2>
-<p>Again we have here the same elements:</p>
+<section id="part-1-problem-description">
+<h2>Part 1: Problem description<a class="headerlink" href="#part-1-problem-description" title="Link to this heading">#</a></h2>
+<p>(here we will use the same instructions given in <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-1/">Quickstart 1</a> - Markets from PyPSA documenation)</p>
+<p>As in the previos example, we have here the same elements:</p>
 <ul class="simple">
 <li><p>A <strong>Bus</strong> is a balance point where load and generation meet,</p></li>
 <li><p>A <strong>Load</strong> consumes power,</p></li>
@@ -604,7 +609,7 @@
 </table>
 </div></div></div>
 </div>
-<p>Add loads</p>
+<p>Add loads (we assume, here a constant load, however, real problems have load represented through time series)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Load"</span><span class="p">,</span> <span class="s2">"load_1"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"zone_1"</span><span class="p">,</span> <span class="n">p_set</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
@@ -743,8 +748,8 @@
     <span class="s2">"Line"</span><span class="p">,</span> <span class="s2">"Connection"</span><span class="p">,</span>
     <span class="n">bus0</span><span class="o">=</span><span class="s2">"zone_1"</span><span class="p">,</span>
     <span class="n">bus1</span><span class="o">=</span><span class="s2">"zone_2"</span><span class="p">,</span>
-    <span class="n">x</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
-    <span class="n">r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="c1"># Series reactance, must be non-zero for AC branch for linearised power flow equations.</span>
+    <span class="n">r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="c1"># Series resistance, must be non-zero for DC branch for linearised power flow equations.</span>
     <span class="n">s_nom</span><span class="o">=</span><span class="n">line_limit_mw</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -1055,15 +1060,19 @@ Operating cost for the hour: EUR 39,450.00
 </div>
 </div>
 </div>
-<p>Both plants have spare capacity. Because the line is already full, a small extra load must be met locally. Substituting the outputs into <span class="math notranslate nohighlight">\(a_i+2b_i g_i\)</span> gives <strong>19 EUR/MWh</strong> in Zone 1 and <strong>35 EUR/MWh</strong> in Zone 2. These are modelled marginal values, not retail tariffs. The lossless congestion rent (or congestion surplus) is <span class="math notranslate nohighlight">\(400\,(35-19)\,(1)=6{,}400\)</span> EUR for the hour.</p>
-<p>With the 1,000 MW rating, the line can carry about 933.33 MW before marginal costs equalise. Increasing the rating further would not lower the operating cost in this case: the limit no longer binds.</p>
+<section id="line-congestion-analysis">
+<h3>Line congestion analysis<a class="headerlink" href="#line-congestion-analysis" title="Link to this heading">#</a></h3>
+<p>Both plants have spare capacity (unused potential). Because the line is already full, a small extra load must be met locally.</p>
+<p>To do that, we substitute the outputs into <span class="math notranslate nohighlight">\(a_i+2b_i g_i\)</span> gives <strong>19 EUR/MWh</strong> in Zone 1 and <strong>35 EUR/MWh</strong> in Zone 2.</p>
+<p>These are modelled marginal values, not retail tariffs. Therefore, the lossless congestion rent (or the possivle revenue due to such bottleneck) is <span class="math notranslate nohighlight">\(400[MW]\,(35-19)[EUR/MWh]\,(1)[h]=6{,}400\)</span> EUR for the hour.</p>
+<p>With a 1,000 MW capacity limit, the line only needs to carry about 933.33 MW for the prices (marginal costs) in both zones to naturally converge to the same value. If you built a bigger line beyond that, it wouldn’t lower operating costs any further because the transmission line is no longer a bottleneck.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Congestion rent equals the energy transferred times the price difference.</span>
 <span class="c1"># Units: MW × EUR/MWh × h = EUR.</span>
 <span class="c1"># Positive flow is defined from zone_1 to zone_2, so use price_2 - price_1.</span>
 <span class="n">rent_eur</span> <span class="o">=</span> <span class="n">flow</span> <span class="o">*</span> <span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="s2">"zone_2"</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="s2">"zone_1"</span><span class="p">])</span> <span class="o">*</span> <span class="n">hours</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Congestion rent in this hour: EUR </span><span class="si">{</span><span class="n">rent_eur</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Congestion rent (or bottleneck revenue) in this hour: EUR </span><span class="si">{</span><span class="n">rent_eur</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Use separate panels because dispatch and prices have different units.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
@@ -1085,22 +1094,33 @@ Operating cost for the hour: EUR 39,450.00
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congestion rent in this hour: EUR 6,400.01
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congestion rent (or bottleneck revenue) in this hour: EUR 6,400.01
 </pre></div>
 </div>
 <img alt="../_images/d50ecfbdaab30d3d9024f062cc2285fa2ac0c2220caf49d27e2a2513e3324050.png" src="../_images/d50ecfbdaab30d3d9024f062cc2285fa2ac0c2220caf49d27e2a2513e3324050.png" />
 </div>
 </div>
 </section>
-<section id="predict-change-compare">
-<h2>Predict, change, compare<a class="headerlink" href="#predict-change-compare" title="Link to this heading">#</a></h2>
+</section>
+<section id="part-2-extend-the-grid-congestion-analysis-by-changing-the-line-capacity">
+<h2>Part 2: Extend the grid congestion analysis by changing the line capacity<a class="headerlink" href="#part-2-extend-the-grid-congestion-analysis-by-changing-the-line-capacity" title="Link to this heading">#</a></h2>
+</section>
+<section id="predict-change-compare-scenarios">
+<h2>Predict, change, compare scenarios<a class="headerlink" href="#predict-change-compare-scenarios" title="Link to this heading">#</a></h2>
 <p>Compare the three named line ratings (400, 1,000 and 0 MW), holding demand and generation costs fixed. A fourth row, <strong>Your inputs</strong>, uses your editable settings. Use the transfer and price-gap columns to explain why the dispatch and total cost change. A higher rating allows more power to flow; it does not force a higher transfer.</p>
+<p>Here define the power capacity of the line according to your research curiosity:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Edit this value to test your own line rating without changing the reference cases.</span>
-<span class="n">your_line_limit_mw</span> <span class="o">=</span> <span class="mf">600.0</span> 
-
-<span class="c1"># A rating is the maximum allowed transfer, not the actual power flow.</span>
+<span class="n">your_line_limit_mw</span> <span class="o">=</span> <span class="mf">600.0</span> <span class="c1"># As an example, we set the line limit to 600 MW, which is higher than the original 400 MW.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then the values of all scenarios are defined, previous to input them into a function that would summarize implementation of each capacity limit for our electricity market.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A rating is the maximum allowed transfer, not the actual power flow.</span>
 <span class="c1"># The zero-rating case keeps the line in the network but prevents transfers.</span>
 <span class="n">ratings</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">"Baseline"</span><span class="p">:</span> <span class="mf">400.0</span><span class="p">,</span>
@@ -1108,9 +1128,14 @@ Operating cost for the hour: EUR 39,450.00
     <span class="s2">"No transfer"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="s2">"Your inputs"</span><span class="p">:</span> <span class="n">your_line_limit_mw</span><span class="p">,</span>
 <span class="p">}</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">scenario_row</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we define a function that runs the optimisation of the energy system model for each scenario.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">scenario_row</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Summarise one solved scenario as a row in the comparison table."""</span>
 
     <span class="c1"># Read the results and check the two bus balances and the line limit.</span>
@@ -1264,6 +1289,7 @@ Your inputs                 10.0                5999.99             36850.00
 </div>
 </div>
 </div>
+<p>We then plot the results of our optimisation for each scenario in order to visualise and analyse them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
@@ -1376,7 +1402,7 @@ Your inputs                 10.0                5999.99             36850.00
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe-the-system">Describe the system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-problem-description">Part 1: Problem description</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-network-what-each-component-does">Build the network: what each component does</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-we-create-a-pypsa-network">First, we create a PyPSA network</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#then-we-add-the-components-energy-carriers-buses-loads-generators">Then we add the components: energy carriers, buses, loads, generators.</a></li>
@@ -1385,8 +1411,12 @@ Your inputs                 10.0                5999.99             36850.00
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-components-to-equations">From components to equations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-and-check">Solve and check</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-dispatch-prices-and-objective">Read the dispatch, prices, and objective</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-change-compare">Predict, change, compare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-dispatch-prices-and-objective">Read the dispatch, prices, and objective</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#line-congestion-analysis">Line congestion analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-grid-congestion-analysis-by-changing-the-line-capacity">Part 2: Extend the grid congestion analysis by changing the line capacity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-change-compare-scenarios">Predict, change, compare scenarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-second-experiment-higher-local-generation-cost">A second experiment: higher local generation cost</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-practice">Optional practice</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-reuse">Sources and reuse</a></li>

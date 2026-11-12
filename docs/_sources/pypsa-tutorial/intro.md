@@ -13,13 +13,9 @@ Install the PyPSA course environment and work through the two notebooks. Before 
 - Test one changed assumption against a fixed baseline.
 - Identify conclusions that depend on the model boundary and time resolution.
 
-## Course lessons
-
 ## How to work through this tutorial
 
-Start by setting up your Python environment. Then complete the three exercises
-in order: first decide how to dispatch generators at one node, then connect
-two zones, and finally decide how much generation and storage to build.
+Start by setting up your Python environment. Then complete the three exercises in order: 1\) Simple dispatch problem, 2\) ELectricity markets, and 3\) Investment and storage. 
 
 1. [Installation](installation.md) — Set up the environment and check that PyPSA
    and the solver work.

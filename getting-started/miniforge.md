@@ -29,7 +29,6 @@ Search for **Miniforge Prompt** in the Windows Start menu.
 If you find it, open it and run:
 
 ```bash
-mamba --version
 conda --version
 ```
 
@@ -57,7 +56,6 @@ Search for **Miniforge Prompt** in the Start menu and open it.
 Check the installation:
 
 ```bash
-mamba --version
 conda --version
 ```
 
@@ -75,7 +73,6 @@ press **Command + Space**, type `Terminal`, and press Enter.
 Run:
 
 ```bash
-mamba --version
 conda --version
 ```
 
@@ -130,11 +127,10 @@ Close Terminal and open a new Terminal window.
 Run:
 
 ```bash
-mamba --version
 conda --version
 ```
 
-Both commands should display version numbers.
+This command should display version numbers.
 
 ## Create the course environment
 
@@ -142,15 +138,14 @@ The following commands are the same on Windows and macOS.
 
 Use **Miniforge Prompt on Windows** or **Terminal on macOS**.
 
-Copy only the commands below. Do not include terminal prompts or
-output from previous commands.
+Copy only the commands below. Do not include terminal prompts or output from previous commands.
 
 ### 1. Create the environment
 
 Run:
 
 ```bash
-mamba create -n managing-data python=3.12 pandas numpy matplotlib jupyterlab -c conda-forge
+conda create -n managing-data python=3.12 pandas numpy matplotlib jupyterlab -c conda-forge
 ```
 
 When asked to proceed, type `y` and press Enter.
@@ -183,15 +178,15 @@ on this course.
 
 ### 3. Register the notebook kernel
 
-Jupyter uses a **kernel** to execute notebook code. Selecting a kernel also determines which Python environment and installed packages your notebook can access.
+Jupyter uses a **kernel** to execute notebook code. A **kernel** is the central core program of a computer's operating system that acts as a bridge between software applications and physical hardware. Hence, selecting a kernel also determines which Python environment and installed packages your notebook in Jupyter can access.
 
 With `managing-data` active, install the Python kernel package:
 
 ```bash
-mamba install -c conda-forge ipykernel
+conda install -c conda-forge ipykernel
 ```
 
-Register it with a recognisable name:
+Register the the kernel with the same name of your virtual environment (in this case **"managing-data"**):
 
 ```bash
 python -m ipykernel install --user --name managing-data --display-name "Python (managing-data)"
@@ -199,15 +194,13 @@ python -m ipykernel install --user --name managing-data --display-name "Python (
 
 You only need to register it once for this environment on your computer.
 
-When creating or opening a notebook in JupyterLab, select
-**Python (managing-data)** as the kernel.
+When creating or opening a notebook in JupyterLab, select **Python (managing-data)** as the kernel.
 
-If you use Google Colab, its Python runtime is provided automatically;
-you can skip this local registration step.
+If you use Google Colab, its Python runtime is provided automatically; you can skip this local registration step. We discourage using google colab, and motivate you to use local virtual environment in your laptop.
 
 ### 4. Launch JupyterLab
 
-Run:
+To lunch the web-based user interface of Jupyter, run:
 
 ```bash
 jupyter lab
@@ -215,8 +208,7 @@ jupyter lab
 
 JupyterLab should open in your browser.
 
-Although it appears in a browser, JupyterLab runs on your computer.
-Keep its terminal window open while you work.
+Although it appears in a browser, JupyterLab runs on your computer. Keep the terminal that you used to launch jupyter open while you work.
 
 You are now ready to continue to **Python and Jupyter Basics**.
 
@@ -234,7 +226,5 @@ install Miniforge or create an environment locally.
 4. Continue with the notebook exercises on the next page.
 
 Save your notebook in Google Drive or download it as an `.ipynb` file.
-Files and variables stored in the running session are temporary.
 
-If your institution also restricts access to Colab, ask your instructor
-which notebook platform to use.
+Files and variables stored in the running session are temporary.

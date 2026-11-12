@@ -832,8 +832,6 @@ convert_energy(value, source_unit, target_unit="kWh")
 
 Support `Wh`, `kWh`, and `MWh`.
 
-Hint: use a dictionary containing the number of Wh represented by
-one unit of each type.
+Hint: use a dictionary containing the number of Wh represented by one unit of each type.
 
-Test conversions in both directions. As an additional challenge,
-raise a `ValueError` if a unit is unsupported.
+Test conversions in both directions. As an additional challenge, raise a `ValueError` if a unit is unsupported.

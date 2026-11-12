@@ -384,10 +384,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#can-i-use-miniconda">Can I use Miniconda?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-your-terminal">Open your terminal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-course-environment">Install the course environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-a-notebook-kernel">Register a notebook kernel</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-a-small-optimisation">Test a small optimisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-notebook-kernel-for-pypsa">Register the notebook kernel for pypsa</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-with-the-notebooks">Continue with the notebooks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#record-your-installation">Record your installation</a></li>
 </ul>
             </nav>
         </div>
@@ -430,68 +428,36 @@
 <section id="install-the-course-environment">
 <h2>Install the course environment<a class="headerlink" href="#install-the-course-environment" title="Link to this heading">#</a></h2>
 <p>Run this as one line, then accept the proposed installation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>pypsa-course<span class="w"> </span>--override-channels<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span><span class="nv">pypsa</span><span class="o">=</span><span class="m">1</span>.4.0<span class="w"> </span><span class="nv">highspy</span><span class="o">=</span><span class="m">1</span>.15.1<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab<span class="w"> </span>ipykernel
-conda<span class="w"> </span>activate<span class="w"> </span>pypsa-course
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>pypsa-course<span class="w"> </span>--override-channels<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span><span class="nv">pypsa</span><span class="o">=</span><span class="m">1</span>.4.0<span class="w"> </span><span class="nv">highspy</span><span class="o">=</span><span class="m">1</span>.15.1<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab<span class="w"> </span>ipykernel<span class="w"> </span>cartopy
 </pre></div>
 </div>
-<p>With Miniforge you may replace <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code> with <code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">create</span></code>. Use one command, not both. The version pins match the environment used to check this teaching package. Later PyPSA releases may require checking their release notes before upgrading.</p>
-<p><code class="docutils literal notranslate"><span class="pre">--override-channels</span> <span class="pre">-c</span> <span class="pre">conda-forge</span></code> asks for packages from conda-forge for this operation. <code class="docutils literal notranslate"><span class="pre">highspy</span></code> is the Python interface to the open-source <strong>HiGHS</strong> optimisation solver. No commercial solver licence is needed for these examples.</p>
-<p>Alternatively, from the repository root, use the included environment file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pypsa-tutorial/environment.yml
-conda<span class="w"> </span>activate<span class="w"> </span>pypsa-course
+<p>Here <code class="docutils literal notranslate"><span class="pre">--override-channels</span> <span class="pre">-c</span> <span class="pre">conda-forge</span></code> asks for packages from conda-forge for this operation. <code class="docutils literal notranslate"><span class="pre">highspy</span></code> is the Python interface to the open-source <strong>HiGHS</strong> optimisation solver. No commercial solver licence is required for these examples. However, depending on the complexity of your problem, you may need to use Gurobi as an optimisation solver for your master’s thesis. <strong>Gurobi</strong> is the best optimisation tool, and a free version is available for students.</p>
+<p>Then activate your virtual environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>pypsa-course
 </pre></div>
 </div>
-<p>The environment file and the direct create command are alternatives. If <code class="docutils literal notranslate"><span class="pre">pypsa-course</span></code> already exists, activate and inspect it instead of trying to create it again.</p>
 </section>
-<section id="register-a-notebook-kernel">
-<h2>Register a notebook kernel<a class="headerlink" href="#register-a-notebook-kernel" title="Link to this heading">#</a></h2>
-<p>An environment contains Python and packages. A notebook kernel is the Python process that executes a notebook’s cells. Register the environment so Jupyter can offer it:</p>
+<section id="register-the-notebook-kernel-for-pypsa">
+<h2>Register the notebook kernel for pypsa<a class="headerlink" href="#register-the-notebook-kernel-for-pypsa" title="Link to this heading">#</a></h2>
+<p>Remember that an environment contains Python and libraries or pacakges. A notebook kernel is the Python process that executes a notebook’s cells. And jupyter is just the interface. So, to see the python environment on Jupyter, you need to register the environment. While have your virtual environment <strong>pypsa-course</strong> activated run on your terminal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>pypsa-course<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">"Python (pypsa-course)"</span>
+
 python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import pypsa, highspy; print('PyPSA', pypsa.__version__); print('HiGHS', highspy.Highs().version())"</span>
-jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list
 </pre></div>
 </div>
-<p>Launch JupyterLab from your course project folder:</p>
+<p>If you want to check, that your kernel is correctly registered, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Then, launch JupyterLab from your course project folder:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
 </pre></div>
 </div>
 <p>Keep the terminal open. Open a lesson notebook and select <strong>Python (pypsa-course)</strong> from the kernel selector. If it is missing, stop JupyterLab, repeat kernel registration in the activated environment, and restart JupyterLab. In a notebook, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys;</span> <span class="pre">print(sys.executable)</span></code> should point into <code class="docutils literal notranslate"><span class="pre">pypsa-course</span></code>.</p>
 </section>
-<section id="test-a-small-optimisation">
-<h2>Test a small optimisation<a class="headerlink" href="#test-a-small-optimisation" title="Link to this heading">#</a></h2>
-<p>Create a new notebook and run:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pypsa</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="n">pypsa</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Carrier"</span><span class="p">,</span> <span class="s2">"electricity"</span><span class="p">)</span>
-<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Bus"</span><span class="p">,</span> <span class="s2">"Site"</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"electricity"</span><span class="p">)</span>
-<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Load"</span><span class="p">,</span> <span class="s2">"Demand"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"Site"</span><span class="p">,</span> <span class="n">p_set</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-<span class="n">n</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Generator"</span><span class="p">,</span> <span class="s2">"Supply"</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="s2">"Site"</span><span class="p">,</span> <span class="n">carrier</span><span class="o">=</span><span class="s2">"electricity"</span><span class="p">,</span>
-      <span class="n">p_nom</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">marginal_cost</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
-<span class="n">status</span><span class="p">,</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
-    <span class="n">solver_name</span><span class="o">=</span><span class="s2">"highs"</span><span class="p">,</span> <span class="n">io_api</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">log_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">include_objective_constant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Status:"</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Termination:"</span><span class="p">,</span> <span class="n">condition</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s2">"ok"</span> <span class="ow">or</span> <span class="n">condition</span> <span class="o">!=</span> <span class="s2">"optimal"</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"The installation test did not solve successfully."</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Expect status <code class="docutils literal notranslate"><span class="pre">ok</span></code>, termination <code class="docutils literal notranslate"><span class="pre">optimal</span></code>, and supply of 1 MW. The solver meets a 1 MW load using the available 2 MW generator. Some informational messages about shadow prices are normal; the termination condition is what establishes whether this test solved.</p>
-</section>
 <section id="continue-with-the-notebooks">
 <h2>Continue with the notebooks<a class="headerlink" href="#continue-with-the-notebooks" title="Link to this heading">#</a></h2>
-<p>Open <strong>Electricity markets</strong> first, then <strong>Investment and storage</strong>. Read them online or download their <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> source from the book’s download menu. The displayed figures are saved notebook outputs; the static website does not run a solver when you change a cell. Download and run the notebook locally for an experiment.</p>
-</section>
-<section id="record-your-installation">
-<h2>Record your installation<a class="headerlink" href="#record-your-installation" title="Link to this heading">#</a></h2>
-<p>From the activated environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--no-builds<span class="w"> </span>&gt;<span class="w"> </span>pypsa-course-resolved.yml
-</pre></div>
-</div>
-<p>This records installed versions for reproducibility; it is more specific than the starter environment file. Package builds and operating systems can still differ. Share your operating system and these versions when reporting an installation problem.</p>
+<p>Open <strong>Introduction to pypsa: a simple dispatch problem</strong> first, then <strong>Electricity markets</strong> , and finish with <strong>Investment and storage</strong>. Read them online or download their <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> source from the book’s download menu. The displayed figures are saved notebook outputs; the static website does not run a solver when you change a cell. You can download and run the notebook locally in your laptop.</p>
 </section>
 </section>
 
@@ -566,10 +532,8 @@ jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#can-i-use-miniconda">Can I use Miniconda?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-your-terminal">Open your terminal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-course-environment">Install the course environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-a-notebook-kernel">Register a notebook kernel</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-a-small-optimisation">Test a small optimisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-notebook-kernel-for-pypsa">Register the notebook kernel for pypsa</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-with-the-notebooks">Continue with the notebooks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#record-your-installation">Record your installation</a></li>
 </ul>
   </nav></div>
 

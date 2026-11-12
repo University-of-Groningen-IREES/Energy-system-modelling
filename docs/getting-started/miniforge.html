@@ -65,7 +65,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Jupyter Basics" href="basics.html" />
-    <link rel="prev" title="Welcome" href="../intro.html" />
+    <link rel="prev" title="Welcome to the tutorial on energy system modelling!" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -435,8 +435,7 @@ reproduce a project on another computer.</p>
 <h3>1. Check whether Miniforge is already installed<a class="headerlink" href="#check-whether-miniforge-is-already-installed" title="Link to this heading">#</a></h3>
 <p>Search for <strong>Miniforge Prompt</strong> in the Windows Start menu.</p>
 <p>If you find it, open it and run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>--version
-conda<span class="w"> </span>--version
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>--version
 </pre></div>
 </div>
 <p>If both commands display version numbers, continue to
@@ -459,8 +458,7 @@ the <strong>Windows x86_64</strong> installer.</p>
 <h3>3. Open Miniforge Prompt<a class="headerlink" href="#open-miniforge-prompt" title="Link to this heading">#</a></h3>
 <p>Search for <strong>Miniforge Prompt</strong> in the Start menu and open it.</p>
 <p>Check the installation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>--version
-conda<span class="w"> </span>--version
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>--version
 </pre></div>
 </div>
 <p>Use <strong>Miniforge Prompt</strong> for the remaining commands on Windows.
@@ -475,8 +473,7 @@ before it recognises these commands.</p>
 <p>Open <strong>Terminal</strong>, which you can find using Spotlight:
 press <strong>Command + Space</strong>, type <code class="docutils literal notranslate"><span class="pre">Terminal</span></code>, and press Enter.</p>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>--version
-conda<span class="w"> </span>--version
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>--version
 </pre></div>
 </div>
 <p>If both commands display version numbers, continue to
@@ -521,23 +518,21 @@ If its name includes a version number, use that complete filename.</p>
 <section id="check-the-installation">
 <h3>4. Check the installation<a class="headerlink" href="#check-the-installation" title="Link to this heading">#</a></h3>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>--version
-conda<span class="w"> </span>--version
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>--version
 </pre></div>
 </div>
-<p>Both commands should display version numbers.</p>
+<p>This command should display version numbers.</p>
 </section>
 </section>
 <section id="create-the-course-environment">
 <h2>Create the course environment<a class="headerlink" href="#create-the-course-environment" title="Link to this heading">#</a></h2>
 <p>The following commands are the same on Windows and macOS.</p>
 <p>Use <strong>Miniforge Prompt on Windows</strong> or <strong>Terminal on macOS</strong>.</p>
-<p>Copy only the commands below. Do not include terminal prompts or
-output from previous commands.</p>
+<p>Copy only the commands below. Do not include terminal prompts or output from previous commands.</p>
 <section id="create-the-environment">
 <h3>1. Create the environment<a class="headerlink" href="#create-the-environment" title="Link to this heading">#</a></h3>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>managing-data<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>pandas<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab<span class="w"> </span>-c<span class="w"> </span>conda-forge
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>managing-data<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>pandas<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
 <p>When asked to proceed, type <code class="docutils literal notranslate"><span class="pre">y</span></code> and press Enter.</p>
@@ -582,30 +577,27 @@ on this course.</p>
 </section>
 <section id="register-the-notebook-kernel">
 <h3>3. Register the notebook kernel<a class="headerlink" href="#register-the-notebook-kernel" title="Link to this heading">#</a></h3>
-<p>Jupyter uses a <strong>kernel</strong> to execute notebook code. Selecting a kernel also determines which Python environment and installed packages your notebook can access.</p>
+<p>Jupyter uses a <strong>kernel</strong> to execute notebook code. A <strong>kernel</strong> is the central core program of a computer’s operating system that acts as a bridge between software applications and physical hardware. Hence, selecting a kernel also determines which Python environment and installed packages your notebook in Jupyter can access.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">managing-data</span></code> active, install the Python kernel package:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ipykernel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ipykernel
 </pre></div>
 </div>
-<p>Register it with a recognisable name:</p>
+<p>Register the the kernel with the same name of your virtual environment (in this case <strong>“managing-data”</strong>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>managing-data<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">"Python (managing-data)"</span>
 </pre></div>
 </div>
 <p>You only need to register it once for this environment on your computer.</p>
-<p>When creating or opening a notebook in JupyterLab, select
-<strong>Python (managing-data)</strong> as the kernel.</p>
-<p>If you use Google Colab, its Python runtime is provided automatically;
-you can skip this local registration step.</p>
+<p>When creating or opening a notebook in JupyterLab, select <strong>Python (managing-data)</strong> as the kernel.</p>
+<p>If you use Google Colab, its Python runtime is provided automatically; you can skip this local registration step. We discourage using google colab, and motivate you to use local virtual environment in your laptop.</p>
 </section>
 <section id="launch-jupyterlab">
 <h3>4. Launch JupyterLab<a class="headerlink" href="#launch-jupyterlab" title="Link to this heading">#</a></h3>
-<p>Run:</p>
+<p>To lunch the web-based user interface of Jupyter, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
 </pre></div>
 </div>
 <p>JupyterLab should open in your browser.</p>
-<p>Although it appears in a browser, JupyterLab runs on your computer.
-Keep its terminal window open while you work.</p>
+<p>Although it appears in a browser, JupyterLab runs on your computer. Keep the terminal that you used to launch jupyter open while you work.</p>
 <p>You are now ready to continue to <strong>Python and Jupyter Basics</strong>.</p>
 </section>
 </section>
@@ -621,10 +613,8 @@ install Miniforge or create an environment locally.</p>
 <li><p>Select <strong>New notebook</strong>.</p></li>
 <li><p>Continue with the notebook exercises on the next page.</p></li>
 </ol>
-<p>Save your notebook in Google Drive or download it as an <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file.
-Files and variables stored in the running session are temporary.</p>
-<p>If your institution also restricts access to Colab, ask your instructor
-which notebook platform to use.</p>
+<p>Save your notebook in Google Drive or download it as an <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file.</p>
+<p>Files and variables stored in the running session are temporary.</p>
 </section>
 </section>
 
@@ -664,7 +654,7 @@ which notebook platform to use.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome</p>
+        <p class="prev-next-title">Welcome to the tutorial on energy system modelling!</p>
       </div>
     </a>
     <a class="right-next"
