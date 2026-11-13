@@ -81,6 +81,8 @@ Hello, energy modellers!
 
 Select an empty cell and change its type from **Code** to **Markdown**.
 
+**Markdowns** cells are used to write text that helps to describe and document what you are doing in your code. You can use them to write equations, link datasets and explain processes, scenarios you will do or results you obtained. These cells do not execute code. To execute code, you have to add cells with the name 'Code'.
+
 Enter:
 
 ```markdown
