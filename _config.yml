@@ -3,6 +3,7 @@
 
 title: Energy System Modelling
 author: Alejandro Zabala Figueroa
+copyright: "2026"
 logo: rugr_fse_logoen_rood_rgb.png
 
 # Force re-execution of notebooks on each build.
