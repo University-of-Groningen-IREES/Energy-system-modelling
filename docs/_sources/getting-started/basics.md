@@ -39,7 +39,7 @@ In JupyterLab:
 
 1. Navigate to the folder where you want to save your notebook.
 2. Click **File → New Launcher**, or click the **+** button.
-3. Under **Notebook**, select **Python 3**. The label may also include
+3. Under **Notebook**, select **managing data**. The label may also include
    the kernel name, such as `ipykernel`.
 4. Right-click the notebook's tab and select **Rename Notebook**.
 5. Name it `01-python-basics.ipynb`.

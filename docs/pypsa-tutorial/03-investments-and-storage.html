@@ -382,9 +382,9 @@
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-problem-description">Part 1: Problem Description</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pypsa-solution">PyPSA Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-saved-seville-model">Part 2 — Extend the saved Seville model</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-saved-seville-model">Part 2: Extend the saved Seville model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-imported-network">1. Inspect the imported network</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-the-network-and-remove-the-original-store">2. Copy the network and remove the original Store</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-battery-inputs-and-add-the-storageunit">3. Define battery inputs and add the StorageUnit</a></li>
@@ -459,8 +459,8 @@
 </div>
 </div>
 </section>
-<section id="problem-description">
-<h2>Problem Description<a class="headerlink" href="#problem-description" title="Link to this heading">#</a></h2>
+<section id="part-1-problem-description">
+<h2>Part 1: Problem Description<a class="headerlink" href="#part-1-problem-description" title="Link to this heading">#</a></h2>
 <p>(here we will use the same instructions given in <a class="reference external" href="https://docs.pypsa.org/latest/examples/example-3/">Quickstart 3</a> - Investments &amp; Storage from PyPSA documenation)</p>
 <p>A data centre in Seville, Spain, has a constant demand of 100 MW. The operator
 considers investing in on-site solar PV and battery storage to reduce reliance
@@ -802,7 +802,7 @@ INFO:pypsa.network.io:Imported network 'Unnamed Network' has buses, generators, 
 </div>
 </section>
 <section id="part-2-extend-the-saved-seville-model">
-<h2>Part 2 — Extend the saved Seville model<a class="headerlink" href="#part-2-extend-the-saved-seville-model" title="Link to this heading">#</a></h2>
+<h2>Part 2: Extend the saved Seville model<a class="headerlink" href="#part-2-extend-the-saved-seville-model" title="Link to this heading">#</a></h2>
 <p>The cells above reproduce the starting exercise and end by exporting and reopening the network as <code class="docutils literal notranslate"><span class="pre">o</span></code>. Start from that reopened network. It already contains the bus, demand, grid generator, PV generator and all 8,760 hourly solar values. We do not need to download the solar profile or rebuild those components.</p>
 <p>The Quickstart uses a <code class="docutils literal notranslate"><span class="pre">Store</span></code> to choose energy capacity. In PyPSA, the grid element “Store” does not enforce <code class="docutils literal notranslate"><span class="pre">max_hours</span></code>, <code class="docutils literal notranslate"><span class="pre">efficiency_store</span></code> or <code class="docutils literal notranslate"><span class="pre">efficiency_dispatch</span></code> passed in that example. To test the stated four-hour battery with 90% round-trip efficiency, we first replace it with a <code class="docutils literal notranslate"><span class="pre">StorageUnit</span></code> in a <strong>separate copy</strong>. We then change one cost at a time relative to that new baseline.</p>
 <section id="inspect-the-imported-network">
@@ -1619,9 +1619,9 @@ INFO:pypsa.optimization.optimize:The shadow-prices of the constraints Generator-
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-problem-description">Part 1: Problem Description</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pypsa-solution">PyPSA Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-saved-seville-model">Part 2 — Extend the saved Seville model</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-extend-the-saved-seville-model">Part 2: Extend the saved Seville model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-imported-network">1. Inspect the imported network</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-the-network-and-remove-the-original-store">2. Copy the network and remove the original Store</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-battery-inputs-and-add-the-storageunit">3. Define battery inputs and add the StorageUnit</a></li>

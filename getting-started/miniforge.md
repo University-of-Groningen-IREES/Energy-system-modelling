@@ -90,8 +90,8 @@ Open the **Apple menu → About This Mac**.
 
 ### 3. Download and install Miniforge
 
-Open the [official Miniforge download page](https://conda-forge.org/download/)
-and download the installer for your processor.
+Open the [official Miniforge download page](https://conda-forge.org/download/) and download the installer for your processor.
+
 
 For the shell installer (`.sh` file), open Terminal and go to Downloads:
 
